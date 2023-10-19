@@ -1,0 +1,92 @@
+@import "normalize.css";
+
+:root {
+  box-sizing: border-box;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #333333;
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /* COLORS */
+  --black: #333333;
+  --green: #a8b64f;
+  --red: #dc3e22;
+  --whiteLightness: 100%;
+  --white: hsl(0, 0%, var(--whiteLightness));
+  --grayF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
+  --greyE4: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
+  --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
+  --grey99: hsl(0, 0%, calc(var(--whiteLightness) - 40%));
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* анимации */
+@media (prefers-reduced-motion: no-preference) {
+  /* a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  } */
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
