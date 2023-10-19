@@ -1,8 +1,7 @@
-import * as React from 'react';
 import classNames from "classnames";
 import { ReactNode } from "react";
-import { Ecolor } from "./text";
-import stylse from './Text.module.css'
+import { Ecolor } from "./enum";
+import styles from './Text.module.css'
 
 
 type TSizes = 24 | 16;

@@ -1,6 +1,6 @@
-import LogoImg from '../../assets/tomato_logo.svg';
-import Text from '../Text/Text';
-import { Ecolor } from '../Text/text';
+import LogoImg from '../../../assets/tomato_logo.svg';
+import Text from '../../Text/Text.tsx';
+import { Ecolor } from '../../Text/enum.ts';
 import { logo } from './Logo.module.css'
 
 export default function Logo() {

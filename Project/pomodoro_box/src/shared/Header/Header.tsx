@@ -1,6 +1,6 @@
 import Container from "../Container/Container";
-import Logo from "../Logo/Logo";
-import Statistic from "../Statistic/Statistic";
+import Logo from "./Logo/Logo";
+import Statistic from "./Statistic/Statistic";
 import { header, container } from "./Header.module.css";
 
 export interface IHeaderProps { }

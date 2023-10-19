@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { EIcons } from './icon';
+import { EIcons } from './enum';
 import StatisticIcon from '../icons/Statistic';
 
 export interface IIconProps {
