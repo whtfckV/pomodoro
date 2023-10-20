@@ -1,0 +1,23 @@
+.btn {
+  padding: 15px 50px;
+  color: var(--white);
+  transition: color .3 ease;
+}
+
+.green {
+  background-color: var(--green);
+}
+
+.green:hover {
+  background-color: var(--marsh);
+}
+
+.red {
+  border: 2px solid var(--red);
+}
+
+.grey {
+  border: 2px solid var(--greyC4);
+  color: var(--greyC4);
+  background-color: transparent;
+}
