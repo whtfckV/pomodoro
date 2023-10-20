@@ -1,5 +1,5 @@
 import Container from '../Container/Container';
-import { content } from './Content.module.css';
+import { content, container } from './Content.module.css';
 
 export interface IContentProps {
   children: React.ReactNode
@@ -8,7 +8,7 @@ export interface IContentProps {
 export default function Content({ children }: IContentProps) {
   return (
     <main className={content}>
-      <Container>
+      <Container className={container}>
         {children}
       </Container>
     </main>

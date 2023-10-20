@@ -1,3 +1,4 @@
 export enum EIcons {
-  statistic = 'statistic'
+  statistic = 'statistic',
+  menu = 'menu'
 }

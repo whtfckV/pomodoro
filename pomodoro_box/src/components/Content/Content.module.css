@@ -1,3 +1,10 @@
 .content {
   background-color: var(--white);
 }
+
+.container {
+  display: grid;
+  grid-template-columns: 43fr 58fr;
+  column-gap: 16px;
+  row-gap: 25px;
+}

@@ -1,7 +1,7 @@
 .btn {
   padding: 15px 50px;
   color: var(--white);
-  transition: color .3 ease;
+  transition: background-color .3s ease;
 }
 
 .green {

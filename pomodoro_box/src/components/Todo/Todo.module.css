@@ -1,0 +1,7 @@
+.todo {
+  grid-area: 2/1/2/1;
+  display: flex;
+  flex-direction: column;
+  row-gap: inherit;
+  max-width: 370px;
+}
