@@ -1,13 +1,16 @@
-import {tomato} from './Tomatoes.module.css'
+import { FC } from 'react';
+import styles from './Tomatoes.module.css'
 
 export interface ITomatoesProps {
   tomatoCount: number;
 }
 
-export default function Tomatoes({ tomatoCount }: ITomatoesProps) {
+const Tomatoes: FC<ITomatoesProps> = ({ tomatoCount }) => {
   return (
-    <span className={tomato}>
+    <span className={styles.tomato}>
       {tomatoCount}
     </span>
   );
 }
+
+export default Tomatoes

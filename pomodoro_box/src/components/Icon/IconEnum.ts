@@ -1,4 +1,8 @@
 export enum EIcons {
   statistic = 'statistic',
-  menu = 'menu'
+  dots = 'dots',
+  increase = 'increase',
+  decrease = 'decrease',
+  edit = 'edit',
+  delete = 'delete',
 }

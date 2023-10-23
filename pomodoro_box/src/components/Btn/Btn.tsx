@@ -1,16 +1,16 @@
-import { HTMLAttributes, ReactNode } from "react";
-import { EColor } from "./BtnEnum";
+import { FC, HTMLAttributes, ReactNode } from "react";
 import classNames from "classnames";
+import { EType } from "./BtnEnum";
 import styles from './Btn.module.css';
 
 export interface IBtnProps extends HTMLAttributes<HTMLButtonElement> {
-  color?: EColor;
+  type?: EType;
   children: ReactNode | string;
 }
 
-export default function Btn({ color = EColor.green, children, ...props }: IBtnProps) {
+const Btn: FC<IBtnProps> = ({ type = EType.green, children, ...props }) => {
   const classes = classNames([
-    styles[color],
+    styles[type],
     styles.btn
   ])
   return (
@@ -19,3 +19,5 @@ export default function Btn({ color = EColor.green, children, ...props }: IBtnPr
     </button >
   );
 }
+
+export default Btn

@@ -1,10 +1,11 @@
+import { FC } from "react";
 import Header from "./components/Header/Header";
+import Title from "./components/Content/MainTitle/MainTitle";
 import Content from "./components/Content/Content";
 import Information from "./components/Information/Information";
-import Title from "./components/Content/MainTitle/MainTitle";
 import Todo from "./components/Todo/Todo";
 
-function App() {
+const App: FC = () => {
   return (
     <>
       <Header />

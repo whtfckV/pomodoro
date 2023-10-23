@@ -1,16 +1,18 @@
-import { ReactElement } from 'react';
-import LogoImg from '../../../assets/tomato_logo.svg';
-import Text from '../../Text/Text.tsx';
-import { Ecolor } from '../../Text/TextEnum.ts';
-import { logo } from './Logo.module.css'
+import { FC } from 'react';
+import LogoImg from 'src/assets/tomato_logo.svg';
+import Text from 'src/components/Text/Text'
+import { Ecolor } from 'src/components/Text/TextEnum.ts';
+import styles from './Logo.module.css'
 
-export default function Logo(): ReactElement {
+const Logo: FC = () => {
   return (
-    <a className={logo} href='/' >
+    <a className={styles.logo} href='/' >
       <img src={LogoImg} alt='Логотип Помодоро' />
-      <Text size={16} color={Ecolor.red}>
+      <Text size={24} color={Ecolor.red}>
         pomodoro_box
       </Text>
     </a >
   );
 }
+
+export default Logo

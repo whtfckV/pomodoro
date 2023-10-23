@@ -1,10 +1,13 @@
-import { ReactElement } from 'react';
-import Text from '../../Text/Text';
+import { FC } from 'react';
+import Text from 'src/components/Text/Text';
+import styles from './InformationTitle.module.css'
 
-export default function InformationTitle(): ReactElement {
+const InformationTitle: FC = () => {
   return (
-    <Text size={24} As='h2' weight={700}>
+    <Text size={24} As='h2' weight={700} className={styles.title}>
       Ура! Теперь можно начать работать:
     </Text>
   );
 }
+
+export default InformationTitle

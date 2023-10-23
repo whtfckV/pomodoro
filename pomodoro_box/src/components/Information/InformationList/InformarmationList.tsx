@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { generateId } from '../../../utils/ts/GenerateRandomIndex';
-import GenericList, { IItem } from "../../GenericLIst/GenericList";
-import Text from "../../Text/Text";
-import classes from './InformationList.module.css'
+import Text from "src/components/Text/Text";
+import GenericList, { IItem } from 'src/components/GenericLIst/GenericList';
+import styles from './InformationList.module.css'
 
 
 const list: string[] = [
@@ -15,13 +16,15 @@ const list: string[] = [
 const createItem = (text: string): IItem => generateId({
   As: 'li',
   element: <Text As='span' size={16} weight={400}>{text}</Text>,
-  className: classes.listItem,
+  className: styles.listItem,
 })
 
-export default function InformationList() {
+const InformationList: FC = () => {
   return (
-    <ul className={classes.list}>
+    <ul className={styles.list}>
       <GenericList list={list.map(createItem)} />
     </ul>
   );
 }
+
+export default InformationList

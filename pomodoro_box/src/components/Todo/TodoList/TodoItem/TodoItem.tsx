@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import Tomatoes from "./Tomatoes/Tomatoes";
-import Menu from "./Menu/Menu";
+import DotsBtn from "src/components/DotsBtn/DotsBtn";
+import TodoMenu from "./TodoMenu/TodoMenu";
 
 export interface ITodoItemProps {
   name: string;
 }
 
-export default function TodoItem({ name }: ITodoItemProps) {
+const TodoItem: FC<ITodoItemProps> = ({ name }) => {
   const [tomatoCount, setTomatoCount] = useState(1)
+
+  const increaseTomato = () => {
+    setTomatoCount(tomatoCount + 1)
+  };
+  const decreaseTomato = () => {
+    setTomatoCount(tomatoCount - 1)
+  }
   return (
     <>
       <Tomatoes tomatoCount={tomatoCount} />
       {name}
-      <Menu />
+      <DotsBtn>
+        <TodoMenu increaseTomato={increaseTomato} decreaseTomato={decreaseTomato} />
+      </DotsBtn>
     </>
   );
 }
+
+export default TodoItem

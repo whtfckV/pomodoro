@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 
 export interface IGenericListProps {
   list: IItem[];
@@ -17,7 +17,7 @@ export interface IItem {
 
 const NOOP = () => { };
 
-export default function GenericList({ list }: IGenericListProps): ReactElement {
+const GenericList: FC<IGenericListProps> = ({ list }) => {
   return (
     <>
       {list.map(({ id, As = 'li', onClick = NOOP, className, href, element }) => (
@@ -28,3 +28,5 @@ export default function GenericList({ list }: IGenericListProps): ReactElement {
     </>
   );
 }
+
+export default GenericList

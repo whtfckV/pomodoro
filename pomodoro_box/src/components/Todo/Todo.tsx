@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import TodoForm from './TodoForm/TodoForm';
 import TodoList from './TodoList/TodoList';
-import {todo} from './Todo.module.css'
+import styles from './Todo.module.css'
 
-export default function Todo() {
+const Todo: FC = () => {
   const [todos, setTodos] = useState<string[]>([]);
 
   const AddTodo = (newTodo: string) => {
@@ -14,9 +14,11 @@ export default function Todo() {
   }
 
   return (
-    <div className={todo}>
+    <div className={styles.todo}>
       <TodoForm setNewTodo={AddTodo} />
       <TodoList todos={todos} />
     </div>
   );
 }
+
+export default Todo

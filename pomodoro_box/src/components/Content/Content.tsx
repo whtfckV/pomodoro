@@ -1,16 +1,19 @@
+import { FC } from 'react';
 import Container from '../Container/Container';
-import { content, container } from './Content.module.css';
+import styles from './Content.module.css';
 
 export interface IContentProps {
   children: React.ReactNode
 }
 
-export default function Content({ children }: IContentProps) {
+const Content: FC<IContentProps> = ({ children }) => {
   return (
-    <main className={content}>
-      <Container className={container}>
+    <main className={styles.content}>
+      <Container className={styles.container}>
         {children}
       </Container>
     </main>
   );
 }
+
+export default Content

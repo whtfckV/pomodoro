@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { Ecolor } from "./TextEnum";
 import styles from './Text.module.css';
 
@@ -16,7 +16,7 @@ export interface ITextProps {
   className?: string;
 }
 
-export default function Text(props: ITextProps) {
+const Text: FC<ITextProps> = (props) => {
   const {
     As = 'span',
     children,
@@ -40,3 +40,5 @@ export default function Text(props: ITextProps) {
     </As>
   );
 }
+
+export default Text;

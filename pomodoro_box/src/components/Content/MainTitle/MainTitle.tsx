@@ -1,9 +1,12 @@
-import { title } from './MainTitle.module.css'
+import { FC } from 'react';
+import styles from './MainTitle.module.css'
 
-export default function Title() {
+const Title: FC = () => {
   return (
-    <h1 className={title}>
+    <h1 className={styles.title}>
       «Помодоро» — это техника управления временем
     </h1>
   );
 }
+
+export default Title

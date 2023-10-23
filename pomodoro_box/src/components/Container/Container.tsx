@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { container } from "./Container.module.css";
+import { FC, ReactNode } from "react";
+import styles from "./Container.module.css";
 import classNames from "classnames";
 
 export interface IContainerProps {
@@ -7,10 +7,12 @@ export interface IContainerProps {
   className?: string;
 }
 
-export default function Container({ children, className }: IContainerProps) {
+const Container: FC<IContainerProps> = ({ children, className }) => {
   return (
-    <div className={classNames(container, className)}>
+    <div className={classNames(styles.container, className)}>
       {children}
     </div>
   );
 }
+
+export default Container

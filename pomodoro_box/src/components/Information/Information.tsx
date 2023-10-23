@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { FC } from "react";
 import InformationTitle from "./InformationTitle/InformationTitle";
 import InformationList from "./InformationList/InformarmationList";
 
-export default function Information(): ReactElement {
+const Information: FC = () => {
   return (
     <article>
       <InformationTitle />
@@ -10,3 +10,4 @@ export default function Information(): ReactElement {
     </article>
   );
 }
+export default Information

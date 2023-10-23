@@ -2,7 +2,7 @@
   font-size: 16px;
 }
 
-.s34 {
+.s24 {
   font-size: 24px;
 }
 
@@ -11,11 +11,11 @@
 }
 
 .w400 {
-  font-size: 400;
+  font-weight: 400;
 }
 
 .w700 {
-  font-size: 700;
+  font-weight: 700;
 }
 
 
@@ -28,7 +28,7 @@
 }
 
 .grey {
-  color: var(--green99);
+  color: var(--grey99);
 }
 
 .white {

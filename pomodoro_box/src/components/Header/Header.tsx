@@ -1,17 +1,18 @@
 import Container from "../Container/Container";
 import Logo from "./Logo/Logo";
-import Statistic from "./Statistic/Statistic";
-import { header, container } from "./Header.module.css";
+import Statistic from "../Statistic/Statistic";
+import styles from "./Header.module.css";
+import { FC } from "react";
 
-export interface IHeaderProps { }
-
-export default function Header() {
+const Header: FC = () => {
   return (
-    <header className={header}>
-      <Container className={container}>
+    <header className={styles.header}>
+      <Container className={styles.container}>
         <Logo />
         <Statistic />
       </Container>
     </header>
   );
 }
+
+export default Header

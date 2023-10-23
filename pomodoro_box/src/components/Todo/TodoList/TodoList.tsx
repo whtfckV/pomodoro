@@ -1,17 +1,18 @@
-import { generateId } from "../../../utils/ts/GenerateRandomIndex";
-import GenericList, { IItem } from "../../GenericLIst/GenericList";
+import { FC } from "react";
+import GenericList, { IItem } from "src/components/GenericLIst/GenericList";
+import { generateId } from "src/utils/ts/GenerateRandomIndex";
 import TodoItem from "./TodoItem/TodoItem";
-import { item } from './TodoList.module.css'
+import styles from './TodoList.module.css'
 
 export interface ITodoListProps {
   todos: string[];
 }
 
-export default function TodoList({ todos }: ITodoListProps) {
+const TodoList: FC<ITodoListProps> = ({ todos }) => {
   const createTodos = (name: string): IItem => generateId({
     As: 'li',
     element: <TodoItem name={name} />,
-    className: item
+    className: styles.item
   })
   return (
     <>
@@ -23,3 +24,5 @@ export default function TodoList({ todos }: ITodoListProps) {
     </>
   );
 }
+
+export default TodoList

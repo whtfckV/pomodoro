@@ -1,0 +1,12 @@
+.btn {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  height: 25px;
+}
+
+.dropdown {
+  border: 1px solid var(--greyC4);
+  background-color: var(--white);
+  translate: -50% 0;
+}
