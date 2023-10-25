@@ -5,12 +5,10 @@ export interface ITomatoesProps {
   tomatoCount: number;
 }
 
-const Tomatoes: FC<ITomatoesProps> = ({ tomatoCount }) => {
+export const Tomatoes: FC<ITomatoesProps> = ({ tomatoCount }) => {
   return (
     <span className={styles.tomato}>
       {tomatoCount}
     </span>
   );
 }
-
-export default Tomatoes

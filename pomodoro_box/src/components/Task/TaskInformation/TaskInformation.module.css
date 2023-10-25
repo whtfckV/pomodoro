@@ -1,0 +1,8 @@
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 55px;
+  padding: 0 40px;
+  background-color: var(--greyC4);
+}

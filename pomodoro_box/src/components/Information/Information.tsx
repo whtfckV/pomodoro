@@ -1,8 +1,8 @@
 import { FC } from "react";
-import InformationTitle from "./InformationTitle/InformationTitle";
-import InformationList from "./InformationList/InformarmationList";
+import { InformationTitle } from "./InformationTitle";
+import { InformationList } from "./InformationList";
 
-const Information: FC = () => {
+export const Information: FC = () => {
   return (
     <article>
       <InformationTitle />
@@ -10,4 +10,3 @@ const Information: FC = () => {
     </article>
   );
 }
-export default Information

@@ -1,30 +1,58 @@
 import { FC, useState } from "react";
-import Tomatoes from "./Tomatoes/Tomatoes";
-import DotsBtn from "src/components/DotsBtn/DotsBtn";
-import TodoMenu from "./TodoMenu/TodoMenu";
+import { Tomatoes } from "./Tomatoes";
+import { DotsBtn } from "src/components/DotsBtn";
+import { TodoMenu } from "./TodoMenu";
+import { ITodo } from "../../TodoForm";
+import styles from './TodoItem.module.css'
+import { TodoName } from "./TodoName";
 
-export interface ITodoItemProps {
-  name: string;
+interface ITodoItemProps extends ITodo {
+  updateTodos: (todo: ITodo) => void
+  deleteItem: (id: string) => void
 }
 
-const TodoItem: FC<ITodoItemProps> = ({ name }) => {
-  const [tomatoCount, setTomatoCount] = useState(1)
+export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, updateTodos, deleteItem }) => {
+  const [edit, setEdit] = useState<boolean>(false)
 
   const increaseTomato = () => {
-    setTomatoCount(tomatoCount + 1)
+    updateTodos({
+      id,
+      name,
+      tomatos: ++tomatos,
+    })
   };
   const decreaseTomato = () => {
-    setTomatoCount(tomatoCount - 1)
+    updateTodos({
+      id,
+      name,
+      tomatos: --tomatos,
+    })
   }
+
+  const changeName = (name: string) => {
+    updateTodos({
+      id,
+      name,
+      tomatos
+    })
+  }
+
+  const editTitle = () => {
+    setEdit(true)
+  }
+
+  const deleteTodo = () => {
+    if (!id) return;
+    deleteItem(id)
+  }
+
   return (
     <>
-      <Tomatoes tomatoCount={tomatoCount} />
-      {name}
-      <DotsBtn>
-        <TodoMenu increaseTomato={increaseTomato} decreaseTomato={decreaseTomato} />
+      <Tomatoes tomatoCount={tomatos} />
+      <TodoName name={name} edit={edit} changeTodoName={changeName} editTitle={editTitle} />
+      <DotsBtn dropDownClass={styles.dropdown}>
+        <TodoMenu increaseTomato={increaseTomato} decreaseTomato={decreaseTomato} editTitle={editTitle} deleteTodo={deleteTodo} />
       </DotsBtn>
     </>
   );
 }
-
-export default TodoItem

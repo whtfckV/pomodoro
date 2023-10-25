@@ -1,62 +1,60 @@
 import { FC } from 'react';
-import Btn from 'src/components/Btn/Btn';
-import { EType } from 'src/components/Btn/BtnEnum';
-import GenericList, { IItem } from 'src/components/GenericLIst/GenericList';
-import Icon from 'src/components/Icon/Icon';
-import { EIcons } from 'src/components/Icon/IconEnum';
-import Text from 'src/components/Text/Text';
-import { Ecolor } from 'src/components/Text/TextEnum';
+import { Btn, EType } from 'src/components/Btn';
+import { GenericList, IItem } from 'src/components/GenericLIst';
+import { Icon, EIcons } from 'src/components/Icon';
+import { Text, EColor } from 'src/components/Text';
 import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 
 interface ITodoMenuProps {
-  increaseTomato: () => void;
-  decreaseTomato: () => void;
+  increaseTomato: () => void
+  decreaseTomato: () => void
+  editTitle: () => void
+  deleteTodo: () => void
 }
 
 type TBtn = {
   icon: EIcons
   name: string
+  onClick: () => void
 }
 
-const btns: TBtn[] = [
-  {
-    icon: EIcons.increase,
-    name: 'Увеличить',
-  },
-  {
-    icon: EIcons.decrease,
-    name: 'Уменьшить',
-  },
-  {
-    icon: EIcons.edit,
-    name: 'Редактировать',
-  },
-  {
-    icon: EIcons.delete,
-    name: 'Удалить',
-  },
-]
-
-const createBtn = ({ icon, name }: TBtn, hadlers: (() => void)[], i: number) => (
-  <Btn type={EType.icon} onClick={hadlers[i]}>
+const createBtn = ({ icon, name, onClick }: TBtn) => (
+  <Btn styleType={EType.iconText} onClick={onClick}>
     <Icon name={icon} />
-    <Text size={16} weight={300} color={Ecolor.grey}>{name}</Text>
+    <Text size={16} weight={300} color={EColor.grey}>{name}</Text>
   </Btn>
 )
 
-const TodoMenu: FC<ITodoMenuProps> = ({ increaseTomato, decreaseTomato }) => {
-  const handlers = [
-    increaseTomato,
-    decreaseTomato
+export const TodoMenu: FC<ITodoMenuProps> = ({ increaseTomato, decreaseTomato, editTitle, deleteTodo }) => {
+  const btns: TBtn[] = [
+    {
+      icon: EIcons.increase,
+      name: 'Увеличить',
+      onClick: increaseTomato
+    },
+    {
+      icon: EIcons.decrease,
+      name: 'Уменьшить',
+      onClick: decreaseTomato
+    },
+    {
+      icon: EIcons.edit,
+      name: 'Редактировать',
+      onClick: editTitle
+    },
+    {
+      icon: EIcons.delete,
+      name: 'Удалить',
+      onClick: deleteTodo
+    },
   ]
+
   return (
     <ul>
-      <GenericList list={btns.map((btn: TBtn, i): IItem => generateId({
+      <GenericList list={btns.map((btn: TBtn): IItem => generateId({
         As: 'li',
-        element: createBtn(btn, handlers, i)
+        element: createBtn(btn)
       }))} />
     </ul>
   )
 }
-
-export default TodoMenu

@@ -17,7 +17,7 @@ export interface IItem {
 
 const NOOP = () => { };
 
-const GenericList: FC<IGenericListProps> = ({ list }) => {
+export const GenericList: FC<IGenericListProps> = ({ list }) => {
   return (
     <>
       {list.map(({ id, As = 'li', onClick = NOOP, className, href, element }) => (
@@ -28,5 +28,3 @@ const GenericList: FC<IGenericListProps> = ({ list }) => {
     </>
   );
 }
-
-export default GenericList

@@ -7,12 +7,10 @@ export interface IContainerProps {
   className?: string;
 }
 
-const Container: FC<IContainerProps> = ({ children, className }) => {
+export const Container: FC<IContainerProps> = ({ children, className }) => {
   return (
     <div className={classNames(styles.container, className)}>
       {children}
     </div>
   );
 }
-
-export default Container

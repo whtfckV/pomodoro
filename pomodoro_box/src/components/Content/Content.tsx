@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import Container from '../Container/Container';
+import { Container } from '../Container';
 import styles from './Content.module.css';
 
 export interface IContentProps {
   children: React.ReactNode
 }
 
-const Content: FC<IContentProps> = ({ children }) => {
+export const Content: FC<IContentProps> = ({ children }) => {
   return (
     <main className={styles.content}>
       <Container className={styles.container}>
@@ -15,5 +15,3 @@ const Content: FC<IContentProps> = ({ children }) => {
     </main>
   );
 }
-
-export default Content

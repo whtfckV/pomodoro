@@ -5,4 +5,5 @@ export enum EIcons {
   decrease = 'decrease',
   edit = 'edit',
   delete = 'delete',
+  plus = 'plus',
 }

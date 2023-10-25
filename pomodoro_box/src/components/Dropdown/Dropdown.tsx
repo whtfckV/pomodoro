@@ -10,7 +10,7 @@ export interface IDropdownProps {
   button: HTMLButtonElement | null;
 }
 
-const Dropdown: FC<IDropdownProps> = ({ children, className, onClose, button }) => {
+export const Dropdown: FC<IDropdownProps> = ({ children, className, onClose, button }) => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -41,5 +41,3 @@ const Dropdown: FC<IDropdownProps> = ({ children, className, onClose, button }) 
     </div>
   ), node);
 }
-
-export default Dropdown

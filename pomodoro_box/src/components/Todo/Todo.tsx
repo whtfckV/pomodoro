@@ -1,24 +1,32 @@
 import { FC, useState } from 'react';
-import TodoForm from './TodoForm/TodoForm';
-import TodoList from './TodoList/TodoList';
-import styles from './Todo.module.css'
+import { ITodo, TodoForm } from './TodoForm';
+import { TodoList } from './TodoList';
+import styles from './Todo.module.css';
+import { TotalTime } from './TotalTime';
 
-const Todo: FC = () => {
-  const [todos, setTodos] = useState<string[]>([]);
+export const Todo: FC = () => {
+  const [todos, setTodos] = useState<ITodo[]>([]);
 
-  const AddTodo = (newTodo: string) => {
+  const AddTodo = (newTodo: ITodo) => {
     setTodos([
       newTodo,
       ...todos,
     ])
   }
 
+  const updateTodo = (todo: ITodo) => {
+    setTodos(todos => todos.map(oldTodo => oldTodo.id === todo.id ? todo : oldTodo))
+  }
+
+  const deleteTodo = (id: string) => {
+    setTodos(todos => todos.filter(oldTodo => oldTodo.id !== id))
+  }
+
   return (
     <div className={styles.todo}>
       <TodoForm setNewTodo={AddTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} updateTodos={updateTodo} deleteTodo={deleteTodo}/>
+      <TotalTime todos={todos}/>
     </div>
   );
 }
-
-export default Todo

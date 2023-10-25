@@ -1,0 +1,10 @@
+.timer {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 25px);
+  translate: 0 -50%;
+}

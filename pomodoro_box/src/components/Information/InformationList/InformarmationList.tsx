@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { generateId } from '../../../utils/ts/GenerateRandomIndex';
-import Text from "src/components/Text/Text";
-import GenericList, { IItem } from 'src/components/GenericLIst/GenericList';
+import { Text } from "src/components/Text";
+import { GenericList, IItem } from 'src/components/GenericLIst';
 import styles from './InformationList.module.css'
 
 
@@ -19,12 +19,10 @@ const createItem = (text: string): IItem => generateId({
   className: styles.listItem,
 })
 
-const InformationList: FC = () => {
+export const InformationList: FC = () => {
   return (
     <ul className={styles.list}>
       <GenericList list={list.map(createItem)} />
     </ul>
   );
 }
-
-export default InformationList

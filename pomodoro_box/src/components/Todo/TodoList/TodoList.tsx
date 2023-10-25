@@ -1,17 +1,20 @@
 import { FC } from "react";
-import GenericList, { IItem } from "src/components/GenericLIst/GenericList";
+import { GenericList, IItem } from "src/components/GenericLIst";
 import { generateId } from "src/utils/ts/GenerateRandomIndex";
-import TodoItem from "./TodoItem/TodoItem";
+import { TodoItem } from "./TodoItem";
+import { ITodo } from "../TodoForm";
 import styles from './TodoList.module.css'
 
 export interface ITodoListProps {
-  todos: string[];
+  todos: ITodo[]
+  updateTodos: (todo: ITodo) => void
+  deleteTodo: (id: string) => void
 }
 
-const TodoList: FC<ITodoListProps> = ({ todos }) => {
-  const createTodos = (name: string): IItem => generateId({
+export const TodoList: FC<ITodoListProps> = ({ todos, updateTodos, deleteTodo }) => {
+  const createTodos = (todo: ITodo): IItem => generateId({
     As: 'li',
-    element: <TodoItem name={name} />,
+    element: <TodoItem updateTodos={updateTodos} deleteItem={deleteTodo} {...todo} />,
     className: styles.item
   })
   return (
@@ -24,5 +27,3 @@ const TodoList: FC<ITodoListProps> = ({ todos }) => {
     </>
   );
 }
-
-export default TodoList
