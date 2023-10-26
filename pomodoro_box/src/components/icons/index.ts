@@ -5,3 +5,4 @@ export * from './EditIcon';
 export * from './IncreaseIcon';
 export * from './Plus';
 export * from './StatisticIcon';
+export * from './Cross';

@@ -6,4 +6,5 @@ export enum EIcons {
   edit = 'edit',
   delete = 'delete',
   plus = 'plus',
+  cross = 'cross',
 }

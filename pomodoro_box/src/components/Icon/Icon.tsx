@@ -7,7 +7,8 @@ import {
   DotsIcon,
   EditIcon,
   DeleteIcon,
-  PlusIcon
+  PlusIcon,
+  CrossIcon
 } from '../icons';
 
 export interface IIconProps {
@@ -22,6 +23,7 @@ const icons = {
   [EIcons.edit]: <EditIcon />,
   [EIcons.delete]: <DeleteIcon />,
   [EIcons.plus]: <PlusIcon />,
+  [EIcons.cross]: <CrossIcon />,
 }
 
 export const Icon: FC<IIconProps> = ({ name }) => {

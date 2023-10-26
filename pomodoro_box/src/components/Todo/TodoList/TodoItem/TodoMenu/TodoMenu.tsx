@@ -6,6 +6,7 @@ import { Text, EColor } from 'src/components/Text';
 import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 
 interface ITodoMenuProps {
+  tomatos: number
   increaseTomato: () => void
   decreaseTomato: () => void
   editTitle: () => void
@@ -15,37 +16,39 @@ interface ITodoMenuProps {
 type TBtn = {
   icon: EIcons
   name: string
+  disabled?: boolean
   onClick: () => void
 }
 
-const createBtn = ({ icon, name, onClick }: TBtn) => (
-  <Btn styleType={EType.iconText} onClick={onClick}>
+const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
+  <Btn styleType={EType.iconText} onClick={onClick} disabled={disabled || false}>
     <Icon name={icon} />
     <Text size={16} weight={300} color={EColor.grey}>{name}</Text>
   </Btn>
 )
 
-export const TodoMenu: FC<ITodoMenuProps> = ({ increaseTomato, decreaseTomato, editTitle, deleteTodo }) => {
+export const TodoMenu: FC<ITodoMenuProps> = ({ tomatos, increaseTomato, decreaseTomato, editTitle, deleteTodo }) => {
   const btns: TBtn[] = [
     {
       icon: EIcons.increase,
       name: 'Увеличить',
-      onClick: increaseTomato
+      onClick: increaseTomato,
     },
     {
       icon: EIcons.decrease,
       name: 'Уменьшить',
-      onClick: decreaseTomato
+      disabled: tomatos === 1,
+      onClick: decreaseTomato,
     },
     {
       icon: EIcons.edit,
       name: 'Редактировать',
-      onClick: editTitle
+      onClick: editTitle,
     },
     {
       icon: EIcons.delete,
       name: 'Удалить',
-      onClick: deleteTodo
+      onClick: deleteTodo,
     },
   ]
 

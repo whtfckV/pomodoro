@@ -8,3 +8,11 @@
   left: calc(100% + 25px);
   translate: 0 -50%;
 }
+
+.btn circle {
+  transition: fill .3s ease;
+}
+
+.btn:hover circle {
+  fill: var(--green);
+}

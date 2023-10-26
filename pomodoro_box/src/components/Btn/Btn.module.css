@@ -19,11 +19,15 @@
 }
 
 .red {
+  padding: 13px 48px;
   border: 2px solid var(--red);
 }
 
+.redFill {
+  background-color: var(--red);
+}
+
 .grey {
-  padding: 13px 48px;
   border: 2px solid var(--greyC4);
   color: var(--greyC4);
   background-color: transparent;
@@ -49,6 +53,14 @@
 
 .iconText:hover {
   background-color: var(--greyF4);
+}
+
+.iconText:disabled {
+  opacity: 1;
+}
+
+.iconText:disabled svg path {
+  fill: var(--greyC4);
 }
 
 .iconOnly {
