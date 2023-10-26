@@ -9,8 +9,8 @@ export const Todo: FC = () => {
 
   const AddTodo = (newTodo: ITodo) => {
     setTodos([
-      newTodo,
       ...todos,
+      newTodo,
     ])
   }
 

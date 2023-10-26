@@ -3,10 +3,11 @@ import { Tomatoes } from "./Tomatoes";
 import { DotsBtn } from "src/components/DotsBtn";
 import { TodoMenu } from "./TodoMenu";
 import { ITodo } from "../../TodoForm";
-import styles from './TodoItem.module.css'
 import { TodoName } from "./TodoName";
 import { Popup } from "src/components/Popup";
 import { Btn, EType } from "src/components/Btn";
+import { Text } from "src/components/Text";
+import styles from './TodoItem.module.css'
 
 interface ITodoItemProps extends ITodo {
   updateTodos: (todo: ITodo) => void
@@ -46,11 +47,7 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, updateTodos, d
 
   const deleteTodo = () => {
     if (!id) return;
-    setConfirm(true)
-    // deleteItem(id)
-  }
-
-  const onClose = () => {
+    deleteItem(id)
     setConfirm(false)
   }
 
@@ -59,11 +56,18 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, updateTodos, d
       <Tomatoes tomatoCount={tomatos} />
       <TodoName name={name} edit={edit} changeTodoName={changeName} editTitle={editTitle} />
       <DotsBtn dropDownClass={styles.dropdown}>
-        <TodoMenu tomatos={tomatos} increaseTomato={increaseTomato} decreaseTomato={decreaseTomato} editTitle={editTitle} deleteTodo={deleteTodo} />
+        <TodoMenu
+          tomatos={tomatos}
+          increaseTomato={increaseTomato}
+          decreaseTomato={decreaseTomato}
+          editTitle={editTitle}
+          deleteTodo={() => setConfirm(true)}
+        />
       </DotsBtn>
-      {
-        <Popup open={confirm}>
-          <Btn styleType={EType.redFill}>Удалить</Btn>
+      {confirm &&
+        <Popup onClose={() => setConfirm(false)}>
+          <Text className={styles.title} As='h3' size={24} weight={400} >Удалить задачу?</Text>
+          <Btn onClick={deleteTodo} styleType={EType.redFill}>Удалить</Btn>
         </Popup>
       }
     </>

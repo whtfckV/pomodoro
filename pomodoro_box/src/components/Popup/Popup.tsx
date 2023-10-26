@@ -6,14 +6,15 @@ import styles from './Popup.module.css';
 
 interface IPopupProps {
   children: ReactNode
-  open: boolean
+  onClose: () => void
 }
 
-export const Popup: FC<IPopupProps> = ({ children, open }) => {
+export const Popup: FC<IPopupProps> = ({ children, onClose }) => {
   const ref = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
-    open ? ref.current?.showModal() : close()
+    console.log('mount')
+    ref.current?.showModal()
 
     const handleClickDoc = (event: MouseEvent) => {
       if (event.target === ref.current) {
@@ -25,16 +26,17 @@ export const Popup: FC<IPopupProps> = ({ children, open }) => {
     return () => {
       document.removeEventListener('click', handleClickDoc)
     }
-  }, [open])
+  })
 
   const close = () => {
     ref.current?.close()
+    onClose()
   }
 
   const node = document.getElementById('modal')!
 
   return createPortal((
-    <dialog className={styles.popup} ref={ref}>
+    <dialog className={styles.popup} ref={ref} onClose={close}>
       <div className={styles.content}>
         <Btn styleType={EType.iconOnly} className={styles.btn} onClick={close}>
           <Icon name={EIcons.cross} />
