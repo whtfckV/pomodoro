@@ -3,12 +3,15 @@ import { Btn, EType } from 'src/components/Btn';
 import { GenericList, IItem } from 'src/components/GenericLIst';
 import { Icon, EIcons } from 'src/components/Icon';
 import { Text, EColor } from 'src/components/Text';
+import { useAppDispatch } from 'src/store/hooks';
+import { decreaseTomato, increaseTomato } from 'src/store/todoSlice';
 import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 
 interface ITodoMenuProps {
+  id: string
   tomatos: number
-  increaseTomato: () => void
-  decreaseTomato: () => void
+  // increaseTomato: () => void
+  // decreaseTomato: () => void
   editTitle: () => void
   deleteTodo: () => void
 }
@@ -27,18 +30,20 @@ const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
   </Btn>
 )
 
-export const TodoMenu: FC<ITodoMenuProps> = ({ tomatos, increaseTomato, decreaseTomato, editTitle, deleteTodo }) => {
+export const TodoMenu: FC<ITodoMenuProps> = ({ id, tomatos, editTitle, deleteTodo }) => {
+  const dispatch = useAppDispatch()
+
   const btns: TBtn[] = [
     {
       icon: EIcons.increase,
       name: 'Увеличить',
-      onClick: increaseTomato,
+      onClick: () => { dispatch(increaseTomato(id)) },
     },
     {
       icon: EIcons.decrease,
       name: 'Уменьшить',
       disabled: tomatos === 1,
-      onClick: decreaseTomato,
+      onClick: () => { dispatch(decreaseTomato(id)) },
     },
     {
       icon: EIcons.edit,

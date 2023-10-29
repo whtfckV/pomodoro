@@ -1,16 +1,19 @@
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useRef, useState, } from "react";
 import styles from './TodoName.module.css';
+import { useAppDispatch } from "src/store/hooks";
+import { changeName } from "src/store/todoSlice";
 
 interface ITodoNameProps {
+  id: string
   name: string
   edit: boolean
-  changeTodoName: (name: string) => void
   editTitle: () => void
 }
 
-export const TodoName: FC<ITodoNameProps> = ({ name, edit, changeTodoName, editTitle }) => {
+export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle }) => {
   const [value, setValue] = useState<string>(name)
   const ref = useRef<HTMLInputElement>(null)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (edit) {
@@ -25,7 +28,7 @@ export const TodoName: FC<ITodoNameProps> = ({ name, edit, changeTodoName, editT
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       ref.current?.blur()
-      changeTodoName(value)
+      dispatch(changeName({ id, value }))
     }
   }
 
@@ -38,7 +41,7 @@ export const TodoName: FC<ITodoNameProps> = ({ name, edit, changeTodoName, editT
   }
 
   const handleBlur = () => {
-    changeTodoName(value)
+    dispatch(changeName({ id, value }))
   }
 
   return (

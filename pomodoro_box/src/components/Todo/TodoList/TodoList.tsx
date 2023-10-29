@@ -4,19 +4,19 @@ import { generateId } from "src/utils/ts/GenerateRandomIndex";
 import { TodoItem } from "./TodoItem";
 import { ITodo } from "../TodoForm";
 import styles from './TodoList.module.css'
+import { useAppSelector } from "src/store/hooks";
 
-export interface ITodoListProps {
-  todos: ITodo[]
-  updateTodos: (todo: ITodo) => void
-  deleteTodo: (id: string) => void
-}
+export interface ITodoListProps { }
 
-export const TodoList: FC<ITodoListProps> = ({ todos, updateTodos, deleteTodo }) => {
+export const TodoList: FC<ITodoListProps> = () => {
+  const todos = useAppSelector(state => state.todos.todos)
+
   const createTodos = (todo: ITodo): IItem => generateId({
     As: 'li',
-    element: <TodoItem updateTodos={updateTodos} deleteItem={deleteTodo} {...todo} />,
+    element: <TodoItem {...todo} />,
     className: styles.item
   })
+
   return (
     <>
       {!!todos.length && (

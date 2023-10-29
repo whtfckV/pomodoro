@@ -13,7 +13,6 @@ export const Popup: FC<IPopupProps> = ({ children, onClose }) => {
   const ref = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
-    console.log('mount')
     ref.current?.showModal()
 
     const handleClickDoc = (event: MouseEvent) => {

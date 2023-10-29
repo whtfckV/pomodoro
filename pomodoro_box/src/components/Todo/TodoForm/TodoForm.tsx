@@ -3,26 +3,27 @@ import { Btn } from 'src/components/Btn';
 import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 import { Error } from 'src/components/Error';
 import styles from './TodoForm.module.css';
+import { useAppDispatch } from 'src/store/hooks';
+import { addTodo } from 'src/store/todoSlice';
 
-interface IFormTasksProps {
-  setNewTodo: (todo: ITodo) => void
-}
+interface IFormTasksProps { }
 
 export interface ITodo {
   name: string
   tomatos: number
-  id?: string
+  id: string
 }
 
-const createTodo = (name: string): ITodo => ({
+const createTodo = (name: string) => ({
   name: name,
   tomatos: 1
 })
 
-export const TodoForm: FC<IFormTasksProps> = ({ setNewTodo }) => {
+export const TodoForm: FC<IFormTasksProps> = () => {
   const [value, setValue] = useState<string>('')
   const [touched, setTouched] = useState<boolean>(false)
   const [valueError, setValueError] = useState<string>('')
+  const dispatch = useAppDispatch()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
@@ -35,7 +36,7 @@ export const TodoForm: FC<IFormTasksProps> = ({ setNewTodo }) => {
 
     if (validate()) return
 
-    setNewTodo(generateId(createTodo(value)))
+    dispatch(addTodo(generateId(createTodo(value))))
     setValue('')
     setTouched(false)
   }
@@ -54,7 +55,7 @@ export const TodoForm: FC<IFormTasksProps> = ({ setNewTodo }) => {
           placeholder='Название задачи'
           value={value}
           onChange={handleChange}
-          aria-invalid={valueError ? 'true': undefined}
+          aria-invalid={valueError ? 'true' : undefined}
         />
         {touched && valueError && <Error>{valueError}</Error>}
       </label>

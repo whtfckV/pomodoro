@@ -5,41 +5,40 @@ import { TodoMenu } from "./TodoMenu";
 import { ITodo } from "../../TodoForm";
 import { TodoName } from "./TodoName";
 import { Popup } from "src/components/Popup";
-import { Btn, EType } from "src/components/Btn";
-import { Text } from "src/components/Text";
+import { Confirm } from "./Confirm/Confirm";
 import styles from './TodoItem.module.css'
+import { useAppDispatch } from "src/store/hooks";
+import { removeTodo } from "src/store/todoSlice";
 
-interface ITodoItemProps extends ITodo {
-  updateTodos: (todo: ITodo) => void
-  deleteItem: (id: string) => void
-}
+interface ITodoItemProps extends ITodo { }
 
-export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, updateTodos, deleteItem }) => {
+export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id }) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [confirm, setConfirm] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
 
-  const increaseTomato = () => {
-    updateTodos({
-      id,
-      name,
-      tomatos: ++tomatos,
-    })
-  };
-  const decreaseTomato = () => {
-    updateTodos({
-      id,
-      name,
-      tomatos: --tomatos,
-    })
-  }
+  // const increaseTomato = () => {
+  //   updateTodos({
+  //     id,
+  //     name,
+  //     tomatos: ++tomatos,
+  //   })
+  // };
+  // const decreaseTomato = () => {
+  //   updateTodos({
+  //     id,
+  //     name,
+  //     tomatos: --tomatos,
+  //   })
+  // }
 
-  const changeName = (name: string) => {
-    updateTodos({
-      id,
-      name,
-      tomatos
-    })
-  }
+  // const changeName = (name: string) => {
+  //   updateTodos({
+  //     id,
+  //     name,
+  //     tomatos
+  //   })
+  // }
 
   const editTitle = () => {
     setEdit(true)
@@ -47,27 +46,27 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, updateTodos, d
 
   const deleteTodo = () => {
     if (!id) return;
-    deleteItem(id)
+    dispatch(removeTodo(id))
     setConfirm(false)
   }
 
   return (
     <>
       <Tomatoes tomatoCount={tomatos} />
-      <TodoName name={name} edit={edit} changeTodoName={changeName} editTitle={editTitle} />
+      <TodoName id={id} name={name} edit={edit} editTitle={editTitle} />
       <DotsBtn dropDownClass={styles.dropdown}>
         <TodoMenu
+          id={id}
           tomatos={tomatos}
-          increaseTomato={increaseTomato}
-          decreaseTomato={decreaseTomato}
+          // increaseTomato={increaseTomato}
+          // decreaseTomato={decreaseTomato}
           editTitle={editTitle}
           deleteTodo={() => setConfirm(true)}
         />
       </DotsBtn>
       {confirm &&
         <Popup onClose={() => setConfirm(false)}>
-          <Text className={styles.title} As='h3' size={24} weight={400} >Удалить задачу?</Text>
-          <Btn onClick={deleteTodo} styleType={EType.redFill}>Удалить</Btn>
+          <Confirm onConfirm={deleteTodo} />
         </Popup>
       }
     </>
