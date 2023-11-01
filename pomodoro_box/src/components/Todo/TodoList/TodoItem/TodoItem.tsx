@@ -10,35 +10,15 @@ import styles from './TodoItem.module.css'
 import { useAppDispatch } from "src/store/hooks";
 import { removeTodo } from "src/store/todoSlice";
 
-interface ITodoItemProps extends ITodo { }
+interface ITodoItemProps extends ITodo {
+  opened: string | null
+  handler: (option: string | null) => void
+}
 
-export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id }) => {
+export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handler }) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [confirm, setConfirm] = useState<boolean>(false)
   const dispatch = useAppDispatch()
-
-  // const increaseTomato = () => {
-  //   updateTodos({
-  //     id,
-  //     name,
-  //     tomatos: ++tomatos,
-  //   })
-  // };
-  // const decreaseTomato = () => {
-  //   updateTodos({
-  //     id,
-  //     name,
-  //     tomatos: --tomatos,
-  //   })
-  // }
-
-  // const changeName = (name: string) => {
-  //   updateTodos({
-  //     id,
-  //     name,
-  //     tomatos
-  //   })
-  // }
 
   const editTitle = () => {
     setEdit(true)
@@ -46,6 +26,7 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id }) => {
 
   const deleteTodo = () => {
     if (!id) return;
+    console.log('DELETE')
     dispatch(removeTodo(id))
     setConfirm(false)
   }
@@ -54,12 +35,10 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id }) => {
     <>
       <Tomatoes tomatoCount={tomatos} />
       <TodoName id={id} name={name} edit={edit} editTitle={editTitle} />
-      <DotsBtn dropDownClass={styles.dropdown}>
+      <DotsBtn dropDownClass={styles.dropdown} isOpened={opened === id} handler={handler} id={id}>
         <TodoMenu
           id={id}
           tomatos={tomatos}
-          // increaseTomato={increaseTomato}
-          // decreaseTomato={decreaseTomato}
           editTitle={editTitle}
           deleteTodo={() => setConfirm(true)}
         />

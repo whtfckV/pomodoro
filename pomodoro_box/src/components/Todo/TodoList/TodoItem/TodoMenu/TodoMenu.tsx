@@ -10,8 +10,6 @@ import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 interface ITodoMenuProps {
   id: string
   tomatos: number
-  // increaseTomato: () => void
-  // decreaseTomato: () => void
   editTitle: () => void
   deleteTodo: () => void
 }

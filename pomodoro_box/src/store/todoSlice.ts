@@ -14,10 +14,12 @@ interface ITodoChange {
 
 interface TodoState {
   todos: ITodo[]
+  // getFullTime: () => number
 }
 
 const initialState: TodoState = {
-  todos: []
+  todos: [],
+  // getFullTime: () => this.todos.reduce((acc, todo) => acc += todo.tomatos * 25, 0)
 };
 
 const todoSlice = createSlice({
