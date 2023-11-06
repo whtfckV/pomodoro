@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { Btn, EType } from 'src/components/Btn';
 import { GenericList, IItem } from 'src/components/GenericLIst';
 import { Icon, EIcons } from 'src/components/Icon';
@@ -18,7 +18,7 @@ type TBtn = {
   icon: EIcons
   name: string
   disabled?: boolean
-  onClick: () => void
+  onClick: (e: MouseEvent) => void
 }
 
 const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
@@ -46,12 +46,18 @@ export const TodoMenu: FC<ITodoMenuProps> = ({ id, tomatos, editTitle, deleteTod
     {
       icon: EIcons.edit,
       name: 'Редактировать',
-      onClick: editTitle,
+      onClick: (e: MouseEvent) => {
+        e.stopPropagation()
+        editTitle()
+      },
     },
     {
       icon: EIcons.delete,
       name: 'Удалить',
-      onClick: deleteTodo,
+      onClick: (e: MouseEvent) => {
+        e.stopPropagation()
+        deleteTodo()
+      },
     },
   ]
 

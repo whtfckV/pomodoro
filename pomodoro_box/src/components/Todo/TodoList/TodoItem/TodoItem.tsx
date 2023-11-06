@@ -6,9 +6,9 @@ import { ITodo } from "../../TodoForm";
 import { TodoName } from "./TodoName";
 import { Popup } from "src/components/Popup";
 import { Confirm } from "./Confirm/Confirm";
-import styles from './TodoItem.module.css'
 import { useAppDispatch } from "src/store/hooks";
 import { removeTodo } from "src/store/todoSlice";
+import styles from './TodoItem.module.css'
 
 interface ITodoItemProps extends ITodo {
   opened: string | null
@@ -26,7 +26,6 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handle
 
   const deleteTodo = () => {
     if (!id) return;
-    console.log('DELETE')
     dispatch(removeTodo(id))
     setConfirm(false)
   }

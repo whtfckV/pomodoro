@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+
 interface ITodo {
   name: string
   tomatos: number
@@ -14,12 +15,14 @@ interface ITodoChange {
 
 interface TodoState {
   todos: ITodo[]
-  // getFullTime: () => number
+  fullTime: number
 }
+
+const MINUTES_PER_TOMATO = 25
 
 const initialState: TodoState = {
   todos: [],
-  // getFullTime: () => this.todos.reduce((acc, todo) => acc += todo.tomatos * 25, 0)
+  fullTime: 0
 };
 
 const todoSlice = createSlice({
@@ -30,9 +33,18 @@ const todoSlice = createSlice({
       console.log(state)
       console.log(action)
       state.todos.push(action.payload)
+      state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO
     },
     removeTodo(state, action: PayloadAction<string>) {
-      state.todos = state.todos.filter(todo => todo.id !== action.payload)
+      state.todos = state.todos.filter(todo => {
+        if (todo.id === action.payload) {
+          state.fullTime -= todo.tomatos * MINUTES_PER_TOMATO
+
+          return false
+        } else {
+          return true
+        }
+      })
     },
     changeName(state, action: PayloadAction<ITodoChange>) {
       const changeTodo = state.todos.find(todo => todo.id === action.payload.id)
@@ -45,7 +57,8 @@ const todoSlice = createSlice({
 
       console.log(changeTodo)
       if (!changeTodo) return
-      changeTodo.tomatos = changeTodo.tomatos + 1
+      changeTodo.tomatos++
+      state.fullTime += MINUTES_PER_TOMATO
 
     },
     decreaseTomato(state, action: PayloadAction<string>) {
@@ -53,6 +66,7 @@ const todoSlice = createSlice({
 
       if (!changeTodo) return
       changeTodo.tomatos--
+      state.fullTime -= MINUTES_PER_TOMATO
     },
   }
 })

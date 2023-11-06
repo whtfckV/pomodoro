@@ -3,8 +3,8 @@ import { GenericList, IItem } from "src/components/GenericLIst";
 import { generateId } from "src/utils/ts/GenerateRandomIndex";
 import { TodoItem } from "./TodoItem";
 import { ITodo } from "../TodoForm";
-import styles from './TodoList.module.css'
 import { useAppSelector } from "src/store/hooks";
+import styles from './TodoList.module.css'
 
 export interface ITodoListProps { }
 

@@ -66,5 +66,9 @@
 .iconOnly {
   padding: 0;
   display: flex;
+  transition: background-color .3s ease;
 }
 
+.iconOnly:hover {
+  background-color: var(--greyF4);
+}
