@@ -7,12 +7,12 @@ interface ITaskNumberProps {
 }
 
 export const TaskNumber: FC<ITaskNumberProps> = () => {
-  const name = useAppSelector(state => state.todos.todos[0].name)
+  const todo = useAppSelector(state => state.todos.todos[0])
 
   return (
     <span className={styles.taskNumber}>
       <Text size={16} weight={400} color={EColor.grey}>Задача 1 - </Text>
-      <Text size={16} weight={400} color={EColor.black}>{name}</Text>
+      <Text size={16} weight={400} color={EColor.black}>{todo?.name || 'no'}</Text>
     </span>
   );
 };

@@ -6,9 +6,7 @@ import { Information } from "./components/Information";
 import { Todo } from "./components/Todo";
 import { Task } from "./components/Task";
 import { TimeControl } from "./components/TimeControl";
-import { TaskNumber } from "./components/TaskNumber";
-import { Timer } from "./components/Timer";
-import { Controls } from "./components/Timer/Controls";
+
 
 const App: FC = () => {
   return (
@@ -19,11 +17,7 @@ const App: FC = () => {
         <Information />
         <Todo />
         <Task>
-          <TimeControl>
-            <Timer />
-            <TaskNumber />
-            <Controls />
-          </TimeControl>
+          <TimeControl />
         </Task>
       </Content>
     </>

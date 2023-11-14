@@ -11,7 +11,6 @@ export const Confirm: FC<IConfirmProps> = ({ onConfirm }) => {
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      console.log(event)
       if (event.key === 'Enter') {
         onConfirm()
       }

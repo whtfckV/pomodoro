@@ -30,8 +30,6 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo(state, action: PayloadAction<ITodo>) {
-      console.log(state)
-      console.log(action)
       state.todos.push(action.payload)
       state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO
     },
@@ -55,7 +53,6 @@ const todoSlice = createSlice({
     increaseTomato(state, action: PayloadAction<string>) {
       const changeTodo = state.todos.find(todo => todo.id === action.payload)
 
-      console.log(changeTodo)
       if (!changeTodo) return
       changeTodo.tomatos++
       state.fullTime += MINUTES_PER_TOMATO

@@ -1,14 +1,20 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { TaskNumber } from "../TaskNumber";
+import { Timer } from "../Timer";
+import { Controls } from "../Timer/Controls";
 import styles from './TimeControl.module.css'
+import { useAppSelector } from "src/store/hooks";
 
-interface ITimeControlProps {
-  children: ReactNode
-}
+interface ITimeControlProps { }
 
-export const TimeControl: FC<ITimeControlProps> = ({ children }) => {
+export const TimeControl: FC<ITimeControlProps> = () => {
+  const timer = useAppSelector(state => state.timer)
+
   return (
     <div className={styles.timeControl}>
-      {children}
+      <Timer ms={timer.time} />
+      <TaskNumber />
+      <Controls />
     </div>
   );
 };
