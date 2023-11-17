@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC } from 'react';
 import { Btn, EType } from '../Btn';
 import { Icon, EIcons } from '../Icon';
 import { Text, EColor } from '../Text';
@@ -9,7 +9,7 @@ interface ITimerProps {
   ms: number
 }
 
-export const Timer: React.FunctionComponent<ITimerProps> = ({ ms }) => {
+export const Timer: FC<ITimerProps> = ({ ms }) => {
 
   return (
     <div className={styles.timer}>

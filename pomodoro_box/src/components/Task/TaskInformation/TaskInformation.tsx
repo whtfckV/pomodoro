@@ -1,27 +1,13 @@
 import { FC } from "react";
-import styles from "./TaskInformation.module.css";
 import { EColor, Text } from "src/components/Text";
 import { useAppSelector } from "src/store/hooks";
+import styles from "./TaskInformation.module.css";
 
-interface ITaskInformationProps {
-}
+interface ITaskInformationProps { }
 
 export const TaskInformation: FC<ITaskInformationProps> = () => {
   const todo = useAppSelector(state => state.todos.todos[0])
-
-  const displayTomatos = () => {
-    const tomatos = todo?.tomatos
-
-    if (!tomatos) return ''
-
-    if (tomatos > 4) {
-      return `Помидоров ${tomatos}`
-    } else if (tomatos > 1) {
-      return `Помидора ${tomatos}`
-    } else {
-      return `Помидор ${tomatos}`
-    }
-  }
+  const tomato = useAppSelector(state => state.timer.currentTomato)
 
   return (
     <div className={styles.info}>
@@ -29,7 +15,7 @@ export const TaskInformation: FC<ITaskInformationProps> = () => {
         {todo?.name}
       </Text>
       <Text As='span' size={16} weight={400} color={EColor.white}>
-        {displayTomatos()}
+        {`Помидор ${tomato}`}
       </Text>
     </div>
   );

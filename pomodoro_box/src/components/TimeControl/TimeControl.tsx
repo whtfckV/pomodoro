@@ -8,11 +8,11 @@ import { useAppSelector } from "src/store/hooks";
 interface ITimeControlProps { }
 
 export const TimeControl: FC<ITimeControlProps> = () => {
-  const timer = useAppSelector(state => state.timer)
+  const time = useAppSelector(state => state.timer.time)
 
   return (
     <div className={styles.timeControl}>
-      <Timer ms={timer.time} />
+      <Timer ms={time} />
       <TaskNumber />
       <Controls />
     </div>
