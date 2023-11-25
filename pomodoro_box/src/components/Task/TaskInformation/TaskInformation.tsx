@@ -2,21 +2,21 @@ import { FC } from "react";
 import { EColor, Text } from "src/components/Text";
 import { useAppSelector } from "src/store/hooks";
 import classNames from "classnames";
-import { EState } from "src/store/timerSlice";
+import { EProgress } from "src/store/timerSlice";
 import styles from "./TaskInformation.module.css";
 
 interface ITaskInformationProps { }
 
 export const TaskInformation: FC<ITaskInformationProps> = () => {
   const todo = useAppSelector(state => state.todos.todos[0])
-  const timerState = useAppSelector(state => state.timer.timerState)
+  const progress = useAppSelector(state => state.timer.progress)
   const tomato = useAppSelector(state => state.timer.currentTomato)
 
   const getClasses = () => {
-    switch (timerState) {
-      case EState.work:
+    switch (progress) {
+      case EProgress.work:
         return classNames(styles.info, styles.work)
-      case EState.break:
+      case EProgress.break:
         return classNames(styles.info, styles.break)
       default:
         return styles.info

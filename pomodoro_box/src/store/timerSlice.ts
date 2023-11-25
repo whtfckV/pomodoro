@@ -1,18 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-export enum EState {
-  off = 'off',
+export enum EProgress {
   work = 'work',
   workPause = 'workPause',
   break = 'break',
   breakPause = 'breakPause'
 }
 
-interface timerState {
+type wokrs = 'on' | 'off'
+
+interface progress {
+  works: wokrs
+  progress: EProgress | null
   timerId: number | null
-  timerState: EState
   time: number
   currentTomato: number
+  totalTomatoes: number
 }
 
 const MINUTES_PER_TOMATO = 1 / 4
@@ -22,11 +25,13 @@ const ONE_MINUTE = ONE_SECOND * 60
 const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
 const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
 
-const initialState: timerState = {
+const initialState: progress = {
+  works: 'off',
+  progress: null,
   timerId: null,
-  timerState: EState.off,
   time: WORK_TIME,
-  currentTomato: 1
+  currentTomato: 1,
+  totalTomatoes: 0
 }
 
 const timerSlice = createSlice({
@@ -34,7 +39,12 @@ const timerSlice = createSlice({
   initialState,
   reducers: {
     startTimer: (state) => {
-      state.timerState = EState.work
+      state.works = 'on'
+      if (!state.progress || state.progress === EProgress.workPause) {
+        state.progress = EProgress.work
+      } else {
+        state.progress = EProgress.break
+      }
     },
     setTimerId: (state, action: PayloadAction<number>) => {
       state.timerId = action.payload
@@ -42,12 +52,12 @@ const timerSlice = createSlice({
     decriseSecond: (state) => {
       state.time = state.time - ONE_SECOND
       if (state.time <= 0) {
-        if (state.timerState === EState.work) {
+        if (state.progress === EProgress.work) {
           state.time = BREAK_TIME
-          state.timerState = EState.break
+          state.progress = EProgress.break
         } else {
           state.time = WORK_TIME
-          state.timerState = EState.work
+          state.progress = EProgress.work
         }
       }
     },
@@ -59,10 +69,11 @@ const timerSlice = createSlice({
 
       clearInterval(state.timerId)
 
-      if (state.timerState === EState.work) {
-        state.timerState = EState.workPause
+      state.works = 'off'
+      if (state.progress === EProgress.work) {
+        state.progress = EProgress.workPause
       } else {
-        state.timerState = EState.breakPause
+        state.progress = EProgress.breakPause
       }
     },
     stopTimer: (state) => {
@@ -70,6 +81,8 @@ const timerSlice = createSlice({
 
       clearInterval(state.timerId)
 
+      state.works = 'off'
+      state.progress = null
       state.time = WORK_TIME
     }
   }

@@ -1,14 +1,15 @@
 import { FC } from "react";
-import { Btn, EType } from "src/components/Btn";
-import styles from './Controls.module.css'
+import { Btn } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import { EState, pauseTimer, decriseSecond, startTimer, stopTimer, setTimerId } from "src/store/timerSlice";
+import { pauseTimer, decriseSecond, startTimer, setTimerId, EProgress } from "src/store/timerSlice";
+import { StopBtn } from "./StopBtn";
+import styles from './Controls.module.css'
 
-interface IControlsProps {
-}
+interface IControlsProps { }
 
 export const Controls: FC<IControlsProps> = () => {
-  const timerState = useAppSelector(state => state.timer.timerState)
+  const progress = useAppSelector(state => state.timer.progress)
+  const state = useAppSelector(state => state.timer.works)
   const dispatch = useAppDispatch()
 
   const handleStart = () => {
@@ -22,41 +23,25 @@ export const Controls: FC<IControlsProps> = () => {
     dispatch(pauseTimer())
   }
 
-  const handleStop = () => {
-    dispatch(stopTimer())
-  }
-
-  const getHandle = () => {
-    switch (timerState) {
-      case EState.off:
-      case EState.workPause:
-      case EState.breakPause:
-        return handleStart
-      case EState.work:
-        return handlePause
-      default:
-        return () => { }
-    }
-  }
+  const handle = state == 'off' ? handleStart : handlePause
 
   const getInscription = () => {
-    switch (timerState) {
-      case EState.off:
-        return 'Старт'
-      case EState.workPause:
-      case EState.breakPause:
+    switch (progress) {
+      case EProgress.breakPause:
+      case EProgress.workPause:
         return 'Продолжить'
-      case EState.work:
-      case EState.break:
+      case EProgress.break:
+      case EProgress.work:
         return 'Пауза'
+      default:
+        return 'Старт'
     }
   }
-
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={getHandle()}>{getInscription()}</Btn>
-      <Btn onClick={handleStop} styleType={EType.grey}>Стоп</Btn>
+      <Btn onClick={handle}>{getInscription()}</Btn>
+      <StopBtn />
     </div>
   );
 };
