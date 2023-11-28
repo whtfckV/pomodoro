@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Btn } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { pauseTimer, decriseSecond, startTimer, setTimerId, EProgress } from "src/store/timerSlice";
@@ -11,7 +11,6 @@ interface IControlsProps { }
 export const Controls: FC<IControlsProps> = () => {
   const progress = useAppSelector(state => state.timer.progress)
   const dispatch = useAppDispatch()
-  const [onPause, setOnPause] = useState<boolean>(true)
 
   const handleStart = () => {
     dispatch(startTimer())
@@ -28,14 +27,11 @@ export const Controls: FC<IControlsProps> = () => {
     switch (progress) {
       case EProgress.breakPause:
       case EProgress.workPause:
-        setOnPause(true)
         return 'Продолжить'
       case EProgress.break:
       case EProgress.work:
-        setOnPause(false)
         return 'Пауза'
       default:
-        setOnPause(true)
         return 'Старт'
     }
   }
@@ -43,7 +39,7 @@ export const Controls: FC<IControlsProps> = () => {
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={onPause ? handleStart : handlePause}>{getIncription()}</Btn>
+      <Btn onClick={ }>{getIncription()}</Btn>
       <StopBtn />
     </div>
   );
