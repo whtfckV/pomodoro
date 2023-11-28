@@ -3,4 +3,5 @@ export enum EColor {
   white = 'white',
   red = 'red',
   grey = 'grey',
+  green = 'green',
 }

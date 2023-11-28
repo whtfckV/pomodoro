@@ -7,10 +7,8 @@ export enum EProgress {
   breakPause = 'breakPause'
 }
 
-type wokrs = 'on' | 'off'
-
 interface progress {
-  works: wokrs
+  started: boolean
   progress: EProgress | null
   timerId: number | null
   time: number
@@ -26,7 +24,7 @@ const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
 const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
 
 const initialState: progress = {
-  works: 'off',
+  started: false,
   progress: null,
   timerId: null,
   time: WORK_TIME,
@@ -39,7 +37,7 @@ const timerSlice = createSlice({
   initialState,
   reducers: {
     startTimer: (state) => {
-      state.works = 'on'
+      state.started = true
       if (!state.progress || state.progress === EProgress.workPause) {
         state.progress = EProgress.work
       } else {
@@ -69,7 +67,7 @@ const timerSlice = createSlice({
 
       clearInterval(state.timerId)
 
-      state.works = 'off'
+      // state.started = false
       if (state.progress === EProgress.work) {
         state.progress = EProgress.workPause
       } else {
@@ -81,7 +79,7 @@ const timerSlice = createSlice({
 
       clearInterval(state.timerId)
 
-      state.works = 'off'
+      state.started = false
       state.progress = null
       state.time = WORK_TIME
     }

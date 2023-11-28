@@ -14,6 +14,7 @@ export interface ITextProps {
   weight?: TWeight;
   upperCase?: boolean;
   className?: string;
+  transition?: boolean
 }
 
 export const Text: FC<ITextProps> = (props) => {
@@ -24,7 +25,8 @@ export const Text: FC<ITextProps> = (props) => {
     color = EColor.black,
     weight = 300,
     upperCase = false,
-    className
+    className,
+    transition
   } = props
 
   const classes = classNames(
@@ -32,7 +34,8 @@ export const Text: FC<ITextProps> = (props) => {
     styles[`w${weight}`],
     styles[color],
     className,
-    upperCase ? styles.upperCase : ''
+    upperCase ? styles.upperCase : '',
+    transition ? styles.transition : ''
   )
   return (
     <As className={classes}>

@@ -43,6 +43,14 @@
   color: var(--white);
 }
 
+.green {
+  color: var(--green);
+}
+
 .upperCase {
   text-transform: uppercase;
+}
+
+.transition {
+  transition: color .3s ease;
 }
