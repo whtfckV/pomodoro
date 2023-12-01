@@ -3,12 +3,14 @@ import { EColor, Text } from "src/components/Text";
 import { useAppSelector } from "src/store/hooks";
 import { EProgress } from "src/store/timerSlice";
 import classNames from "classnames";
+import { ITodo } from "src/components/Todo/TodoForm";
 import styles from "./TaskInformation.module.css";
 
-interface ITaskInformationProps { }
+interface ITaskInformationProps {
+  todo: ITodo
+}
 
-export const TaskInformation: FC<ITaskInformationProps> = () => {
-  const todo = useAppSelector(state => state.todos.todos[0])
+export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
   const { progress, currentTomato } = useAppSelector(state => state.timer)
 
   const getClasses = () => {

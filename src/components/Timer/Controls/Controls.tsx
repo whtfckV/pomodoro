@@ -7,10 +7,27 @@ import styles from './Controls.module.css'
 
 interface IControlsProps { }
 
-// Че то не могу допереть как сделать номрально что бы нужный обработчик события был
 export const Controls: FC<IControlsProps> = () => {
   const progress = useAppSelector(state => state.timer.progress)
   const dispatch = useAppDispatch()
+  const [startBtnText, setStartBtnText] = useState<string>('Старт')
+
+  useEffect(() => {
+    setStartBtnText(getIncription(progress!))
+  }, [progress])
+
+  const getIncription = (progressType: EProgress) => {
+    switch (progressType) {
+      case EProgress.breakPause:
+      case EProgress.workPause:
+        return 'Продолжить'
+      case EProgress.break:
+      case EProgress.work:
+        return 'Пауза'
+      default:
+        return 'Старт'
+    }
+  }
 
   const handleStart = () => {
     dispatch(startTimer())
@@ -23,23 +40,25 @@ export const Controls: FC<IControlsProps> = () => {
     dispatch(pauseTimer())
   }
 
-  const getIncription = () => {
-    switch (progress) {
+  const handleTimer = (progressType: EProgress) => {
+    switch (progressType) {
       case EProgress.breakPause:
       case EProgress.workPause:
-        return 'Продолжить'
+        handleStart()
+        break;
       case EProgress.break:
       case EProgress.work:
-        return 'Пауза'
+        handlePause()
+        break;
       default:
-        return 'Старт'
+        handleStart()
+        break;
     }
   }
 
-
   return (
     <div className={styles.controls}>
-      <Btn onClick={ }>{getIncription()}</Btn>
+      <Btn onClick={() => handleTimer(progress!)}>{startBtnText}</Btn>
       <StopBtn />
     </div>
   );

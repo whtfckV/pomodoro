@@ -11,7 +11,7 @@ export const Task: FC<ITaskProps> = ({ children }) => {
   const todos = useAppSelector(state => state.todos.todos)
 
   const content = todos.length ? <>
-    <TaskInformation />
+    <TaskInformation  todo={todos[0]}/>
     {children}
   </> : 'Заданий нету'
 

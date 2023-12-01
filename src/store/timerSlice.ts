@@ -7,7 +7,7 @@ export enum EProgress {
   breakPause = 'breakPause'
 }
 
-interface progress {
+interface IInitialState {
   started: boolean
   progress: EProgress | null
   timerId: number | null
@@ -23,7 +23,7 @@ const ONE_MINUTE = ONE_SECOND * 60
 const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
 const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
 
-const initialState: progress = {
+const initialState: IInitialState = {
   started: false,
   progress: null,
   timerId: null,
@@ -55,7 +55,9 @@ const timerSlice = createSlice({
           state.progress = EProgress.break
         } else {
           state.time = WORK_TIME
-          state.progress = EProgress.work
+          state.progress = null
+          state.currentTomato += 1
+          clearInterval(state.timerId!)
         }
       }
     },
@@ -63,11 +65,8 @@ const timerSlice = createSlice({
       state.time += ONE_MINUTE
     },
     pauseTimer: (state) => {
-      if (!state.timerId) return
+      clearInterval(state.timerId!)
 
-      clearInterval(state.timerId)
-
-      // state.started = false
       if (state.progress === EProgress.work) {
         state.progress = EProgress.workPause
       } else {
@@ -75,16 +74,36 @@ const timerSlice = createSlice({
       }
     },
     stopTimer: (state) => {
-      if (!state.timerId) return
-
-      clearInterval(state.timerId)
+      clearInterval(state.timerId!)
 
       state.started = false
       state.progress = null
       state.time = WORK_TIME
+    },
+    skipPause: (state) => {
+      state.time = WORK_TIME
+      state.progress = null
+      state.currentTomato += 1
+      clearInterval(state.timerId!)
+    },
+    resetTimer: (state) => {
+      state.started = false
+      state.progress = null
+      state.time = WORK_TIME
+      state.currentTomato = 1
+      state.totalTomatoes = 0
     }
   }
 })
 
-export const { setTimerId, startTimer, decriseSecond, addTime, pauseTimer, stopTimer } = timerSlice.actions
+export const {
+  setTimerId,
+  startTimer,
+  decriseSecond,
+  addTime,
+  pauseTimer,
+  stopTimer,
+  skipPause,
+  resetTimer
+} = timerSlice.actions
 export default timerSlice.reducer

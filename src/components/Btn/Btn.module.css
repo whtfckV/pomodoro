@@ -19,7 +19,6 @@
 }
 
 .red {
-  padding: 13px 48px;
   border: 2px solid var(--red);
   color: var(--red);
 }
