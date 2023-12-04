@@ -13,7 +13,7 @@ export const StopBtn: FC<IStopBtnProps> = () => {
   const [btnText, setBtnText] = useState<string>('Стоп')
 
   useEffect(() => {
-    setBtnText(getIncription(progress!))
+    setBtnText(getIncription(progress))
   }, [progress])
 
   const getIncription = (progressType: EProgress) => {
@@ -61,6 +61,6 @@ export const StopBtn: FC<IStopBtnProps> = () => {
   }
 
   return (
-    <Btn onClick={() => handleStop(progress!)} styleType={started ? EType.red : EType.grey}>{btnText}</Btn>
+    <Btn onClick={() => handleStop(progress)} styleType={started ? EType.red : EType.grey}>{btnText}</Btn>
   );
 };

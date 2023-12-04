@@ -4,16 +4,16 @@ export enum EProgress {
   work = 'work',
   workPause = 'workPause',
   break = 'break',
-  breakPause = 'breakPause'
+  breakPause = 'breakPause',
+  nothing = 'nothisng'
 }
 
 interface IInitialState {
   started: boolean
-  progress: EProgress | null
+  progress: EProgress
   timerId: number | null
   time: number
   currentTomato: number
-  totalTomatoes: number
 }
 
 const MINUTES_PER_TOMATO = 1 / 4
@@ -25,11 +25,10 @@ const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
 
 const initialState: IInitialState = {
   started: false,
-  progress: null,
+  progress: EProgress.nothing,
   timerId: null,
   time: WORK_TIME,
   currentTomato: 1,
-  totalTomatoes: 0
 }
 
 const timerSlice = createSlice({
@@ -38,7 +37,7 @@ const timerSlice = createSlice({
   reducers: {
     startTimer: (state) => {
       state.started = true
-      if (!state.progress || state.progress === EProgress.workPause) {
+      if ([EProgress.nothing, EProgress.workPause].includes(state.progress)) {
         state.progress = EProgress.work
       } else {
         state.progress = EProgress.break
@@ -55,8 +54,8 @@ const timerSlice = createSlice({
           state.progress = EProgress.break
         } else {
           state.time = WORK_TIME
-          state.progress = null
-          state.currentTomato += 1
+          state.currentTomato++
+          state.progress = EProgress.nothing
           clearInterval(state.timerId!)
         }
       }
@@ -77,21 +76,20 @@ const timerSlice = createSlice({
       clearInterval(state.timerId!)
 
       state.started = false
-      state.progress = null
+      state.progress = EProgress.nothing
       state.time = WORK_TIME
     },
     skipPause: (state) => {
       state.time = WORK_TIME
-      state.progress = null
-      state.currentTomato += 1
+      state.progress = EProgress.nothing
+      state.currentTomato++
       clearInterval(state.timerId!)
     },
     resetTimer: (state) => {
       state.started = false
-      state.progress = null
+      state.progress = EProgress.nothing
       state.time = WORK_TIME
       state.currentTomato = 1
-      state.totalTomatoes = 0
     }
   }
 })

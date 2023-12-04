@@ -13,7 +13,7 @@ export const Controls: FC<IControlsProps> = () => {
   const [startBtnText, setStartBtnText] = useState<string>('Старт')
 
   useEffect(() => {
-    setStartBtnText(getIncription(progress!))
+    setStartBtnText(getIncription(progress))
   }, [progress])
 
   const getIncription = (progressType: EProgress) => {
@@ -58,7 +58,7 @@ export const Controls: FC<IControlsProps> = () => {
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={() => handleTimer(progress!)}>{startBtnText}</Btn>
+      <Btn onClick={() => handleTimer(progress)}>{startBtnText}</Btn>
       <StopBtn />
     </div>
   );
