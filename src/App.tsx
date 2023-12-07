@@ -1,26 +1,22 @@
 import { FC } from "react";
-import { Header } from "./components/Header";
-import { Title } from "./components/Content/MainTitle";
-import { Content } from "./components/Content";
-import { Information } from "./components/Information";
-import { Todo } from "./components/Todo";
-import { Task } from "./components/Task";
-import { TimeControl } from "./components/TimeControl";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Main } from "./routes/Main";
+import { Statistic } from "./components/Statistic";
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Main />
+  },
+  {
+    path: '/statistics',
+    element: <Statistic />
+  },
+])
 
 const App: FC = () => {
   return (
-    <>
-      <Header />
-      <Title />
-      <Content>
-        <Information />
-        <Todo />
-        <Task>
-          <TimeControl />
-        </Task>
-      </Content>
-    </>
+    <RouterProvider router={router} />
   );
 }
 

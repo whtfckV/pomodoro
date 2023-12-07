@@ -1,19 +1,22 @@
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useRef, useState, } from "react";
-import styles from './TodoName.module.css';
 import { useAppDispatch } from "src/store/hooks";
 import { changeName } from "src/store/todoSlice";
+import { Error } from "src/components/Error";
+import styles from './TodoName.module.css';
 
 interface ITodoNameProps {
   id: string
   name: string
   edit: boolean
   editTitle: () => void
+  disabledInput: () => void
 }
 
-export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle }) => {
+export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle, disabledInput }) => {
   const [value, setValue] = useState<string>(name)
   const ref = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()
+  const [errorValue, setErrorValue] = useState<boolean>()
 
   useEffect(() => {
     if (edit) {
@@ -25,10 +28,21 @@ export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle }) => {
     editTitle()
   }
 
+  const updateName = () => {
+    disabledInput()
+    dispatch(changeName({ id, value }))
+    setErrorValue(false)
+  }
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (value.length < 3) {
+      setErrorValue(true)
+      return
+    }
+
     if (e.key === 'Enter') {
       ref.current?.blur()
-      dispatch(changeName({ id, value }))
+      updateName()
     }
   }
 
@@ -41,11 +55,18 @@ export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle }) => {
   }
 
   const handleBlur = () => {
-    dispatch(changeName({ id, value }))
+    if (value.length < 4) {
+      setErrorValue(true)
+      ref.current?.focus()
+      ref.current?.setSelectionRange(ref.current?.value.length, ref.current?.value.length)
+      return
+    }
+
+    updateName()
   }
 
   return (
-    <label onDoubleClick={onDblclick}>
+    <label onDoubleClick={onDblclick} className={styles.label}>
       <input
         className={styles.input}
         value={value}
@@ -56,6 +77,7 @@ export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle }) => {
         disabled={!edit}
         ref={ref}
       />
+      {errorValue && <Error>Введите более 3-х символов</Error>}
     </label>
   )
 }

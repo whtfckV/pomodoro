@@ -5,7 +5,7 @@ export enum EProgress {
   workPause = 'workPause',
   break = 'break',
   breakPause = 'breakPause',
-  nothing = 'nothisng'
+  nothing = 'nothing'
 }
 
 interface IInitialState {

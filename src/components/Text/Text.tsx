@@ -3,7 +3,7 @@ import { FC, ReactNode } from "react";
 import { EColor } from "./TextEnum";
 import styles from './Text.module.css';
 
-type TSizes = 24 | 16 | 150;
+type TSizes = 24 | 16 | 30 | 150;
 type TWeight = 200| 300 | 400 | 700;
 
 export interface ITextProps {

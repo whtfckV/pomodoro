@@ -1,28 +1,36 @@
 import { FC, useEffect, useState } from "react";
 import { EColor, Text } from "src/components/Text";
-import { useAppSelector } from "src/store/hooks";
-import { EProgress } from "src/store/timerSlice";
+import { useAppDispatch, useAppSelector } from "src/store/hooks";
+import { EProgress, resetTimer } from "src/store/timerSlice";
 import classNames from "classnames";
 import { ITodo } from "src/components/Todo/TodoForm";
 import styles from "./TaskInformation.module.css";
+import { removeTodo } from "src/store/todoSlice";
 
 interface ITaskInformationProps {
   todo: ITodo
 }
 
 export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
+  const { tomatos, id } = useAppSelector(state => state.todos.todos[0])
   const { progress, currentTomato } = useAppSelector(state => state.timer)
+  const dispatch = useAppDispatch()
   const [descr, setDescr] = useState<string>(`Помидор ${currentTomato}`)
 
   useEffect(() => {
-    if ([EProgress.work, EProgress.workPause].includes(progress)) {
+    if (currentTomato > tomatos) {
+      dispatch(removeTodo(id))
+      dispatch(resetTimer())
+    }
+
+    if ([EProgress.work, EProgress.workPause, EProgress.nothing].includes(progress)) {
       setDescr(`Помидор ${currentTomato}`)
     }
 
     if ([EProgress.break, EProgress.breakPause].includes(progress)) {
       setDescr(`Перерыв ${currentTomato}`)
     }
-  }, [progress, currentTomato])
+  }, [progress, currentTomato, tomatos, id, dispatch])
 
   const getClasses = () => {
     switch (progress) {
@@ -36,7 +44,6 @@ export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
         return styles.info
     }
   }
-
 
   return (
     <div className={getClasses()}>

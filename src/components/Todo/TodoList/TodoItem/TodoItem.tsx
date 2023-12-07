@@ -24,6 +24,10 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handle
     setEdit(true)
   }
 
+  const disabledInput = () => {
+    setEdit(false)
+  }
+
   const deleteTodo = () => {
     if (!id) return;
     dispatch(removeTodo(id))
@@ -33,7 +37,7 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handle
   return (
     <>
       <Tomatoes tomatoCount={tomatos} />
-      <TodoName id={id} name={name} edit={edit} editTitle={editTitle} />
+      <TodoName id={id} name={name} edit={edit} editTitle={editTitle} disabledInput={disabledInput} />
       <DotsBtn dropDownClass={styles.dropdown} isOpened={opened === id} handler={handler} id={id}>
         <TodoMenu
           id={id}

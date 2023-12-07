@@ -1,6 +1,12 @@
+.label {
+  position: relative;
+  flex-grow: 1;
+}
+
 .input {
   border: none;
   padding: 4px 5px;
+  width: 100%;
   background-color: var(--greyF4);
   color: var(--black);
   font-size: 16px;
