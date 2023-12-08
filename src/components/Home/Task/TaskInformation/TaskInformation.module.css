@@ -1,0 +1,17 @@
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 55px;
+  padding: 0 40px;
+  background-color: var(--greyC4);
+  transition: background-color .3s ease;
+}
+
+.work {
+  background-color: var(--red);
+}
+
+.break {
+  background-color: var(--green);
+}

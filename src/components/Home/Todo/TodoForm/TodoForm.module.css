@@ -1,0 +1,30 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  row-gap: inherit;
+}
+
+.label {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 19px 15px;
+  border: none;
+  background-color: var(--greyF4);
+  color: var(--black);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input::placeholder {
+  font-size: 16px;
+  color: var(--grey99);
+}
+
+.btn {
+  align-self: self-start;
+}

@@ -1,0 +1,28 @@
+.popup::backdrop {
+  background-color: #00000080;
+}
+
+.popup {
+  border: none;
+  padding: 0;
+  background-color: var(--white);
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 85px;
+}
+
+.btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.cancel {
+  margin-top: 10px;
+  text-decoration: underline;
+  color: var(--black);
+}

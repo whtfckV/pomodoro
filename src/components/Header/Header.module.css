@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  width: 100%;
+  background-color: var(--white);
+  box-shadow: 0px 10px 63px 0px rgba(0, 0, 0, 0.07);
+}
+
+.mb88 {
+  margin-bottom: 88px;
+}
+
+.mb100 {
+  margin-bottom: 100px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

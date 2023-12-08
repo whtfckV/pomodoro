@@ -1,0 +1,11 @@
+.task {
+  grid-row: 1/3;
+  height: max-content;
+  background-color: var(--greyF4);
+}
+
+.notask {
+  grid-row: 1/3;
+  height: 550px;
+  background-color: var(--greyF4);
+}

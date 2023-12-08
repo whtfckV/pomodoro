@@ -1,0 +1,8 @@
+.btn {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 100%;
+  height: 36px;
+  aspect-ratio: 1 / 1;
+}

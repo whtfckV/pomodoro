@@ -1,0 +1,60 @@
+.s16 {
+  font-size: 16px;
+}
+
+.s24 {
+  font-size: 24px;
+}
+
+.s30 {
+  font-size: 30px;
+}
+
+.s150 {
+  font-size: 150px;
+}
+
+.w200 {
+  font-weight: 200;
+}
+
+.w300 {
+  font-weight: 300;
+}
+
+.w400 {
+  font-weight: 400;
+}
+
+.w700 {
+  font-weight: 700;
+}
+
+
+.black {
+  color: var(--black);
+}
+
+.red {
+  color: var(--red);
+}
+
+.grey {
+  color: var(--grey99);
+}
+
+.white {
+  color: var(--white);
+}
+
+.green {
+  color: var(--green);
+}
+
+.upperCase {
+  text-transform: uppercase;
+}
+
+.transition {
+  transition: color .3s ease;
+}

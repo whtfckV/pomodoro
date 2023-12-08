@@ -1,0 +1,13 @@
+.listItem {
+  line-height: 33px;
+  padding-left: 10px;
+}
+
+.listItem::marker {
+  color: var(--teno-red);
+}
+
+.list {
+  list-style: disc;
+  padding-left: 15px;
+}
