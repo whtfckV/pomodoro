@@ -29,6 +29,7 @@ export const Controls: FC<IControlsProps> = () => {
     }
   }
 
+  // Останавливается ли таймер при переходе на другую страницу
   const handleStart = () => {
     dispatch(startTimer())
     dispatch(setTimerId(window.setInterval(() => {

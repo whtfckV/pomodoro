@@ -16,12 +16,14 @@ interface IInitialState {
   currentTomato: number
 }
 
-const MINUTES_PER_TOMATO = 1 / 4
-const MINUTES_FOR_BREAK = 1 / 8
+const MINUTES_PER_TOMATO = 1 / 4 // 25 минут
+const MINUTES_FOR_BREAK = 1 / 8 // 5 минут
+const MINUTES_FOR_LONG_BREAK = 1 / 6 // 15 минут
 const ONE_SECOND = 1000
 const ONE_MINUTE = ONE_SECOND * 60
 const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
 const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
+const LONG_BREAK_TIME = MINUTES_FOR_LONG_BREAK * ONE_MINUTE
 
 const initialState: IInitialState = {
   started: false,
@@ -50,11 +52,11 @@ const timerSlice = createSlice({
       state.time = state.time - ONE_SECOND
       if (state.time <= 0) {
         if (state.progress === EProgress.work) {
-          state.time = BREAK_TIME
+          state.currentTomato++
+          state.time = state.currentTomato === 5 ? LONG_BREAK_TIME : BREAK_TIME
           state.progress = EProgress.break
         } else {
           state.time = WORK_TIME
-          state.currentTomato++
           state.progress = EProgress.nothing
           clearInterval(state.timerId!)
         }
@@ -82,10 +84,10 @@ const timerSlice = createSlice({
     skipPause: (state) => {
       state.time = WORK_TIME
       state.progress = EProgress.nothing
-      state.currentTomato++
       clearInterval(state.timerId!)
     },
     resetTimer: (state) => {
+      clearInterval(state.timerId!)
       state.started = false
       state.progress = EProgress.nothing
       state.time = WORK_TIME

@@ -28,7 +28,7 @@ export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
     }
 
     if ([EProgress.break, EProgress.breakPause].includes(progress)) {
-      setDescr(`Перерыв ${currentTomato}`)
+      setDescr(`Перерыв ${currentTomato - 1}`)
     }
   }, [progress, currentTomato, tomatos, id, dispatch])
 

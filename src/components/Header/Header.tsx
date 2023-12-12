@@ -10,8 +10,7 @@ import styles from "./Header.module.css";
 type TMargin = '88' | '100'
 
 export const Header: FC = () => {
-  // Не знаю что не так с типами
-  const location = useLocation<Location>()
+  const location = useLocation()
   const [margin, setMargin] = useState<TMargin>('100')
 
   useEffect(() => {
