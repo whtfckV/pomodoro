@@ -1,3 +1,21 @@
 .container {
   display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas:
+    "t t t . . . . . . w w w"
+    ;
+}
+
+.widget {
+  padding: 25px;
+  background-color: var(--greyF4);
+}
+
+.title {
+  grid-area: t;
+}
+
+.week {
+  grid-area: w;
 }

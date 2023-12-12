@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { useRouteError } from "react-router-dom";
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 export const ErrorPage: FC = () => {
   const error = useRouteError()
@@ -10,7 +10,7 @@ export const ErrorPage: FC = () => {
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>
-        <i>{error.statusText || error.message}</i>
+        <i>{isRouteErrorResponse(error) ? error.statusText || error.data.message : ''}</i>
       </p>
     </div>
   )

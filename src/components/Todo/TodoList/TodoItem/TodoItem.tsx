@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { Tomatoes } from "./Tomatoes";
-import { DotsBtn } from "src/components/Home/Todo/TodoList/TodoItem/DotsBtn";
+import { DotsBtn } from "src/components/Todo/TodoList/TodoItem/DotsBtn";
 import { TodoMenu } from "./TodoMenu";
 import { ITodo } from "../../TodoForm";
 import { TodoName } from "./TodoName";

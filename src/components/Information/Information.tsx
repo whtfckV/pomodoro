@@ -1,14 +1,14 @@
 import { FC } from "react";
 import { InformationList } from "./InformationList";
+import { Text } from "src/components/Text";
 import styles from './Information.module.css'
-import { FirstHeading } from "src/components/FirstHeading";
 
 export const Information: FC = () => {
   return (
     <article>
-      <FirstHeading headingClass={styles.title}>
+      <Text size={24} As='h2' weight={700} className={styles.title}>
         Ура! Теперь можно начать работать:
-      </FirstHeading>
+      </Text>
       <InformationList />
     </article>
   );

@@ -3,7 +3,7 @@ import { EColor, Text } from "src/components/Text";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { EProgress, resetTimer } from "src/store/timerSlice";
 import classNames from "classnames";
-import { ITodo } from "src/components/Home/Todo/TodoForm";
+import { ITodo } from "src/components/Todo/TodoForm";
 import styles from "./TaskInformation.module.css";
 import { removeTodo } from "src/store/todoSlice";
 

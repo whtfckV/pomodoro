@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
-import { Dropdown } from "../../../../../Dropdown";
-import { EIcons, Icon } from "../../../../../Icon";
-import { Btn, EType } from "../../../../../Btn";
+import { Dropdown } from "../../../../Dropdown";
+import { EIcons, Icon } from "../../../../Icon";
+import { Btn, EType } from "../../../../Btn";
 import styles from './DotsBtn.module.css'
 
 export interface IDotsBtnProps {

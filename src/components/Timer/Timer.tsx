@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Btn, EType } from '../../Btn';
-import { Icon, EIcons } from '../../Icon';
-import { Text, EColor } from '../../Text';
+import { Btn, EType } from '../Btn';
+import { Icon, EIcons } from '../Icon';
+import { Text, EColor } from '../Text';
 import { getFormattedMinutes } from 'src/utils/ts/formattedMinutes';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { EProgress, addTime } from 'src/store/timerSlice';

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { generateId } from '../../../../utils/ts/GenerateRandomIndex';
+import { generateId } from '../../../utils/ts/GenerateRandomIndex';
 import { Text } from "src/components/Text";
 import { GenericList, IItem } from 'src/components/GenericLIst';
 import styles from './InformationList.module.css'
