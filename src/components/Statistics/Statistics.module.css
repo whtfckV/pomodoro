@@ -2,8 +2,12 @@
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 55px 260px repeat(2, 179px);
   grid-template-areas:
     "t t t . . . . . . w w w"
+    "d d d b b b b b b b b b"
+    "tom tom tom b b b b b b b b b"
+    "f f f f p p p p s s s s"
     ;
 }
 
@@ -13,9 +17,35 @@
 }
 
 .title {
+  align-self: self-end;
   grid-area: t;
 }
 
 .week {
   grid-area: w;
 }
+
+.dailyData {
+  grid-area: d;
+}
+
+.tomatos {
+  grid-area: tom;
+}
+
+.bar {
+  grid-area: b;
+}
+
+.focus {
+  grid-area: f;
+}
+
+.pause {
+  grid-area: p;
+}
+
+.stops {
+  grid-area: s;
+}
+

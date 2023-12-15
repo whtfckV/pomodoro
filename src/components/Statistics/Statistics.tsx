@@ -7,8 +7,9 @@ import { Focus } from '../Focus'
 import { PauseTime } from '../PauseTime'
 import { Stops } from '../Stops'
 import { GridComponent } from '../GridComponent/GridComponent'
-import styles from './Statistics.module.css'
 import classNames from 'classnames'
+import { BarChart } from '../BarChart'
+import styles from './Statistics.module.css'
 
 interface IStatisticsProps { }
 
@@ -23,8 +24,9 @@ export const Statistics: FC<IStatisticsProps> = () => {
       <PickWeek gridClass={styles.week} />
       <DailyData gridClass={addWidgetClass(styles.dailyData)} />
       <TotalTomatoes gridClass={addWidgetClass(styles.tomatos)} />
+      <BarChart gridClass={addWidgetClass(styles.bar)} />
       <Focus gridClass={addWidgetClass(styles.focus)} />
-      <PauseTime gridClass={addWidgetClass(styles.focus)} />
+      <PauseTime gridClass={addWidgetClass(styles.pause)} />
       <Stops gridClass={addWidgetClass(styles.stops)} />
     </Content>
   )

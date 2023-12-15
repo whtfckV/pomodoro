@@ -15,7 +15,14 @@ const options = [
 export const PickWeek: FC<IPickWeek> = ({ gridClass }) => {
   return (
     <GridComponent gridClass={gridClass}>
-      <Select options={options} defaultValue={options[0]} />
+      <Select classNames={{
+
+      }}
+        options={options}
+        defaultValue={options[0]}
+        components={{ IndicatorSeparator: null }}
+        isSearchable={false}
+      />
     </GridComponent>
   )
 }
