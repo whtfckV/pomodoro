@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { Tomatoes } from "./Tomatoes";
 import { DotsBtn } from "src/components/Todo/TodoList/TodoItem/DotsBtn";
 import { TodoMenu } from "./TodoMenu";
@@ -13,19 +13,21 @@ import styles from './TodoItem.module.css'
 interface ITodoItemProps extends ITodo {
   opened: string | null
   handler: (option: string | null) => void
+  edit: string | null
+  editHandler: (option: string | null) => void
 }
 
-export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handler }) => {
-  const [edit, setEdit] = useState<boolean>(false)
+export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatos, id, opened, handler, edit, editHandler }) => {
   const [confirm, setConfirm] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
   const editTitle = () => {
-    setEdit(true)
+    editHandler(id)
+    handler(null)
   }
 
   const disabledInput = () => {
-    setEdit(false)
+    editHandler(null)
   }
 
   const deleteTodo = () => {
@@ -37,7 +39,7 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handle
   return (
     <>
       <Tomatoes tomatoCount={tomatos} />
-      <TodoName id={id} name={name} edit={edit} editTitle={editTitle} disabledInput={disabledInput} />
+      <TodoName id={id} name={name} edit={edit === id} editTitle={editTitle} disabledInput={disabledInput} />
       <DotsBtn dropDownClass={styles.dropdown} isOpened={opened === id} handler={handler} id={id}>
         <TodoMenu
           id={id}
@@ -53,4 +55,4 @@ export const TodoItem: FC<ITodoItemProps> = ({ name, tomatos, id, opened, handle
       }
     </>
   );
-}
+})

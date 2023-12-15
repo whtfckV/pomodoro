@@ -1,4 +1,4 @@
-import { FC, MouseEvent, ReactNode } from 'react';
+import { FC, MouseEvent, ReactNode, memo, useCallback } from 'react';
 import { Btn, EType } from 'src/components/Btn';
 import { GenericList, IItem } from 'src/components/GenericLIst';
 import { Text, EColor } from 'src/components/Text';
@@ -31,36 +31,48 @@ const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
   </Btn>
 )
 
-export const TodoMenu: FC<ITodoMenuProps> = ({ id, tomatos, editTitle, deleteTodo }) => {
+export const TodoMenu: FC<ITodoMenuProps> = memo(({ id, tomatos, editTitle, deleteTodo }) => {
   const dispatch = useAppDispatch()
+
+  const handleIncrease = useCallback(() => {
+    dispatch(increaseTomato(id))
+  }, [id, dispatch])
+
+  const handleDecrease = useCallback(() => {
+    dispatch(decreaseTomato(id))
+  }, [id, dispatch])
+
+  const handleEdit = useCallback((e: MouseEvent) => {
+    e.stopPropagation()
+    editTitle()
+  }, [editTitle])
+
+  const handleDelete = useCallback((e: MouseEvent) => {
+    e.stopPropagation()
+    deleteTodo()
+  }, [deleteTodo])
 
   const btns: TBtn[] = [
     {
       icon: <Increase />,
       name: 'Увеличить',
-      onClick: () => { dispatch(increaseTomato(id)) },
+      onClick: handleIncrease,
     },
     {
       icon: <Decrease />,
       name: 'Уменьшить',
       disabled: tomatos === 1,
-      onClick: () => { dispatch(decreaseTomato(id)) },
+      onClick: handleDecrease,
     },
     {
       icon: <Edit />,
       name: 'Редактировать',
-      onClick: (e: MouseEvent) => {
-        e.stopPropagation()
-        editTitle()
-      },
+      onClick: handleEdit,
     },
     {
       icon: <Delete />,
       name: 'Удалить',
-      onClick: (e: MouseEvent) => {
-        e.stopPropagation()
-        deleteTodo()
-      },
+      onClick: handleDelete,
     },
   ]
 
@@ -72,4 +84,4 @@ export const TodoMenu: FC<ITodoMenuProps> = ({ id, tomatos, editTitle, deleteTod
       }))} />
     </ul>
   )
-}
+})

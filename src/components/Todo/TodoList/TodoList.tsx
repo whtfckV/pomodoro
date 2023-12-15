@@ -11,11 +11,19 @@ export interface ITodoListProps { }
 export const TodoList: FC<ITodoListProps> = () => {
   const todos = useAppSelector(state => state.todos.todos)
   const [opened, setOpened] = useState<string | null>(null)
+  const [edit, setEdit] = useState<string | null>(null)
   const handler = (option: string | null) => setOpened(option)
+  const editHandler = (option: string | null) => setEdit(option)
 
   const createTodos = (todo: ITodo): IItem => generateId({
     As: 'li',
-    element: <TodoItem {...todo} opened={opened} handler={handler} />,
+    element: <TodoItem
+      {...todo}
+      opened={opened}
+      edit={edit}
+      editHandler={editHandler}
+      handler={handler}
+    />,
     className: styles.item
   })
 
