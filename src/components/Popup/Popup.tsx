@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Btn, EType } from "../Btn";
-import { EIcons, Icon } from "../Icon";
+import Cross from 'src/assets/icons/cross.svg?react'
 import styles from './Popup.module.css';
 
 interface IPopupProps {
@@ -38,7 +38,7 @@ export const Popup: FC<IPopupProps> = ({ children, onClose }) => {
     <dialog className={styles.popup} ref={ref} onClose={close}>
       <div className={styles.content}>
         <Btn styleType={EType.iconOnly} className={styles.btn} onClick={close}>
-          <Icon name={EIcons.cross} />
+          <Cross />
         </Btn>
         {children}
         <button className={styles.cancel} onClick={close}>Отмена</button>

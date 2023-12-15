@@ -1,8 +1,8 @@
 import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Dropdown } from "../../../../Dropdown";
-import { EIcons, Icon } from "../../../../Icon";
 import { Btn, EType } from "../../../../Btn";
 import styles from './DotsBtn.module.css'
+import Dots from 'src/assets/icons/dots.svg?react'
 
 export interface IDotsBtnProps {
   children: ReactNode
@@ -27,7 +27,7 @@ export const DotsBtn: FC<IDotsBtnProps> = ({ children, dropDownClass, isOpened, 
   return (
     <>
       <Btn styleType={EType.iconOnly} className={styles.btn} onClick={handleClick} ref={ref}>
-        <Icon name={EIcons.dots} />
+        <Dots />
       </Btn>
       {isDropdownOpen && (
         <Dropdown button={ref.current} onClose={handleClick}>

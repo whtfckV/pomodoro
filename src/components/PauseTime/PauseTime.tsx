@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Text } from "../Text"
-import styles from './PauseTime.module.css'
 import { GridComponent } from "../GridComponent/GridComponent"
+// import styles from './PauseTime.module.css'
 
 interface IPauseTime {
   gridClass: string
@@ -9,7 +9,7 @@ interface IPauseTime {
 
 export const PauseTime: FC<IPauseTime> = ({ gridClass }) => {
   return (
-    <GridComponent gridClass={styles.pauseTime}>
+    <GridComponent gridClass={gridClass}>
       <Text As='h3' size={24} weight={700}>
         Время на паузе
       </Text>

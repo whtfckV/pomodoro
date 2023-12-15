@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import LogoImg from 'src/assets/tomato_logo.svg';
+import LogoImg from 'src/assets/icons/tomato_logo.svg';
 import { Text } from 'src/components/Text/Text'
 import { EColor } from 'src/components/Text/TextEnum.ts';
 import styles from './Logo.module.css'
