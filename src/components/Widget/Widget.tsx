@@ -1,18 +1,21 @@
 import { FC } from "react"
 import { Text } from "../Text"
 import { GridComponent } from "../GridComponent/GridComponent"
-// import styles from './PauseTime.module.css'
 
-interface IPauseTime {
+interface IWidget {
+  title: string
   gridClass: string
+  unit?: string,
+  data?: number
 }
 
-export const PauseTime: FC<IPauseTime> = ({ gridClass }) => {
+export const Widget: FC<IWidget> = ({ gridClass, title, unit, data }) => {
   return (
     <GridComponent gridClass={gridClass}>
       <Text As='h3' size={24} weight={700}>
-        Время на паузе
+        {title}
       </Text>
+      <Text size={64} >{`${data || 0}${unit || ''}`}</Text>
     </GridComponent>
   )
 }

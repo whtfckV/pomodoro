@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Text } from "src/components/Text"
 import { GridComponent } from "../GridComponent/GridComponent"
-// import styles from './DailyData.module.css'
+import styles from './DailyData.module.css'
 
 interface IDailyData {
   gridClass: string
@@ -20,9 +20,10 @@ const week = [
 export const DailyData: FC<IDailyData> = ({ gridClass }) => {
   return (
     <GridComponent gridClass={gridClass}>
-      <Text As='h3' size={24} weight={700}>
+      <Text As='h3' size={24} weight={700} className={styles.title}>
         {week[(new Date).getDay()]}
       </Text>
+      {0 === [].length ? <Text size={16} weight={400}>Нет данных</Text> : ''}
     </GridComponent>
   )
 }

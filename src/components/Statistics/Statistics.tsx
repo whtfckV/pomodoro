@@ -3,9 +3,7 @@ import { Content } from '../Content'
 import { PickWeek } from '../PickWeek'
 import { DailyData } from '../DailyData'
 import { TotalTomatoes } from '../TotalTomatoes'
-import { Focus } from '../Focus'
-import { PauseTime } from '../PauseTime'
-import { Stops } from '../Stops'
+import { Widget } from '../Widget'
 import { GridComponent } from '../GridComponent/GridComponent'
 import classNames from 'classnames'
 import { BarChart } from '../BarChart'
@@ -25,9 +23,9 @@ export const Statistics: FC<IStatisticsProps> = () => {
       <DailyData gridClass={addWidgetClass(styles.dailyData)} />
       <TotalTomatoes gridClass={addWidgetClass(styles.tomatos)} />
       <BarChart gridClass={addWidgetClass(styles.bar)} />
-      <Focus gridClass={addWidgetClass(styles.focus)} />
-      <PauseTime gridClass={addWidgetClass(styles.pause)} />
-      <Stops gridClass={addWidgetClass(styles.stops)} />
+      <Widget gridClass={addWidgetClass(styles.focus)} title='Фокус' unit='%' />
+      <Widget gridClass={addWidgetClass(styles.pause)} title='Время на паузе' unit='м' />
+      <Widget gridClass={addWidgetClass(styles.stops)} title='Остановки' />
     </Content>
   )
 }

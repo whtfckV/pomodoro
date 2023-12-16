@@ -27,6 +27,7 @@
   --white: hsl(0, 0%, var(--whiteLightness));
   --greyF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
   --greyE4: hsl(0, 0%, calc(var(--whiteLightness) - 10%));
+  --greyDE: hsl(0, 0%, calc(var(--whiteLightness) - 13%));
   --greyC4: hsl(0, 0%, calc(var(--whiteLightness) - 23%));
   --grey99: hsl(0, 0%, calc(var(--whiteLightness) - 40%));
 }
