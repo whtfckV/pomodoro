@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import todoReducer from './todoSlice';
 import timerReducer from './timerSlice';
+import statisticsSlice from './statisticsSlice';
 
 export const store = configureStore({
   reducer: {
     todos: todoReducer,
-    timer: timerReducer
+    timer: timerReducer,
+    statistics: statisticsSlice,
   }
 })
 

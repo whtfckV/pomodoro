@@ -2,3 +2,19 @@
   display: flex;
   gap: 5px;
 }
+
+.link svg path {
+  transition: fill .3s ease;
+}
+
+.descr {
+  transition: color .3s ease;
+}
+
+.link:hover svg path {
+  fill: var(--teno-red)
+}
+
+.link:hover .descr{
+  color: var(--teno-red);
+}

@@ -7,12 +7,17 @@ import { Widget } from '../Widget'
 import { GridComponent } from '../GridComponent/GridComponent'
 import classNames from 'classnames'
 import { BarChart } from '../BarChart'
+import { useAppSelector } from "src/store/hooks"
+import FocusIcon from 'src/assets/icons/focus_icon.svg?react'
 import styles from './Statistics.module.css'
+import { Focus } from '../Focus'
 
 interface IStatisticsProps { }
 
 
 export const Statistics: FC<IStatisticsProps> = () => {
+  const { focus, pauseTime, stops } = useAppSelector(state => state.statistics)
+
 
   const addWidgetClass = (exClass: string) => classNames(exClass, styles.widget)
 
@@ -23,9 +28,9 @@ export const Statistics: FC<IStatisticsProps> = () => {
       <DailyData gridClass={addWidgetClass(styles.dailyData)} />
       <TotalTomatoes gridClass={addWidgetClass(styles.tomatos)} />
       <BarChart gridClass={addWidgetClass(styles.bar)} />
-      <Widget gridClass={addWidgetClass(styles.focus)} title='Фокус' unit='%' />
-      <Widget gridClass={addWidgetClass(styles.pause)} title='Время на паузе' unit='м' />
-      <Widget gridClass={addWidgetClass(styles.stops)} title='Остановки' />
+      <Focus gridClass={addWidgetClass(styles.focus)}/>
+      <Widget data={pauseTime} title='Время на паузе' unit='м' gridClass={addWidgetClass(styles.pause)} />
+      <Widget data={stops} title='Остановки' gridClass={addWidgetClass(styles.stops)} />
     </Content>
   )
 }

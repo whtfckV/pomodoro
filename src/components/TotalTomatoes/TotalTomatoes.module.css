@@ -1,5 +1,23 @@
 .tomato {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: 15px;
+}
+
+.tomato.notEmpty {
+  padding-bottom: 75px;
+}
+
+.descr {
+  position: absolute;
+  inset: 0;
+  top: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 51px;
+  background-color: var(--red);
 }

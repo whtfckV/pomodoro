@@ -8,7 +8,7 @@ export const Statistic: FC = () => {
   return (
     <Link to='/statistics' className={styles.link}>
       <StatisticIcon />
-      <Text size={16} color={EColor.red} weight={400}>
+      <Text size={16} color={EColor.red} weight={400} className={styles.descr}>
         Статистика
       </Text>
     </Link>

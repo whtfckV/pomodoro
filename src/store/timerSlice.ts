@@ -8,7 +8,7 @@ export enum EProgress {
   nothing = 'nothing'
 }
 
-interface IInitialState {
+interface IInitialTimerState {
   started: boolean
   progress: EProgress
   timerId: number | null
@@ -25,7 +25,7 @@ const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
 const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
 const LONG_BREAK_TIME = MINUTES_FOR_LONG_BREAK * ONE_MINUTE
 
-const initialState: IInitialState = {
+const initialState: IInitialTimerState = {
   started: false,
   progress: EProgress.nothing,
   timerId: null,
