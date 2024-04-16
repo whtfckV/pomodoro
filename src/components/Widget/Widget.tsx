@@ -1,4 +1,6 @@
-import { FC, ReactElement, SVGProps } from "react"
+import { FC, ReactElement,
+  // SVGProps
+} from "react"
 import { Text } from "../Text"
 import { GridComponent } from "../GridComponent/GridComponent"
 
@@ -6,8 +8,8 @@ interface IWidget {
   title: string
   gridClass: string
   unit?: string,
-  data: number
-  icon: ReactElement
+  data?: number
+  icon?: ReactElement
 }
 
 export const Widget: FC<IWidget> = ({ gridClass, title, unit, data, icon }) => {

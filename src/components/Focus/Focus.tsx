@@ -7,7 +7,7 @@ interface IFocus {
 
 export const Focus: FC<IFocus> = ({ gridClass }) => {
   return (
-    <Widget data={focus} title='Фокус' gridClass={gridClass}>
+    <Widget title='Фокус' gridClass={gridClass}>
 
     </Widget>
   )
