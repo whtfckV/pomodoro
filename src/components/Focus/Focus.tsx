@@ -8,7 +8,6 @@ interface IFocus {
 export const Focus: FC<IFocus> = ({ gridClass }) => {
   return (
     <Widget title='Фокус' gridClass={gridClass}>
-
     </Widget>
   )
 }
