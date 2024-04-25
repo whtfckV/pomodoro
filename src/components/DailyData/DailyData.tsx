@@ -22,10 +22,7 @@ export const DailyData: FC<IDailyData> = ({ gridClass }) => {
   const workingTime = useAppSelector(state => state.statistics.workingTime)
 
   return (
-    <GridComponent gridClass={gridClass}>
-      <Text As='h3' size={24} weight={700} className={styles.title}>
-        {week[(new Date).getDay()]}
-      </Text>
+    <GridComponent gridClass={gridClass} title={week[(new Date).getDay()]} titleClass={styles.title}>
       {!workingTime ?
         <Text size={16} weight={400}>Нет данных</Text> :
         <Text size={16} weight={400}>

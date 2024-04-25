@@ -1,0 +1,9 @@
+.title {
+  grid-area: 1/1/1/1;
+}
+
+.gridWidget {
+  display: grid;
+  grid-template-columns: auto min-content;
+  grid-template-rows: auto auto;
+}

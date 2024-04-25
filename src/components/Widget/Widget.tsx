@@ -1,25 +1,18 @@
-import { FC, ReactElement,
-  // SVGProps
-} from "react"
-import { Text } from "../Text"
+import { FC, ReactNode } from "react"
 import { GridComponent } from "../GridComponent/GridComponent"
+import styles from './Widget.module.css'
+import classNames from "classnames"
 
 interface IWidget {
   title: string
   gridClass: string
-  unit?: string,
-  data?: number
-  icon?: ReactElement
+  children: ReactNode
 }
 
-export const Widget: FC<IWidget> = ({ gridClass, title, unit, data, icon }) => {
+export const Widget: FC<IWidget> = ({ gridClass, title, children }) => {
   return (
-    <GridComponent gridClass={gridClass}>
-      <Text As='h3' size={24} weight={700}>
-        {title}
-      </Text>
-      <Text size={64} >{`${data || 0}${unit || ''}`}</Text>
-      {icon}
+    <GridComponent gridClass={classNames(gridClass, styles.gridWidget)} title={title} titleClass={styles.title}>
+      {children}
     </GridComponent>
   )
 }

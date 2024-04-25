@@ -8,13 +8,14 @@
     "d d d b b b b b b b b b"
     "tom tom tom b b b b b b b b b"
     "f f f f p p p p s s s s"
-    ;
+  ;
 }
 
 .widget {
   padding: 25px;
   background-color: var(--greyF4);
 }
+
 
 .title {
   align-self: self-end;
@@ -48,4 +49,3 @@
 .stops {
   grid-area: s;
 }
-
