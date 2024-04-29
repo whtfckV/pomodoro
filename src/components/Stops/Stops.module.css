@@ -1,3 +1,23 @@
+.stops {
+  grid-area: s;
+}
+
+.stops.bgActive {
+  background-color: var(--blue-light);
+}
+
+.iconClass {
+  grid-area: 1 / -2 / span 2 / span 1;
+}
+
+.iconClass path {
+  stroke: var(--greyC4);
+}
+
+.iconClass.iconActive path {
+  stroke: var(--blue);
+}
+
 .iconClass {
   grid-area: 1 / -2 / span 2 / span 1;
 }

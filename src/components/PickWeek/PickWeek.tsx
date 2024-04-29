@@ -3,9 +3,7 @@ import Select from 'react-select'
 import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './PickWeek.module.css'
 
-interface IPickWeek {
-  gridClass: string
-}
+interface IPickWeek {}
 
 const options = [
   { value: 'thisWeek', label: 'Эта неделя' },
@@ -13,7 +11,7 @@ const options = [
   { value: 'twoWeeksAgo', label: '2 недели назад' }
 ]
 
-export const PickWeek: FC<IPickWeek> = ({ gridClass }) => {
+export const PickWeek: FC<IPickWeek> = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true)
@@ -21,7 +19,7 @@ export const PickWeek: FC<IPickWeek> = ({ gridClass }) => {
   const handleClose = () => setOpen(false)
 
   return (
-    <GridComponent gridClass={gridClass}>
+    <GridComponent gridClass={styles.week}>
       <Select
         styles={{
           control: (base, state) => ({

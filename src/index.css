@@ -23,6 +23,12 @@
   --marsh: #899441;
   --red: #dc3e22;
   --teno-red: #B7280F;
+  --orange: #FFAE35;
+  --orange-light: #FFDDA9;
+  --lilac: #9C97D7;
+  --lilac-light: #DFDCFE;
+  --blue: #7FC2D7;
+  --blue-light: #C5F1FF;
   --whiteLightness: 100%;
   --white: hsl(0, 0%, var(--whiteLightness));
   --greyF4: hsl(0, 0%, calc(var(--whiteLightness) - 4%));
@@ -70,6 +76,11 @@ a {
 img {
   max-width: 100%;
   height: auto;
+}
+
+.widget {
+  padding: 25px;
+  background-color: var(--greyF4);
 }
 
 /* анимации */

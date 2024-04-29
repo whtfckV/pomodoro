@@ -7,16 +7,14 @@ import { useAppSelector } from "src/store/hooks"
 import { EColor, Text } from "../Text"
 import styles from './TotalTomatoes.module.css'
 
-interface ITotalTomatoes {
-  gridClass: string
-}
+interface ITotalTomatoes { }
 
-export const TotalTomatoes: FC<ITotalTomatoes> = ({ gridClass }) => {
+export const TotalTomatoes: FC<ITotalTomatoes> = () => {
   const totalTomatoes = useAppSelector(state => state.statistics.totalTomatoes)
 
   return (
     <GridComponent
-      gridClass={classNames(gridClass, styles.tomato, totalTomatoes && styles.notEmpty)}
+      gridClass={classNames('widget', styles.tomato, totalTomatoes && styles.notEmpty)}
     >
       {!totalTomatoes ?
         <TomatoSmile /> :

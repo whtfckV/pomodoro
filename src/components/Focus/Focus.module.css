@@ -1,5 +1,21 @@
+.focus {
+  grid-area: f;
+}
+
+.focus.bgActive {
+  background-color: var(--orange-light);
+}
+
 .iconClass {
   grid-area: 1 / -2 / span 2 / span 1;
+}
+
+.iconClass path {
+  stroke: var(--greyC4);
+}
+
+.iconClass.iconActive path {
+  stroke: var(--orange);
 }
 
 .text {

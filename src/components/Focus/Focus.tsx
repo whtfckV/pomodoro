@@ -4,18 +4,17 @@ import { Text } from "../Text"
 import FocusIcon from 'src/assets/icons/focus_icon.svg?react';
 import { useAppSelector } from "src/store/hooks"
 import styles from "./Focus.module.css";
+import classNames from "classnames";
 
-interface IFocus {
-  gridClass: string
-}
+interface IFocus { }
 
-export const Focus: FC<IFocus> = ({ gridClass }) => {
+export const Focus: FC<IFocus> = () => {
   const { focus } = useAppSelector(state => state.statistics)
 
   return (
-    <Widget title='Фокус' gridClass={gridClass}>
+    <Widget title='Фокус' gridClass={classNames('widget', focus ? styles.bgActive : '', styles.focus)}>
       <Text size={64} className={styles.text}>{`${focus || 0}%`}</Text>
-      <FocusIcon className={styles.iconClass} />
+      <FocusIcon className={classNames(focus ? styles.iconActive : '', styles.iconClass)} />
     </Widget>
   )
 }

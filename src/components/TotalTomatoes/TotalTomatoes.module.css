@@ -1,6 +1,7 @@
 .tomato {
   position: relative;
   display: flex;
+  grid-area: tom;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;

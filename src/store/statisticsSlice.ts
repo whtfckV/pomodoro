@@ -9,11 +9,11 @@ interface IInitialStatisticsState {
 }
 
 const initialState: IInitialStatisticsState = {
-  workingTime: 0,
+  workingTime: 4,
   totalTomatoes: 2,
-  focus: 0,
-  pauseTime: 0,
-  stops: 0
+  focus: 4,
+  pauseTime: 4,
+  stops: 18
 }
 
 const statisticsSlice = createSlice({

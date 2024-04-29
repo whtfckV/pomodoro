@@ -16,36 +16,7 @@
   background-color: var(--greyF4);
 }
 
-
 .title {
   align-self: self-end;
   grid-area: t;
-}
-
-.week {
-  grid-area: w;
-}
-
-.dailyData {
-  grid-area: d;
-}
-
-.tomatos {
-  grid-area: tom;
-}
-
-.bar {
-  grid-area: b;
-}
-
-.focus {
-  grid-area: f;
-}
-
-.pause {
-  grid-area: p;
-}
-
-.stops {
-  grid-area: s;
 }

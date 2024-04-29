@@ -1,6 +1,23 @@
+.pause {
+  grid-area: p;
+}
+
+.pause.bgActive {
+  background-color: var(--lilac-light);
+}
+
 .iconClass {
   grid-area: 1 / -2 / span 2 / span 1;
 }
+
+.iconClass path {
+  stroke: var(--greyC4);
+}
+
+.iconClass.iconActive path {
+  stroke: var(--lilac);
+}
+
 
 .text {
   grid-area: 2 / 1 / span 1 / span 1;
