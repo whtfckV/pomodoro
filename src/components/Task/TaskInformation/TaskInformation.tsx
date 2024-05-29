@@ -1,9 +1,8 @@
 import { FC, useEffect, useState } from "react";
 import { EColor, Text } from "src/components/Text";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import { EProgress, resetTimer } from "src/store/timerSlice";
+import { EStatus, resetTimer } from "src/store/timerSlice";
 import classNames from "classnames";
-// import { Todo } from "src/components/Todo/TodoForm";
 import { Todo } from "src/store/todoSlice";
 import styles from "./TaskInformation.module.css";
 import { removeTodo } from "src/store/todoSlice";
@@ -14,7 +13,7 @@ type TaskInformationProps = {
 
 export const TaskInformation: FC<TaskInformationProps> = ({ todo }) => {
   const { tomatos, id } = useAppSelector(state => state.todos.todos[0])
-  const { progress, currentTomato } = useAppSelector(state => state.timer)
+  const { status, currentTomato } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
   const [descr, setDescr] = useState<string>(`Помидор ${currentTomato}`)
 
@@ -24,22 +23,22 @@ export const TaskInformation: FC<TaskInformationProps> = ({ todo }) => {
       dispatch(resetTimer())
     }
 
-    if ([EProgress.work, EProgress.workPause, EProgress.nothing].includes(progress)) {
+    if ([EStatus.work, EStatus.workPause, EStatus.nothing].includes(status)) {
       setDescr(`Помидор ${currentTomato}`)
     }
 
-    if ([EProgress.break, EProgress.breakPause].includes(progress)) {
+    if ([EStatus.break, EStatus.breakPause].includes(status)) {
       setDescr(`Перерыв ${currentTomato - 1}`)
     }
-  }, [progress, currentTomato, tomatos, id, dispatch])
+  }, [status, currentTomato, tomatos, id, dispatch])
 
   const getClasses = () => {
-    switch (progress) {
-      case EProgress.work:
-      case EProgress.workPause:
+    switch (status) {
+      case EStatus.work:
+      case EStatus.workPause:
         return classNames(styles.info, styles.work)
-      case EProgress.break:
-      case EProgress.breakPause:
+      case EStatus.break:
+      case EStatus.breakPause:
         return classNames(styles.info, styles.break)
       default:
         return styles.info

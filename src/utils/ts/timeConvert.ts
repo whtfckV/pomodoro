@@ -3,8 +3,8 @@ export enum ESize {
   middle = 'middle',
   long = 'long'
 }
-export function timeConvert(data: number, size: ESize = ESize.middle): string {
-  const hours = data / 60;
+export function timeConvert(milliseconds: number, size: ESize = ESize.middle): string {
+  const hours = milliseconds / 1000 / 60 / 60;
   const rhours = Math.floor(hours);
 
   const minutes = (hours - rhours) * 60;

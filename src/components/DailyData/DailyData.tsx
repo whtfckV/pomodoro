@@ -4,7 +4,7 @@ import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './DailyData.module.css'
 import { useAppSelector } from "src/store/hooks"
 import classNames from "classnames"
-import { timeConvert } from "src/utils/ts/timeConvert"
+import { ESize, timeConvert } from "src/utils/ts/timeConvert"
 
 const week = [
   'Воскресенье',
@@ -30,7 +30,7 @@ export const DailyData: FC = () => {
         <Text size={16} weight={400}>
           Вы работали над задачами в течение
           {/* В ЗАВИСИМОСТИ ОТ КОЛЛИЧЕСТВА МИНУТ МЕНЯТЬ ОКОНЧАНИЕ Т/ТЫ */}
-          <Text size={16} weight={700} color={EColor.red}>{timeConvert(workingTime)}</Text>
+          <Text size={16} weight={700} color={EColor.red}>{timeConvert(workingTime, ESize.long)}</Text>
         </Text>}
     </GridComponent>
   )

@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { BREAK_TIME, LONG_BREAK_TIME, ONE_MINUTE, ONE_SECOND, WORK_TIME } from "./constants";
 
-export enum EProgress {
+export enum EStatus {
   work = 'work',
   workPause = 'workPause',
   break = 'break',
@@ -11,7 +11,7 @@ export enum EProgress {
 
 type InitialTimerState = {
   started: boolean
-  progress: EProgress
+  status: EStatus
   timerId: number | null
   time: number
   currentTomato: number
@@ -19,7 +19,7 @@ type InitialTimerState = {
 
 const initialState: InitialTimerState = {
   started: false,
-  progress: EProgress.nothing,
+  status: EStatus.nothing,
   timerId: null,
   time: WORK_TIME,
   currentTomato: 1,
@@ -31,10 +31,10 @@ const timerSlice = createSlice({
   reducers: {
     startTimer: (state) => {
       state.started = true
-      if ([EProgress.nothing, EProgress.workPause].includes(state.progress)) {
-        state.progress = EProgress.work
+      if ([EStatus.nothing, EStatus.workPause].includes(state.status)) {
+        state.status = EStatus.work
       } else {
-        state.progress = EProgress.break
+        state.status = EStatus.break
       }
     },
     setTimerId: (state, action: PayloadAction<number>) => {
@@ -45,13 +45,13 @@ const timerSlice = createSlice({
       // заметил это в redux devtools
       state.time = state.time - ONE_SECOND
       if (state.time <= 0) {
-        if (state.progress === EProgress.work) {
+        if (state.status === EStatus.work) {
           state.currentTomato++
           state.time = state.currentTomato === 5 ? LONG_BREAK_TIME : BREAK_TIME
-          state.progress = EProgress.break
+          state.status = EStatus.break
         } else {
           state.time = WORK_TIME
-          state.progress = EProgress.nothing
+          state.status = EStatus.nothing
           clearInterval(state.timerId!)
         }
       }
@@ -62,29 +62,29 @@ const timerSlice = createSlice({
     pauseTimer: (state) => {
       clearInterval(state.timerId!)
 
-      if (state.progress === EProgress.work) {
-        state.progress = EProgress.workPause
+      if (state.status === EStatus.work) {
+        state.status = EStatus.workPause
       } else {
-        state.progress = EProgress.breakPause
+        state.status = EStatus.breakPause
       }
     },
     stopTimer: (state) => {
       clearInterval(state.timerId!)
 
       state.started = false
-      state.progress = EProgress.nothing
+      state.status = EStatus.nothing
       state.time = WORK_TIME
     },
     skipPause: (state) => {
       state.time = WORK_TIME
-      state.progress = EProgress.nothing
+      state.status = EStatus.nothing
       clearInterval(state.timerId!)
     },
     resetTimer: (state) => {
       clearInterval(state.timerId!)
       state.timerId = null;
       state.started = false
-      state.progress = EProgress.nothing
+      state.status = EStatus.nothing
       state.time = WORK_TIME
       state.currentTomato = 1
     }

@@ -4,13 +4,13 @@ import { ESize, timeConvert } from "src/utils/ts/timeConvert";
 import { useAppSelector } from "src/store/hooks";
 
 export const TotalTime: FC = () => {
-  const minutes = useAppSelector(state => state.todos.fullTime)
+  const milliseconds = useAppSelector(state => state.todos.fullTime)
 
   return (
     <>
-      {!!minutes &&
+      {!!milliseconds &&
         <Text size={16} color={EColor.grey} >
-          {timeConvert(minutes, ESize.middle)}
+          {timeConvert(milliseconds, ESize.middle)}
         </Text>
       }
     </>

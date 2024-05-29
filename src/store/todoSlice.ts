@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { MINUTES_PER_TOMATO, ONE_MINUTE } from './constants';
 
 
 export type Todo = {
@@ -18,7 +19,6 @@ type State = {
   fullTime: number
 }
 
-const MINUTES_PER_TOMATO = 25
 
 const initialState: State = {
   todos: [],
@@ -31,13 +31,12 @@ const todoSlice = createSlice({
   reducers: {
     addTodo(state, action: PayloadAction<Todo>) {
       state.todos.push(action.payload)
-      state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO
+      state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO * ONE_MINUTE
     },
     removeTodo(state, action: PayloadAction<string>) {
       state.todos = state.todos.filter(todo => {
         if (todo.id === action.payload) {
-          state.fullTime -= todo.tomatos * MINUTES_PER_TOMATO
-
+          state.fullTime -= todo.tomatos * MINUTES_PER_TOMATO * ONE_MINUTE
           return false
         } else {
           return true
@@ -55,7 +54,7 @@ const todoSlice = createSlice({
 
       if (!changeTodo) return
       changeTodo.tomatos++
-      state.fullTime += MINUTES_PER_TOMATO
+      state.fullTime += MINUTES_PER_TOMATO * ONE_MINUTE
 
     },
     decreaseTomato(state, action: PayloadAction<string>) {
@@ -63,7 +62,7 @@ const todoSlice = createSlice({
 
       if (!changeTodo) return
       changeTodo.tomatos--
-      state.fullTime -= MINUTES_PER_TOMATO
+      state.fullTime -= MINUTES_PER_TOMATO * ONE_MINUTE
     },
   }
 })

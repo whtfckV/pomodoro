@@ -3,12 +3,12 @@ import { Btn, EType } from '../Btn';
 import { Text, EColor } from '../Text';
 import { getFormattedMinutes } from 'src/utils/ts/formattedMinutes';
 import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { EProgress, addTime } from 'src/store/timerSlice';
+import { EStatus, addTime } from 'src/store/timerSlice';
 import styles from "./Timer.module.css";
 import Plus from 'src/assets/icons/plus.svg?react';
 
 export const Timer: FC = () => {
-  const { time, progress } = useAppSelector(state => state.timer)
+  const { time, status } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
 
   const handleClick = () => {
@@ -16,10 +16,10 @@ export const Timer: FC = () => {
   }
 
   const getTextStyle = () => {
-    switch (progress) {
-      case EProgress.work:
+    switch (status) {
+      case EStatus.work:
         return EColor.red
-      case EProgress.break:
+      case EStatus.break:
         return EColor.green
       default:
         return EColor.black

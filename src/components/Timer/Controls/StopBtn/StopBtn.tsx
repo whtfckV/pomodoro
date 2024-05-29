@@ -1,27 +1,27 @@
 import { FC, useEffect, useState } from "react";
 import { Btn, EType } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import { EProgress, resetTimer, skipPause, stopTimer } from "src/store/timerSlice";
+import { EStatus, resetTimer, skipPause, stopTimer } from "src/store/timerSlice";
 import { removeTodo } from "src/store/todoSlice";
 
 export const StopBtn: FC = () => {
   const activeTodoId = useAppSelector(state => state.todos.todos[0].id)
-  const { started, progress } = useAppSelector(state => state.timer)
+  const { started, status } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
   const [btnText, setBtnText] = useState<string>('Стоп')
 
   useEffect(() => {
-    setBtnText(getIncription(progress))
-  }, [progress])
+    setBtnText(getIncription(status))
+  }, [status])
 
-  const getIncription = (progressType: EProgress) => {
-    switch (progressType) {
-      case EProgress.work:
+  const getIncription = (statusType: EStatus) => {
+    switch (statusType) {
+      case EStatus.work:
         return 'Стоп'
-      case EProgress.workPause:
+      case EStatus.workPause:
         return 'Сделано'
-      case EProgress.breakPause:
-      case EProgress.break:
+      case EStatus.breakPause:
+      case EStatus.break:
         return 'Пропустить'
       default:
         return 'Стоп'
@@ -41,16 +41,16 @@ export const StopBtn: FC = () => {
     dispatch(skipPause())
   }
 
-  const handleStop = (progressType: EProgress) => {
-    switch (progressType) {
-      case EProgress.work:
+  const handleStop = (statusType: EStatus) => {
+    switch (statusType) {
+      case EStatus.work:
         handleStopTimer()
         break;
-      case EProgress.workPause:
+      case EStatus.workPause:
         handleDone()
         break;
-      case EProgress.break:
-      case EProgress.breakPause:
+      case EStatus.break:
+      case EStatus.breakPause:
         handleSkip()
         break;
       default:
@@ -59,6 +59,6 @@ export const StopBtn: FC = () => {
   }
 
   return (
-    <Btn onClick={() => handleStop(progress)} styleType={started ? EType.red : EType.grey}>{btnText}</Btn>
+    <Btn onClick={() => handleStop(status)} styleType={started ? EType.red : EType.grey}>{btnText}</Btn>
   );
 };

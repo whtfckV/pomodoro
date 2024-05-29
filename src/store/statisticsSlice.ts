@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ONE_SECOND } from "./constants";
+import { EStatus } from "./timerSlice";
 
 interface IInitialStatisticsState {
   workingTime: number,
@@ -21,7 +22,8 @@ const statisticsSlice = createSlice({
   name: 'statistics',
   initialState: initialState,
   reducers: {
-    addSecondWork: (state) => {
+    addSecondWork: (state, action: PayloadAction<EStatus>) => {
+      console.log(action.payload)
       state.workingTime += ONE_SECOND;
     }
   }

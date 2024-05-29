@@ -1,39 +1,38 @@
 import { FC, useEffect, useState } from "react";
 import { Btn } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import { pauseTimer, decriseSecond, startTimer, setTimerId, EProgress } from "src/store/timerSlice";
+import { pauseTimer, decriseSecond, startTimer, setTimerId, EStatus } from "src/store/timerSlice";
 import { StopBtn } from "./StopBtn";
 import styles from './Controls.module.css'
 import { addSecondWork } from "src/store/statisticsSlice";
 
 export const Controls: FC = () => {
-  const progress = useAppSelector(state => state.timer.progress)
+  const status = useAppSelector(state => state.timer.status)
   const dispatch = useAppDispatch()
   const [startBtnText, setStartBtnText] = useState<string>('Старт')
 
   useEffect(() => {
-    setStartBtnText(getIncription(progress))
-  }, [progress])
+    setStartBtnText(getIncription(status))
+  }, [status])
 
-  const getIncription = (progressType: EProgress) => {
-    switch (progressType) {
-      case EProgress.breakPause:
-      case EProgress.workPause:
+  const getIncription = (statusType: EStatus) => {
+    switch (statusType) {
+      case EStatus.breakPause:
+      case EStatus.workPause:
         return 'Продолжить'
-      case EProgress.break:
-      case EProgress.work:
+      case EStatus.break:
+      case EStatus.work:
         return 'Пауза'
       default:
         return 'Старт'
     }
   }
 
-  // Останавливается ли таймер при переходе на другую страницу
   const handleStart = () => {
     dispatch(startTimer())
     dispatch(setTimerId(window.setInterval(() => {
       dispatch(decriseSecond())
-      dispatch(addSecondWork())
+      dispatch(addSecondWork(status))
 
       // Change this to 1000 milliseconds
     }, 10)))
@@ -43,14 +42,14 @@ export const Controls: FC = () => {
     dispatch(pauseTimer())
   }
 
-  const handleTimer = (progressType: EProgress) => {
-    switch (progressType) {
-      case EProgress.breakPause:
-      case EProgress.workPause:
+  const handleTimer = (statusType: EStatus) => {
+    switch (statusType) {
+      case EStatus.breakPause:
+      case EStatus.workPause:
         handleStart()
         break;
-      case EProgress.break:
-      case EProgress.work:
+      case EStatus.break:
+      case EStatus.work:
         handlePause()
         break;
       default:
@@ -61,7 +60,7 @@ export const Controls: FC = () => {
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={() => handleTimer(progress)}>{startBtnText}</Btn>
+      <Btn onClick={() => handleTimer(status)}>{startBtnText}</Btn>
       <StopBtn />
     </div>
   );
