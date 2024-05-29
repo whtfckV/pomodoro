@@ -7,9 +7,7 @@ import { EProgress, addTime } from 'src/store/timerSlice';
 import styles from "./Timer.module.css";
 import Plus from 'src/assets/icons/plus.svg?react';
 
-interface ITimerProps { }
-
-export const Timer: FC<ITimerProps> = () => {
+export const Timer: FC = () => {
   const { time, progress } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
 

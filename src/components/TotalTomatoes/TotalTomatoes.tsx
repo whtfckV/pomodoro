@@ -7,9 +7,7 @@ import { useAppSelector } from "src/store/hooks"
 import { EColor, Text } from "../Text"
 import styles from './TotalTomatoes.module.css'
 
-interface ITotalTomatoes { }
-
-export const TotalTomatoes: FC<ITotalTomatoes> = () => {
+export const TotalTomatoes: FC = () => {
   const totalTomatoes = useAppSelector(state => state.statistics.totalTomatoes)
 
   return (

@@ -6,9 +6,7 @@ import { TimeControl } from '../TimeControl'
 import { Todo } from '../Todo'
 import styles from './Home.module.css'
 
-interface IHomeProps { }
-
-export const Home: FC<IHomeProps> = () => {
+export const Home: FC = () => {
   return (
     <Content gridClass={styles.container}>
       <Information />

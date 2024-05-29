@@ -4,7 +4,7 @@ import { Btn, EType } from "../../../../Btn";
 import styles from './DotsBtn.module.css'
 import Dots from 'src/assets/icons/dots.svg?react'
 
-export interface IDotsBtnProps {
+export type DotsBtnProps = {
   children: ReactNode
   dropDownClass?: string
   isOpened: boolean
@@ -12,7 +12,7 @@ export interface IDotsBtnProps {
   id: string
 }
 
-export const DotsBtn: FC<IDotsBtnProps> = ({ children, dropDownClass, isOpened, handler, id }) => {
+export const DotsBtn: FC<DotsBtnProps> = ({ children, dropDownClass, isOpened, handler, id }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
 

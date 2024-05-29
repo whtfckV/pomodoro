@@ -4,7 +4,7 @@ import { changeName } from "src/store/todoSlice";
 import { Error } from "src/components/Error";
 import styles from './TodoName.module.css';
 
-interface ITodoNameProps {
+type TodoNameProps = {
   id: string
   name: string
   edit: boolean
@@ -12,7 +12,7 @@ interface ITodoNameProps {
   disabledInput: () => void
 }
 
-export const TodoName: FC<ITodoNameProps> = ({ id, name, edit, editTitle, disabledInput }) => {
+export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disabledInput }) => {
   const [value, setValue] = useState<string>(name)
   const ref = useRef<HTMLInputElement>(null)
   const dispatch = useAppDispatch()

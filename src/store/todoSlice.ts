@@ -2,25 +2,25 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 
-interface ITodo {
+export type Todo = {
   name: string
   tomatos: number
   id: string
 }
 
-interface ITodoChange {
+type TodoChange = {
   value: string
   id: string
 }
 
-interface TodoState {
-  todos: ITodo[]
+type State = {
+  todos: Todo[]
   fullTime: number
 }
 
 const MINUTES_PER_TOMATO = 25
 
-const initialState: TodoState = {
+const initialState: State = {
   todos: [],
   fullTime: 0
 };
@@ -29,7 +29,7 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<ITodo>) {
+    addTodo(state, action: PayloadAction<Todo>) {
       state.todos.push(action.payload)
       state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO
     },
@@ -44,7 +44,7 @@ const todoSlice = createSlice({
         }
       })
     },
-    changeName(state, action: PayloadAction<ITodoChange>) {
+    changeName(state, action: PayloadAction<TodoChange>) {
       const changeTodo = state.todos.find(todo => todo.id === action.payload.id)
 
       if (!changeTodo) return

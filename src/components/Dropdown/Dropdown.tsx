@@ -3,14 +3,14 @@ import { FC, ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import styles from './Dropdown.module.css'
 
-export interface IDropdownProps {
+export type DropdownProps = {
   children: ReactNode;
   className?: string;
   onClose?: () => void;
   button: HTMLButtonElement | null;
 }
 
-export const Dropdown: FC<IDropdownProps> = ({ children, className, onClose, button }) => {
+export const Dropdown: FC<DropdownProps> = ({ children, className, onClose, button }) => {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

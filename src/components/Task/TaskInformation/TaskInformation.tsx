@@ -3,15 +3,16 @@ import { EColor, Text } from "src/components/Text";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { EProgress, resetTimer } from "src/store/timerSlice";
 import classNames from "classnames";
-import { ITodo } from "src/components/Todo/TodoForm";
+// import { Todo } from "src/components/Todo/TodoForm";
+import { Todo } from "src/store/todoSlice";
 import styles from "./TaskInformation.module.css";
 import { removeTodo } from "src/store/todoSlice";
 
-interface ITaskInformationProps {
-  todo: ITodo
+type TaskInformationProps = {
+  todo: Todo
 }
 
-export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
+export const TaskInformation: FC<TaskInformationProps> = ({ todo }) => {
   const { tomatos, id } = useAppSelector(state => state.todos.todos[0])
   const { progress, currentTomato } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
@@ -48,7 +49,7 @@ export const TaskInformation: FC<ITaskInformationProps> = ({ todo }) => {
   return (
     <div className={getClasses()}>
       <Text As='h2' size={16} weight={700} color={EColor.white}>
-        {todo?.name}
+        {todo.name}
       </Text>
       <Text As='span' size={16} weight={400} color={EColor.white}>
         {descr}

@@ -6,20 +6,12 @@ import styles from './TodoForm.module.css';
 import { useAppDispatch } from 'src/store/hooks';
 import { addTodo } from 'src/store/todoSlice';
 
-interface IFormTasksProps { }
-
-export interface ITodo {
-  name: string
-  tomatos: number
-  id: string
-}
-
 const createTodo = (name: string) => ({
   name: name,
   tomatos: 1
 })
 
-export const TodoForm: FC<IFormTasksProps> = () => {
+export const TodoForm: FC = () => {
   const [value, setValue] = useState<string>('')
   const [touched, setTouched] = useState<boolean>(false)
   const [valueError, setValueError] = useState<string>('')

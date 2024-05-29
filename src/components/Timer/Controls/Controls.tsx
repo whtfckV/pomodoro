@@ -4,10 +4,9 @@ import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { pauseTimer, decriseSecond, startTimer, setTimerId, EProgress } from "src/store/timerSlice";
 import { StopBtn } from "./StopBtn";
 import styles from './Controls.module.css'
+import { addSecondWork } from "src/store/statisticsSlice";
 
-interface IControlsProps { }
-
-export const Controls: FC<IControlsProps> = () => {
+export const Controls: FC = () => {
   const progress = useAppSelector(state => state.timer.progress)
   const dispatch = useAppDispatch()
   const [startBtnText, setStartBtnText] = useState<string>('Старт')
@@ -34,7 +33,10 @@ export const Controls: FC<IControlsProps> = () => {
     dispatch(startTimer())
     dispatch(setTimerId(window.setInterval(() => {
       dispatch(decriseSecond())
-    }, 1000)))
+      dispatch(addSecondWork())
+
+      // Change this to 1000 milliseconds
+    }, 10)))
   }
 
   const handlePause = () => {

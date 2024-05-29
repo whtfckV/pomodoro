@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ONE_SECOND } from "./constants";
 
 interface IInitialStatisticsState {
   workingTime: number,
@@ -9,7 +10,7 @@ interface IInitialStatisticsState {
 }
 
 const initialState: IInitialStatisticsState = {
-  workingTime: 4,
+  workingTime: 0,
   totalTomatoes: 2,
   focus: 4,
   pauseTime: 4,
@@ -20,8 +21,11 @@ const statisticsSlice = createSlice({
   name: 'statistics',
   initialState: initialState,
   reducers: {
-
+    addSecondWork: (state) => {
+      state.workingTime += ONE_SECOND;
+    }
   }
 })
 
+export const { addSecondWork } = statisticsSlice.actions;
 export default statisticsSlice.reducer

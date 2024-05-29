@@ -3,10 +3,7 @@ import { Text, EColor } from "../Text";
 import styles from './TaskNumber.module.css'
 import { useAppSelector } from "src/store/hooks";
 
-interface ITaskNumberProps {
-}
-
-export const TaskNumber: FC<ITaskNumberProps> = () => {
+export const TaskNumber: FC = () => {
   const todo = useAppSelector(state => state.todos.todos[0])
 
   return (

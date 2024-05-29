@@ -4,11 +4,11 @@ import { useAppSelector } from "src/store/hooks"
 import { NoTasks } from "./NoTasks"
 import styles from './Task.module.css'
 
-interface ITaskProps {
+type TaskProps = {
   children: ReactNode
 }
 
-export const Task: FC<ITaskProps> = ({ children }) => {
+export const Task: FC<TaskProps> = ({ children }) => {
   const todos = useAppSelector(state => state.todos.todos)
 
   const content = todos.length ? <>

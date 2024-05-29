@@ -6,7 +6,7 @@ import styles from './Text.module.css';
 type TSizes = 24 | 16 | 30 | 64| 150;
 type TWeight = 200 | 300 | 400 | 700;
 
-export interface ITextProps {
+export type TextProps = {
   As?: 'span' | 'p' | 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5';
   children?: ReactNode;
   size: TSizes;
@@ -17,7 +17,7 @@ export interface ITextProps {
   transition?: boolean
 }
 
-export const Text: FC<ITextProps> = (props) => {
+export const Text: FC<TextProps> = (props) => {
   const {
     As = 'span',
     children,

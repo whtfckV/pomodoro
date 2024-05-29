@@ -4,9 +4,7 @@ import { Timer } from "../Timer";
 import { Controls } from "../Timer/Controls";
 import styles from './TimeControl.module.css'
 
-interface ITimeControlProps { }
-
-export const TimeControl: FC<ITimeControlProps> = () => {
+export const TimeControl: FC = () => {
   return (
     <div className={styles.timeControl}>
       <Timer />

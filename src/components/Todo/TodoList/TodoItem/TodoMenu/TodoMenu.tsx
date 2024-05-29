@@ -1,6 +1,6 @@
 import { FC, MouseEvent, ReactNode, memo, useCallback } from 'react';
 import { Btn, EType } from 'src/components/Btn';
-import { GenericList, IItem } from 'src/components/GenericLIst';
+import { GenericList, GenericListItem } from 'src/components/GenericLIst';
 import { Text, EColor } from 'src/components/Text';
 import { useAppDispatch } from 'src/store/hooks';
 import { decreaseTomato, increaseTomato } from 'src/store/todoSlice';
@@ -10,7 +10,7 @@ import Decrease from 'src/assets/icons/decrease.svg?react'
 import Edit from 'src/assets/icons/edit.svg?react'
 import Delete from 'src/assets/icons/delete.svg?react'
 
-interface ITodoMenuProps {
+type TodoMenuProps = {
   id: string
   tomatos: number
   editTitle: () => void
@@ -31,7 +31,7 @@ const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
   </Btn>
 )
 
-export const TodoMenu: FC<ITodoMenuProps> = memo(({ id, tomatos, editTitle, deleteTodo }) => {
+export const TodoMenu: FC<TodoMenuProps> = memo(({ id, tomatos, editTitle, deleteTodo }) => {
   const dispatch = useAppDispatch()
 
   const handleIncrease = useCallback(() => {
@@ -78,7 +78,7 @@ export const TodoMenu: FC<ITodoMenuProps> = memo(({ id, tomatos, editTitle, dele
 
   return (
     <ul>
-      <GenericList list={btns.map((btn: TBtn): IItem => generateId({
+      <GenericList list={btns.map((btn: TBtn): GenericListItem => generateId({
         As: 'li',
         element: createBtn(btn)
       }))} />

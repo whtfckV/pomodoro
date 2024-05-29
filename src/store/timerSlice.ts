@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { BREAK_TIME, LONG_BREAK_TIME, ONE_MINUTE, ONE_SECOND, WORK_TIME } from "./constants";
 
 export enum EProgress {
   work = 'work',
@@ -8,7 +9,7 @@ export enum EProgress {
   nothing = 'nothing'
 }
 
-interface IInitialTimerState {
+type InitialTimerState = {
   started: boolean
   progress: EProgress
   timerId: number | null
@@ -16,16 +17,7 @@ interface IInitialTimerState {
   currentTomato: number
 }
 
-const MINUTES_PER_TOMATO = 1 / 4 // 25 минут
-const MINUTES_FOR_BREAK = 1 / 8 // 5 минут
-const MINUTES_FOR_LONG_BREAK = 1 / 6 // 15 минут
-const ONE_SECOND = 1000
-const ONE_MINUTE = ONE_SECOND * 60
-const WORK_TIME = MINUTES_PER_TOMATO * ONE_MINUTE
-const BREAK_TIME = MINUTES_FOR_BREAK * ONE_MINUTE
-const LONG_BREAK_TIME = MINUTES_FOR_LONG_BREAK * ONE_MINUTE
-
-const initialState: IInitialTimerState = {
+const initialState: InitialTimerState = {
   started: false,
   progress: EProgress.nothing,
   timerId: null,
@@ -49,6 +41,8 @@ const timerSlice = createSlice({
       state.timerId = action.payload
     },
     decriseSecond: (state) => {
+      // пауза ставится в любом случае даже если у задачи был один помидор
+      // заметил это в redux devtools
       state.time = state.time - ONE_SECOND
       if (state.time <= 0) {
         if (state.progress === EProgress.work) {
@@ -88,6 +82,7 @@ const timerSlice = createSlice({
     },
     resetTimer: (state) => {
       clearInterval(state.timerId!)
+      state.timerId = null;
       state.started = false
       state.progress = EProgress.nothing
       state.time = WORK_TIME

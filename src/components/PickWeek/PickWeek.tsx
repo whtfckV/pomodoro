@@ -3,15 +3,13 @@ import Select from 'react-select'
 import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './PickWeek.module.css'
 
-interface IPickWeek {}
-
 const options = [
   { value: 'thisWeek', label: 'Эта неделя' },
   { value: 'lastWeek', label: 'Прошедшая неделя' },
   { value: 'twoWeeksAgo', label: '2 недели назад' }
 ]
 
-export const PickWeek: FC<IPickWeek> = () => {
+export const PickWeek: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true)

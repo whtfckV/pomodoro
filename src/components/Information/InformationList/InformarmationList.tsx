@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { generateId } from '../../../utils/ts/GenerateRandomIndex';
 import { Text } from "src/components/Text";
-import { GenericList, IItem } from 'src/components/GenericLIst';
+import { GenericList, GenericListItem } from 'src/components/GenericLIst';
 import styles from './InformationList.module.css'
 
 
@@ -13,7 +13,7 @@ const list: string[] = [
   'Продолжайте работать «помидор» за «помидором», пока задача не будут выполнена. Каждые 4 «помидора» делайте длинный перерыв (15-30 минут).',
 ];
 
-const createItem = (text: string): IItem => generateId({
+const createItem = (text: string): GenericListItem => generateId({
   As: 'li',
   element: <Text As='span' size={16} weight={400}>{text}</Text>,
   className: styles.listItem,

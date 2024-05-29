@@ -10,10 +10,7 @@ import { Focus } from '../Focus'
 import { PauseTime } from '../PauseTime'
 import { Stops } from '../Stops'
 
-interface IStatisticsProps { }
-
-
-export const Statistics: FC<IStatisticsProps> = () => {
+export const Statistics: FC = () => {
 
   return (
     <Content gridClass={styles.container}>

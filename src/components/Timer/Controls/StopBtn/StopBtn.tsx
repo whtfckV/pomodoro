@@ -4,9 +4,7 @@ import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { EProgress, resetTimer, skipPause, stopTimer } from "src/store/timerSlice";
 import { removeTodo } from "src/store/todoSlice";
 
-interface IStopBtnProps { }
-
-export const StopBtn: FC<IStopBtnProps> = () => {
+export const StopBtn: FC = () => {
   const activeTodoId = useAppSelector(state => state.todos.todos[0].id)
   const { started, progress } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
