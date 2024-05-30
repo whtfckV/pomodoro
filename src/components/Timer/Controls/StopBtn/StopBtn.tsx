@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Btn, EType } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { EStatus, resetTimer, skipPause, stopTimer } from "src/store/timerSlice";
@@ -8,12 +8,8 @@ export const StopBtn: FC = () => {
   const activeTodoId = useAppSelector(state => state.todos.todos[0].id)
   const { started, status } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
-  const [btnText, setBtnText] = useState<string>('Стоп')
 
-  useEffect(() => {
-    setBtnText(getIncription(status))
-  }, [status])
-
+  // Повторяющийся код, не знаю как избавиться
   const getIncription = (statusType: EStatus) => {
     switch (statusType) {
       case EStatus.work:
@@ -59,6 +55,6 @@ export const StopBtn: FC = () => {
   }
 
   return (
-    <Btn onClick={() => handleStop(status)} styleType={started ? EType.red : EType.grey}>{btnText}</Btn>
+    <Btn onClick={() => handleStop(status)} styleType={started ? EType.red : EType.grey}>{getIncription(status)}</Btn>
   );
 };

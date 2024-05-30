@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Content } from '../Content'
 import { Information } from '../Information'
 import { Task } from '../Task'
-import { TimeControl } from '../TimeControl'
+import { Timer } from '../Timer'
 import { Todo } from '../Todo'
 import styles from './Home.module.css'
 
@@ -12,7 +12,7 @@ export const Home: FC = () => {
       <Information />
       <Todo />
       <Task>
-        <TimeControl />
+        <Timer />
       </Task>
     </Content>
   )

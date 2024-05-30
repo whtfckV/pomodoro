@@ -29,7 +29,6 @@ export const DailyData: FC = () => {
         <Text size={16} weight={400}>Нет данных</Text> :
         <Text size={16} weight={400}>
           Вы работали над задачами в течение
-          {/* В ЗАВИСИМОСТИ ОТ КОЛЛИЧЕСТВА МИНУТ МЕНЯТЬ ОКОНЧАНИЕ Т/ТЫ */}
           <Text size={16} weight={700} color={EColor.red}>{timeConvert(workingTime, ESize.long)}</Text>
         </Text>}
     </GridComponent>

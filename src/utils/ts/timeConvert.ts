@@ -20,29 +20,25 @@ export function timeConvert(milliseconds: number, size: ESize = ESize.middle): s
       break;
     case ESize.middle:
       if (rhours > 1) {
-        hoursString = hoursString + 'а';
-      }
-      if (rhours > 4) {
-        hoursString = hoursString + 'ов';
-      }
-      break;
-    case ESize.long:
-      minutesString = 'минута';
-      if (rminutes > 1) {
-        minutesString = 'минуты';
-      }
-      if (rminutes > 4) {
-        minutesString = 'минут';
-      }
-      if (rhours > 1) {
         hoursString = 'часа';
       }
       if (rhours > 4) {
         hoursString = 'часов';
       }
       break;
+    case ESize.long:
+      hoursString = 'часа';
+      if ((rminutes - 1) % 10 === 0 && rminutes !== 11) {
+        minutesString = 'минуты';
+      } else {
+        minutesString = 'минут';
+      }
+      if (rhours > 1) {
+        hoursString = 'часов';
+      }
+      break;
   }
 
 
-  return `${rhours ? `${rhours} ${hoursString}` : ''} ${rminutes} ${minutesString}`;
+  return ` ${rhours ? `${rhours} ${hoursString}` : ''}` + ` ${rminutes ? `${rminutes} ${minutesString}` : ''}`;
 }

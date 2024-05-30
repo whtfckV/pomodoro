@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Text, EColor } from "../Text";
+import { Text, EColor } from "../../Text";
 import styles from './TaskNumber.module.css'
 import { useAppSelector } from "src/store/hooks";
 

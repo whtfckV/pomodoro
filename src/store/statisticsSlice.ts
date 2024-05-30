@@ -12,7 +12,7 @@ interface IInitialStatisticsState {
 
 const initialState: IInitialStatisticsState = {
   workingTime: 0,
-  totalTomatoes: 2,
+  totalTomatoes: 0,
   focus: 4,
   pauseTime: 4,
   stops: 18
@@ -23,7 +23,7 @@ const statisticsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addSecondWork: (state, action: PayloadAction<EStatus>) => {
-      console.log(action.payload)
+      action.payload
       state.workingTime += ONE_SECOND;
     }
   }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Btn } from "src/components/Btn";
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { pauseTimer, decriseSecond, startTimer, setTimerId, EStatus } from "src/store/timerSlice";
@@ -7,15 +7,12 @@ import styles from './Controls.module.css'
 import { addSecondWork } from "src/store/statisticsSlice";
 
 export const Controls: FC = () => {
-  const status = useAppSelector(state => state.timer.status)
+  const { status, working } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
-  const [startBtnText, setStartBtnText] = useState<string>('Старт')
 
-  useEffect(() => {
-    setStartBtnText(getIncription(status))
-  }, [status])
+  const getIncription = (statusType: EStatus, isWorking: boolean) => {
+    if (!isWorking) return 'Старт'
 
-  const getIncription = (statusType: EStatus) => {
     switch (statusType) {
       case EStatus.breakPause:
       case EStatus.workPause:
@@ -28,11 +25,13 @@ export const Controls: FC = () => {
     }
   }
 
-  const handleStart = () => {
+  const handleStart = (statusType: EStatus) => {
     dispatch(startTimer())
     dispatch(setTimerId(window.setInterval(() => {
       dispatch(decriseSecond())
-      dispatch(addSecondWork(status))
+      if (![EStatus.break, EStatus.breakPause].includes(statusType)) {
+        dispatch(addSecondWork(status))
+      }
 
       // Change this to 1000 milliseconds
     }, 10)))
@@ -42,25 +41,30 @@ export const Controls: FC = () => {
     dispatch(pauseTimer())
   }
 
-  const handleTimer = (statusType: EStatus) => {
+  const handleTimer = (statusType: EStatus, isWorking: boolean) => {
+    if (!isWorking) {
+      handleStart(statusType)
+      return
+    }
+
     switch (statusType) {
       case EStatus.breakPause:
       case EStatus.workPause:
-        handleStart()
+        handleStart(statusType)
         break;
       case EStatus.break:
       case EStatus.work:
         handlePause()
         break;
       default:
-        handleStart()
+        handleStart(statusType)
         break;
     }
   }
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={() => handleTimer(status)}>{startBtnText}</Btn>
+      <Btn onClick={() => handleTimer(status, working)}>{getIncription(status, working)}</Btn>
       <StopBtn />
     </div>
   );

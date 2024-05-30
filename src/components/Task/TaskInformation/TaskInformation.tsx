@@ -18,6 +18,10 @@ export const TaskInformation: FC<TaskInformationProps> = ({ todo }) => {
   const [descr, setDescr] = useState<string>(`Помидор ${currentTomato}`)
 
   useEffect(() => {
+    console.log(currentTomato)
+  }, [currentTomato])
+
+  useEffect(() => {
     if (currentTomato > tomatos) {
       dispatch(removeTodo(id))
       dispatch(resetTimer())

@@ -11,6 +11,7 @@ export enum EStatus {
 
 type InitialTimerState = {
   started: boolean
+  working: boolean
   status: EStatus
   timerId: number | null
   time: number
@@ -19,6 +20,7 @@ type InitialTimerState = {
 
 const initialState: InitialTimerState = {
   started: false,
+  working: false,
   status: EStatus.nothing,
   timerId: null,
   time: WORK_TIME,
@@ -31,6 +33,7 @@ const timerSlice = createSlice({
   reducers: {
     startTimer: (state) => {
       state.started = true
+      state.working = true
       if ([EStatus.nothing, EStatus.workPause].includes(state.status)) {
         state.status = EStatus.work
       } else {
@@ -49,10 +52,13 @@ const timerSlice = createSlice({
           state.currentTomato++
           state.time = state.currentTomato === 5 ? LONG_BREAK_TIME : BREAK_TIME
           state.status = EStatus.break
+          clearInterval(state.timerId!)
+          state.working = false
         } else {
           state.time = WORK_TIME
           state.status = EStatus.nothing
           clearInterval(state.timerId!)
+          state.working = false
         }
       }
     },
@@ -70,8 +76,7 @@ const timerSlice = createSlice({
     },
     stopTimer: (state) => {
       clearInterval(state.timerId!)
-
-      state.started = false
+      state.working = false
       state.status = EStatus.nothing
       state.time = WORK_TIME
     },
@@ -79,13 +84,15 @@ const timerSlice = createSlice({
       state.time = WORK_TIME
       state.status = EStatus.nothing
       clearInterval(state.timerId!)
+      state.working = false
     },
     resetTimer: (state) => {
       clearInterval(state.timerId!)
-      state.timerId = null;
+      state.timerId = null
       state.started = false
-      state.status = EStatus.nothing
+      state.working = false
       state.time = WORK_TIME
+      state.status = EStatus.nothing
       state.currentTomato = 1
     }
   }
