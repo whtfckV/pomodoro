@@ -3,7 +3,7 @@ import { Container } from "../Container";
 import { Logo } from "./Logo";
 import { Statistic } from "./StatisticLink";
 import { useLocation } from "react-router-dom";
-import { STATISTICS } from "src/routes/StatisticsPage";
+import { STATISTICS } from "src/pages/StatisticsPage";
 import classNames from "classnames";
 import styles from "./Header.module.css";
 

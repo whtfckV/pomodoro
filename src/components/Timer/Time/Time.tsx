@@ -2,20 +2,20 @@ import { FC } from 'react';
 import { Btn, EType } from 'src/components/Btn';
 import { Text, EColor } from 'src/components/Text';
 import { getFormattedMinutes } from 'src/utils/ts/formattedMinutes';
-import { useAppDispatch, useAppSelector } from 'src/store/hooks';
-import { EStatus, addTime } from 'src/store/timerSlice';
-import styles from "./Time.module.css";
 import Plus from 'src/assets/icons/plus.svg?react';
+import { useAppSelector } from 'src/store/hooks';
+import { EStatus } from 'src/store/timerSlice';
+import styles from "./Time.module.css";
 
-export const Time: FC = () => {
-  const { time, status } = useAppSelector(state => state.timer)
-  const dispatch = useAppDispatch()
+type tPropsTime = {
+  time: number;
+  addTime: () => void;
+}
 
-  const handleClick = () => {
-    dispatch(addTime())
-  }
+export const Time: FC<tPropsTime> = ({ time, addTime }) => {
+  const status = useAppSelector(store => store.timer.status)
 
-  const getTextStyle = () => {
+  const getTextStyle = (status: EStatus) => {
     switch (status) {
       case EStatus.work:
         return EColor.red
@@ -27,9 +27,9 @@ export const Time: FC = () => {
   }
 
   return (
-    <div className={styles.time}>
-      <Text size={150} color={getTextStyle()} weight={200} transition={true} >{getFormattedMinutes(time)}</Text>
-      <Btn onClick={handleClick} styleType={EType.iconOnly} className={styles.btn}>
+    <div>
+      <Text size={150} color={getTextStyle(status)} weight={200} transition={true} >{getFormattedMinutes(time)}</Text>
+      <Btn onClick={addTime} styleType={EType.iconOnly} className={styles.btn}>
         <Plus />
       </Btn>
     </div>

@@ -1,11 +1,7 @@
-.time {
-  position: relative;
-}
-
 .btn {
   position: absolute;
-  top: 50%;
-  left: calc(100% + 25px);
+  top: calc(70px + 112.5px);
+  right: 102px;
   translate: 0 -50%;
 }
 

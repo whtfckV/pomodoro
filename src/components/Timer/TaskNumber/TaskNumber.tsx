@@ -9,7 +9,7 @@ export const TaskNumber: FC = () => {
   return (
     <span className={styles.taskNumber}>
       <Text size={16} weight={400} color={EColor.grey}>Задача 1 - </Text>
-      <Text size={16} weight={400} color={EColor.black}>{todo?.name || 'no'}</Text>
+      <Text size={16} weight={400} color={EColor.black}>{todo?.name}</Text>
     </span>
   );
 };

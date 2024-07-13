@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { MAIN, Main } from "./routes/MainPage";
-import { ErrorPage } from "./routes/ErrorPage";
-import { STATISTICS, StatisticsPage } from "./routes/StatisticsPage";
+import { MAIN, Main } from "./pages/MainPage";
+import { ErrorPage } from "./pages/ErrorPage";
+import { STATISTICS, StatisticsPage } from "./pages/StatisticsPage";
 
 const router = createBrowserRouter([
   {
