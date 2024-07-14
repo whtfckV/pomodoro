@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { WORK_TIME } from "./constants";
 
 export enum EStatus {
   work = 'work',
@@ -13,9 +12,6 @@ type InitialTimerState = {
   isWorking: boolean
   isStarted: boolean
   isBreak: boolean
-  // status: EStatus
-  // timerId: number | null
-  time: number
   currentTomato: number
 }
 
@@ -23,9 +19,6 @@ const initialState: InitialTimerState = {
   isWorking: false,
   isStarted: false,
   isBreak: false,
-  // status: EStatus.nothing,
-  // timerId: null,
-  time: WORK_TIME,
   currentTomato: 1,
 }
 
@@ -42,6 +35,15 @@ const timerSlice = createSlice({
     setIsBreak: (state, action: PayloadAction<boolean>) => {
       state.isBreak = action.payload
     },
+    increaseCurrentTomato: (state) => {
+      state.currentTomato++
+    },
+    resetTimer: (state) => {
+      state.isStarted = false
+      state.isWorking = false
+      state.isBreak = false
+      state.currentTomato = 1
+    }
   }
 })
 
@@ -49,5 +51,7 @@ export const {
   setIsWorking,
   setIsStarted,
   setIsBreak,
+  increaseCurrentTomato,
+  resetTimer
 } = timerSlice.actions
 export default timerSlice.reducer
