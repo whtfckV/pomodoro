@@ -41,6 +41,20 @@
   background-color: var(--greyC4);
 }
 
+.brick {
+  border: 2px solid var(--teno-red);
+  color: var(--teno-red);
+  background-color: transparent;
+  transition-property: background-color, color;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+
+.brick:hover {
+  color: var(--white);
+  background-color: var(--teno-red);
+}
+
 .iconText {
   display: flex;
   align-items: center;

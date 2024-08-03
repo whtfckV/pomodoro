@@ -1,34 +1,36 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Btn, EType } from 'src/components/Btn';
 import { Text, EColor } from 'src/components/Text';
 import { getFormattedMinutes } from 'src/utils/ts/formattedMinutes';
 import Plus from 'src/assets/icons/plus.svg?react';
-import { useAppSelector } from 'src/store/hooks';
-import { EStatus } from 'src/store/timerSlice';
 import styles from "./Time.module.css";
 
 type tPropsTime = {
   time: number;
   addTime: () => void;
+  isWorking: boolean;
+  isBreak: boolean;
 }
 
-export const Time: FC<tPropsTime> = ({ time, addTime }) => {
-  const status = useAppSelector(store => store.timer.status)
+export const Time: FC<tPropsTime> = ({ time, addTime, isBreak, isWorking }) => {
+  const [color, setColor] = useState<EColor>(EColor.black)
 
-  const getTextStyle = (status: EStatus) => {
-    switch (status) {
-      case EStatus.work:
-        return EColor.red
-      case EStatus.break:
-        return EColor.green
-      default:
-        return EColor.black
+
+  useEffect(() => {
+    if (isWorking) {
+      if (isBreak) {
+        setColor(EColor.green)
+      } else {
+        setColor(EColor.red)
+      }
+    } else {
+      setColor(EColor.black)
     }
-  }
+  }, [isWorking, isBreak])
 
   return (
     <div>
-      <Text size={150} color={getTextStyle(status)} weight={200} transition={true} >{getFormattedMinutes(time)}</Text>
+      <Text size={150} color={color} weight={200} transition={true} >{getFormattedMinutes(time)}</Text>
       <Btn onClick={addTime} styleType={EType.iconOnly} className={styles.btn}>
         <Plus />
       </Btn>

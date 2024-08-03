@@ -1,28 +1,57 @@
-import { FC } from "react";
+import { FC, MouseEventHandler, useEffect, useState } from "react";
 import { Btn, EType } from "src/components/Btn";
+import { useAppSelector } from "src/store/hooks";
 
-
-type tStopBtnProps = {
-  isStarted: boolean
+type tHandlers = 'skip' | 'done' | 'stop' | 'nothing'
+type Props = {
+  stop: () => void;
+  skip: () => void;
+  done: () => void;
 }
 
-export const StopBtn: FC<tStopBtnProps> = ({ isStarted }) => {
-  // const activeTodoId = useAppSelector(state => state.todos.todos[0].id)
+export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
+  const { currentTomato, isBreak, isWorking, isStarted } = useAppSelector(state => state.timer)
+  const [styleType, setStyleType] = useState<EType>(EType.grey)
+  const [descr, setDescr] = useState('Стоп')
+  const [handleName, setHandleName] = useState<tHandlers>('stop')
 
-  // Повторяющийся код, не знаю как избавиться
-  // const getIncription = () => {
-  // switch (statusType) {
-  //   case EStatus.work:
-  //     return 'Стоп'
-  //   case EStatus.workPause:
-  //     return 'Сделано'
-  //   case EStatus.breakPause:
-  //   case EStatus.break:
-  //     return 'Пропустить'
-  //   default:
-  //     return 'Стоп'
-  // }
-  // }
+  useEffect(() => {
+    if (isStarted) {
+      setStyleType(EType.red)
+    } else if (currentTomato > 1) {
+      setStyleType(EType.brick)
+    } else {
+      setStyleType(EType.grey)
+    }
+    isStarted ? EType.red : EType.grey
+
+  }, [currentTomato, isStarted])
+
+  useEffect(() => {
+    if (isBreak) {
+      setDescr('Пропустить')
+      setHandleName('skip')
+      return
+    }
+    if (!isWorking && !isBreak && isStarted) {
+      setDescr('Сделано')
+      setHandleName('done')
+      return
+    }
+    if (!isStarted) {
+      setHandleName('nothing')
+    } else {
+      setHandleName('stop')
+    }
+    setDescr('Стоп')
+  }, [isBreak, isWorking, isStarted])
+
+  const handleClick: Record<tHandlers, MouseEventHandler<HTMLButtonElement>> = {
+    stop,
+    skip,
+    done,
+    nothing: () => { },
+  }
 
   // const handleStopTimer = () => {
   //   dispatch(stopTimer())
@@ -33,28 +62,9 @@ export const StopBtn: FC<tStopBtnProps> = ({ isStarted }) => {
   //   dispatch(resetTimer())
   // }
 
-  // const handleSkip = () => {
-  //   dispatch(skipPause())
-  // }
 
-  const handleStop = () => {
-    // switch (statusType) {
-    //   case EStatus.work:
-    //     handleStopTimer()
-    //     break;
-    //   case EStatus.workPause:
-    //     handleDone()
-    //     break;
-    //   case EStatus.break:
-    //   case EStatus.breakPause:
-    //     handleSkip()
-    //     break;
-    //   default:
-    //     break;
-    // }
-  }
 
   return (
-    <Btn onClick={() => handleStop()} styleType={isStarted ? EType.red : EType.grey}>Стоп</Btn>
+    <Btn onClick={handleClick[handleName]} styleType={styleType}>{descr}</Btn>
   );
 };

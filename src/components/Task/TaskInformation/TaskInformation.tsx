@@ -16,16 +16,16 @@ export const TaskInformation: FC<TaskInformationProps> = ({ todo }) => {
   const [bg, setBg] = useState<string>('')
 
   useEffect(() => {
-    if (!isStarted) {
-      setBg('')
-      return
-    }
     if (isBreak) {
       setBg(styles.break)
       setDescr(`Перерыв ${currentTomato}`)
     } else {
       setDescr(`Помидор ${currentTomato}`)
       setBg(styles.work)
+    }
+    if (!isStarted) {
+      setBg('')
+      return
     }
   }, [isBreak, isStarted, currentTomato])
 

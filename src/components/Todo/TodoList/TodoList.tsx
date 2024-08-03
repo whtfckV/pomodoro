@@ -23,7 +23,7 @@ export const TodoList: FC = () => {
       editHandler={editHandler}
       handler={handler}
     />,
-    className: styles.item
+    className: styles.item,
   })
 
   return (

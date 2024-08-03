@@ -5,7 +5,13 @@ import styles from './Controls.module.css'
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { setIsStarted, setIsWorking } from "src/store/timerSlice";
 
-export const Controls: FC = () => {
+type Props = {
+  stop: () => void;
+  skip: () => void;
+  done: () => void;
+}
+
+export const Controls: FC<Props> = ({ stop, skip, done }) => {
   const [btnDescr, setBtnDescr] = useState('Старт');
   const { isWorking, isStarted } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
@@ -23,7 +29,7 @@ export const Controls: FC = () => {
 
   }, [isStarted, isWorking])
 
-  const handleTimer = () => {
+  const handleClick = () => {
     if (!isStarted) {
       dispatch(setIsStarted(true))
     }
@@ -33,8 +39,8 @@ export const Controls: FC = () => {
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={() => handleTimer()}>{btnDescr}</Btn>
-      <StopBtn isStarted={isStarted} />
+      <Btn onClick={() => handleClick()}>{btnDescr}</Btn>
+      <StopBtn stop={stop} skip={skip} done={done} />
     </div>
   );
 };

@@ -2,6 +2,7 @@
   position: absolute;
   top: calc(70px + 112.5px);
   right: 102px;
+  border-radius: 50px;
   translate: 0 -50%;
 }
 
