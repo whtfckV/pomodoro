@@ -8,7 +8,7 @@ import { addTodo } from 'src/store/todoSlice';
 
 const createTodo = (name: string) => ({
   name: name,
-  tomatos: 1
+  tomatoes: 1
 })
 
 export const TodoForm: FC = () => {

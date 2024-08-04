@@ -17,7 +17,7 @@ interface ITodoItemProps extends Todo {
   editHandler: (option: string | null) => void
 }
 
-export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatos, id, opened, handler, edit, editHandler }) => {
+export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatoes, id, opened, handler, edit, editHandler }) => {
   const [confirm, setConfirm] = useState<boolean>(false)
   const dispatch = useAppDispatch()
 
@@ -38,12 +38,12 @@ export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatos, id, opened, h
 
   return (
     <>
-      <Tomatoes tomatoCount={tomatos} />
+      <Tomatoes tomatoCount={tomatoes} />
       <TodoName id={id} name={name} edit={edit === id} editTitle={editTitle} disabledInput={disabledInput} />
       <DotsBtn dropDownClass={styles.dropdown} isOpened={opened === id} handler={handler} id={id}>
         <TodoMenu
           id={id}
-          tomatos={tomatos}
+          tomatoes={tomatoes}
           editTitle={editTitle}
           deleteTodo={() => setConfirm(true)}
         />

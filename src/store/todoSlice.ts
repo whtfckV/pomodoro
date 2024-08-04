@@ -5,7 +5,7 @@ import { MINUTES_PER_TOMATO, ONE_MINUTE } from './constants';
 
 export type Todo = {
   name: string
-  tomatos: number
+  tomatoes: number
   id: string
 }
 
@@ -31,12 +31,12 @@ const todoSlice = createSlice({
   reducers: {
     addTodo(state, action: PayloadAction<Todo>) {
       state.todos.push(action.payload)
-      state.fullTime += action.payload.tomatos * MINUTES_PER_TOMATO * ONE_MINUTE
+      state.fullTime += action.payload.tomatoes * MINUTES_PER_TOMATO * ONE_MINUTE
     },
     removeTodo(state, action: PayloadAction<string>) {
       state.todos = state.todos.filter(todo => {
         if (todo.id === action.payload) {
-          state.fullTime -= todo.tomatos * MINUTES_PER_TOMATO * ONE_MINUTE
+          state.fullTime -= todo.tomatoes * MINUTES_PER_TOMATO * ONE_MINUTE
           return false
         } else {
           return true
@@ -53,7 +53,7 @@ const todoSlice = createSlice({
       const changeTodo = state.todos.find(todo => todo.id === action.payload)
 
       if (!changeTodo) return
-      changeTodo.tomatos++
+      changeTodo.tomatoes++
       state.fullTime += MINUTES_PER_TOMATO * ONE_MINUTE
 
     },
@@ -61,11 +61,21 @@ const todoSlice = createSlice({
       const changeTodo = state.todos.find(todo => todo.id === action.payload)
 
       if (!changeTodo) return
-      changeTodo.tomatos--
+      changeTodo.tomatoes--
       state.fullTime -= MINUTES_PER_TOMATO * ONE_MINUTE
     },
+    changeTodos(state, action: PayloadAction<Todo[]>) {
+      state.todos = action.payload
+    }
   }
 })
 
-export const { addTodo, removeTodo, changeName, increaseTomato, decreaseTomato } = todoSlice.actions
+export const {
+  addTodo,
+  removeTodo,
+  changeName,
+  increaseTomato,
+  decreaseTomato,
+  changeTodos
+} = todoSlice.actions
 export default todoSlice.reducer

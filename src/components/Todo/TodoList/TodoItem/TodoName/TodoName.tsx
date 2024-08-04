@@ -67,18 +67,21 @@ export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disable
   }
 
   return (
-    <label onDoubleClick={onDblclick} className={styles.label}>
-      <input
-        className={styles.input}
-        value={value}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-        disabled={!edit}
-        ref={ref}
-      />
-      {errorValue && <Error>Введите более 3-х символов</Error>}
-    </label>
+    <>
+      {!edit ? (
+        <label onDoubleClick={onDblclick} className={styles.label}>
+          {value}
+          {errorValue && <Error>Введите более 3-х символов</Error>}
+        </label>) : (
+        <input
+          className={styles.input}
+          value={value}
+          onChange={handleChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+          ref={ref}
+        />)}
+    </>
   )
 }

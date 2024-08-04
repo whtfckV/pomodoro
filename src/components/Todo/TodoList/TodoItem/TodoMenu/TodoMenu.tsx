@@ -12,7 +12,7 @@ import Delete from 'src/assets/icons/delete.svg?react'
 
 type TodoMenuProps = {
   id: string
-  tomatos: number
+  tomatoes: number
   editTitle: () => void
   deleteTodo: () => void
 }
@@ -31,7 +31,7 @@ const createBtn = ({ icon, name, disabled, onClick }: TBtn) => (
   </Btn>
 )
 
-export const TodoMenu: FC<TodoMenuProps> = memo(({ id, tomatos, editTitle, deleteTodo }) => {
+export const TodoMenu: FC<TodoMenuProps> = memo(({ id, tomatoes, editTitle, deleteTodo }) => {
   const dispatch = useAppDispatch()
 
   const handleIncrease = useCallback(() => {
@@ -61,7 +61,7 @@ export const TodoMenu: FC<TodoMenuProps> = memo(({ id, tomatos, editTitle, delet
     {
       icon: <Decrease />,
       name: 'Уменьшить',
-      disabled: tomatos === 1,
+      disabled: tomatoes === 1,
       onClick: handleDecrease,
     },
     {

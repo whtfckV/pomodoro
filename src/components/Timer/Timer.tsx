@@ -21,7 +21,7 @@ export const Timer: FC = () => {
   }
 
   useEffect(() => {
-    if (currentTomato > currentTask.tomatos) {
+    if (currentTomato > currentTask.tomatoes) {
       setTime(WORK_TIME)
       dispatch(removeTodo(currentTask.id))
       dispatch(resetTimer())

@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
 import { GenericList, GenericListItem } from "src/components/GenericLIst";
-import { generateId } from "src/utils/ts/GenerateRandomIndex";
 import { TodoItem } from "./TodoItem";
-import { Todo } from "src/store/todoSlice";
+import { changeTodos, Todo } from "src/store/todoSlice";
 import { useAppSelector } from "src/store/hooks";
 import styles from './TodoList.module.css'
+import { ReactSortable } from "react-sortablejs";
+import { useDispatch } from "react-redux";
 
 
 export const TodoList: FC = () => {
@@ -13,9 +14,11 @@ export const TodoList: FC = () => {
   const [edit, setEdit] = useState<string | null>(null)
   const handler = (option: string | null) => setOpened(option)
   const editHandler = (option: string | null) => setEdit(option)
+  const dispatch = useDispatch();
 
-  const createTodos = (todo: Todo): GenericListItem => generateId({
+  const createTodos = (todo: Todo): GenericListItem => ({
     As: 'li',
+    id: todo.id,
     element: <TodoItem
       {...todo}
       opened={opened}
@@ -26,13 +29,20 @@ export const TodoList: FC = () => {
     className: styles.item,
   })
 
+  const setTodos = (todosSortable: Todo[]) => {
+    console.log(todos)
+    console.log(todosSortable)
+    dispatch(changeTodos(todosSortable));
+  }
+
   return (
-    <>
-      {!!todos.length && (
-        <ul>
-          <GenericList list={todos.map(createTodos)} />
-        </ul>
-      )}
-    </>
+    <ReactSortable tag={'ul'} list={todos} setList={setTodos}>
+      {/* <ul> */}
+      <GenericList list={todos.map(createTodos)} />
+      {/* </ul> */}
+    </ReactSortable>
+    // {!!todos.length && (
+    // )}
+    // {/* </> */ }
   );
 }
