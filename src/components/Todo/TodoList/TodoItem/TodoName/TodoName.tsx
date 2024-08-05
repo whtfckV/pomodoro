@@ -25,7 +25,6 @@ export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disable
   }, [edit])
 
   const onDblclick = () => {
-    console.log('doubleClick')
     editTitle()
   }
 

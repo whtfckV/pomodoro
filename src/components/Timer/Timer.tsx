@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { TaskNumber } from "./TaskNumber";
 import { Time } from "./Time";
 import { Controls } from "./Controls";
@@ -7,18 +7,23 @@ import styles from './Timer.module.css'
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { increaseCurrentTomato, resetTimer, setIsBreak, setIsStarted, setIsWorking } from "src/store/timerSlice";
 import { removeTodo } from "src/store/todoSlice";
-import { addOneStop, addTomatoes, addWorkingTime } from "src/store/statisticsSlice";
+import { addBreakTime, addOneStop, addPauseBreakTime, addPauseWorkTime, addTomatoes, addWorkingTime } from "src/store/statisticsSlice";
 
 export const Timer: FC = () => {
   const [time, setTime] = useState(WORK_TIME)
-  const [workTimeWithPlus, setWorkTimeWithPlus] = useState(WORK_TIME);
+  const [pauseTime, setPauseTime] = useState(0);
+  const [timeWithPlus, setTimeWithPlus] = useState(WORK_TIME);
   const { isWorking, isBreak, currentTomato, isStarted } = useAppSelector(state => state.timer)
   const currentTask = useAppSelector(state => state.todos.todos[0])
   const dispatch = useAppDispatch()
 
   const tick = () => {
-    setTime(time => time - ONE_SECOND)
+    setTime(oldTime => oldTime - ONE_SECOND)
   }
+
+  const tickPause = useCallback(() => {
+    setPauseTime(oldPauseTime => oldPauseTime + ONE_SECOND)
+  }, [])
 
   useEffect(() => {
     if (currentTomato > currentTask.tomatoes) {
@@ -31,39 +36,53 @@ export const Timer: FC = () => {
   useEffect(() => {
     if (time === BREAK_TIME && !isWorking) {
       dispatch(setIsBreak(true))
+      dispatch(setIsStarted(false))
+
+      dispatch(addPauseWorkTime(pauseTime))
+      setPauseTime(0)
     }
     if (time === WORK_TIME && !isWorking) {
       dispatch(setIsBreak(false))
+
+      dispatch(addPauseBreakTime(pauseTime))
+      setPauseTime(0)
     }
-  }, [time, isWorking, dispatch])
+  }, [time, isWorking, dispatch, pauseTime])
 
   useEffect(() => {
     if (time === 0) {
       if (isBreak) {
         dispatch(increaseCurrentTomato())
-        dispatch(addWorkingTime(workTimeWithPlus))
+        dispatch(addBreakTime(timeWithPlus))
         dispatch(addTomatoes(1))
         dispatch(setIsStarted(false))
         setTime(WORK_TIME)
+        setTimeWithPlus(WORK_TIME)
       } else {
+        dispatch(addWorkingTime(timeWithPlus))
+        setTimeWithPlus(BREAK_TIME)
         setTime(BREAK_TIME)
       }
       dispatch(setIsWorking(false))
     }
-  }, [time, dispatch, isBreak, workTimeWithPlus])
+  }, [time, dispatch, isBreak, timeWithPlus])
 
   useEffect(() => {
     if (!isWorking) {
-      if (isStarted) {
-        // нужно считать где-то тут время на паузе
-        console.log('%cHERE', "color: yellow")
+      if (isStarted && !isBreak) {
+        const timerId = setInterval(tickPause, ONE_SECOND / 500)
+        return () => clearInterval(timerId)
+      }
+      if (isStarted && isBreak) {
+        const timerId = setInterval(tickPause, ONE_SECOND / 500)
+        return () => clearInterval(timerId)
       }
       return
     } else {
       const timerId = setInterval(tick, ONE_SECOND / 500)
       return () => clearInterval(timerId)
     }
-  }, [isWorking, dispatch, isBreak, time, isStarted])
+  }, [isWorking, dispatch, isBreak, time, isStarted, tickPause])
 
   const handleStop = () => {
     dispatch(setIsWorking(false))
@@ -83,8 +102,8 @@ export const Timer: FC = () => {
   }
 
   const handlePlus = () => {
-    setTime(time => time + ONE_MINUTE)
-    setWorkTimeWithPlus(allTime => allTime + ONE_MINUTE)
+    setTime(oldTime => oldTime + ONE_MINUTE)
+    setTimeWithPlus(allTime => allTime + ONE_MINUTE)
   }
 
   return (

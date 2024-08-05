@@ -18,14 +18,14 @@ export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
   useEffect(() => {
     if (isStarted) {
       setStyleType(EType.red)
-    } else if (currentTomato > 1) {
+    } else if (currentTomato > 1 && !isBreak) {
       setStyleType(EType.brick)
     } else {
       setStyleType(EType.grey)
     }
     isStarted ? EType.red : EType.grey
 
-  }, [currentTomato, isStarted])
+  }, [currentTomato, isStarted, isBreak])
 
   useEffect(() => {
     if (isBreak) {
@@ -52,17 +52,6 @@ export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
     done,
     nothing: () => { },
   }
-
-  // const handleStopTimer = () => {
-  //   dispatch(stopTimer())
-  // }
-
-  // const handleDone = () => {
-  //   dispatch(removeTodo(activeTodoId))
-  //   dispatch(resetTimer())
-  // }
-
-
 
   return (
     <Btn onClick={handleClick[handleName]} styleType={styleType}>{descr}</Btn>

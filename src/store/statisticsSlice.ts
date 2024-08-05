@@ -2,17 +2,21 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface IInitialStatisticsState {
   workingTime: number,
+  breakTime: number,
+  pauseWorkTime: number,
+  pauseBreakTime: number,
   totalTomatoes: number,
   focus: number,
-  pauseTime: number,
   stops: number
 }
 
 const initialState: IInitialStatisticsState = {
   workingTime: 0,
+  breakTime: 0,
+  pauseWorkTime: 0,
+  pauseBreakTime: 0,
   totalTomatoes: 0,
   focus: 0,
-  pauseTime: 0,
   stops: 0
 }
 
@@ -28,9 +32,25 @@ const statisticsSlice = createSlice({
     },
     addOneStop: (state) => {
       state.stops += 1
-    }
+    },
+    addPauseWorkTime: (state, action: PayloadAction<number>) => {
+      state.pauseWorkTime += action.payload;
+    },
+    addPauseBreakTime: (state, action: PayloadAction<number>) => {
+      state.pauseBreakTime += action.payload;
+    },
+    addBreakTime: (state, action: PayloadAction<number>) => {
+      state.breakTime += action.payload;
+    },
   }
 })
 
-export const { addWorkingTime, addTomatoes, addOneStop } = statisticsSlice.actions;
+export const {
+  addWorkingTime,
+  addTomatoes,
+  addOneStop,
+  addPauseWorkTime,
+  addPauseBreakTime,
+  addBreakTime
+} = statisticsSlice.actions;
 export default statisticsSlice.reducer

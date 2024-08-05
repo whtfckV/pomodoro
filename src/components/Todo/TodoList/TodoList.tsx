@@ -30,8 +30,6 @@ export const TodoList: FC = () => {
   })
 
   const setTodos = (todosSortable: Todo[]) => {
-    console.log(todos)
-    console.log(todosSortable)
     dispatch(changeTodos(todosSortable));
   }
 
