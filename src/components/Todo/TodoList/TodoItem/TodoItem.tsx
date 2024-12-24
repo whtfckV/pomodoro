@@ -13,21 +13,19 @@ import styles from './TodoItem.module.css'
 interface ITodoItemProps extends Todo {
   opened: string | null
   handler: (option: string | null) => void
-  edit: string | null
-  editHandler: (option: string | null) => void
+  // edit: string | null
+  // editHandler: (option: string | null) => void
 }
 
-export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatoes, id, opened, handler, edit, editHandler }) => {
-  const [confirm, setConfirm] = useState<boolean>(false)
+export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatoes, id, opened, handler }) => {
   const dispatch = useAppDispatch()
+  const [confirm, setConfirm] = useState<boolean>(false)
+  const [edit, setEdit] = useState<boolean>(false)
 
-  const editTitle = () => {
-    editHandler(id)
+  const editTitle = (bool: boolean) => {
+    // editHandler(id)
     handler(null)
-  }
-
-  const disabledInput = () => {
-    editHandler(null)
+    setEdit(bool)
   }
 
   const deleteTodo = () => {
@@ -39,7 +37,7 @@ export const TodoItem: FC<ITodoItemProps> = memo(({ name, tomatoes, id, opened, 
   return (
     <>
       <Tomatoes tomatoCount={tomatoes} />
-      <TodoName id={id} name={name} edit={edit === id} editTitle={editTitle} disabledInput={disabledInput} />
+      <TodoName id={id} name={name} edit={edit} editTitle={editTitle} />
       <DotsBtn dropDownClass={styles.dropdown} isOpened={opened === id} handler={handler} id={id}>
         <TodoMenu
           id={id}

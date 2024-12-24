@@ -25,13 +25,20 @@ export const Timer: FC = () => {
     setPauseTime(oldPauseTime => oldPauseTime + ONE_SECOND)
   }, [])
 
+  const resetTimerState = useCallback(() => {
+    setTime(WORK_TIME);
+    setTimeWithPlus(WORK_TIME);
+    dispatch(setIsBreak(false));
+    setPauseTime(0);
+  }, [dispatch]);
+
   useEffect(() => {
     if (currentTomato > currentTask.tomatoes) {
-      setTime(WORK_TIME)
+      resetTimerState()
       dispatch(removeTodo(currentTask.id))
       dispatch(resetTimer())
     }
-  }, [currentTomato, currentTask, dispatch])
+  }, [currentTomato, currentTask, dispatch, resetTimerState])
 
   useEffect(() => {
     if (time === BREAK_TIME && !isWorking) {
@@ -41,13 +48,13 @@ export const Timer: FC = () => {
       dispatch(addPauseWorkTime(pauseTime))
       setPauseTime(0)
     }
-    if (time === WORK_TIME && !isWorking) {
+    if (time === WORK_TIME && !isWorking && !isBreak && isStarted) {
       dispatch(setIsBreak(false))
 
       dispatch(addPauseBreakTime(pauseTime))
       setPauseTime(0)
     }
-  }, [time, isWorking, dispatch, pauseTime])
+  }, [time, isWorking, dispatch, pauseTime, isBreak, isStarted])
 
   useEffect(() => {
     if (time === 0) {
@@ -82,23 +89,31 @@ export const Timer: FC = () => {
       const timerId = setInterval(tick, ONE_SECOND / 500)
       return () => clearInterval(timerId)
     }
-  }, [isWorking, dispatch, isBreak, time, isStarted, tickPause])
+  }, [isWorking, isBreak, isStarted, tickPause])
 
   const handleStop = () => {
     dispatch(setIsWorking(false))
     dispatch(setIsStarted(false))
     dispatch(addOneStop())
-    setTime(WORK_TIME)
+    dispatch(addWorkingTime(timeWithPlus - time))
+    dispatch(addPauseWorkTime(pauseTime))
+    resetTimerState()
   }
 
   const handleSkipPause = () => {
-    setTime(0)
+    dispatch(addBreakTime(timeWithPlus - time))
+    dispatch(addPauseBreakTime(pauseTime))
+    dispatch(increaseCurrentTomato())
+    dispatch(addTomatoes(1))
+    dispatch(setIsStarted(false))
+    dispatch(setIsBreak(false))
+    resetTimerState()
   }
 
   const handleDone = () => {
     dispatch(removeTodo(currentTask.id))
     dispatch(resetTimer())
-    setTime(WORK_TIME)
+    resetTimerState()
   }
 
   const handlePlus = () => {

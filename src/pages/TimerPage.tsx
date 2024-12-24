@@ -1,19 +1,18 @@
 import { FC, useEffect } from 'react'
-import { Header } from 'src/components/Header'
-import { Outlet } from 'react-router-dom'
+import { MainTitle } from 'src/components/MainTitle'
+import { Home } from 'src/components/Home'
 
 export const MAIN = '/'
 
-export const Main: FC = () => {
-
+export const TimerPage: FC = () => {
   useEffect(() => {
     document.title = 'Pomodoro_box — Главная'
   }, [])
 
   return (
     <>
-      <Header />
-      <Outlet />
+      <MainTitle />
+      <Home />
     </>
   )
 }

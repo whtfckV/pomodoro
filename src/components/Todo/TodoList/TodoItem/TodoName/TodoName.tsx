@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, KeyboardEvent, useEffect, useRef, useState, } from "react";
-import { useAppDispatch } from "src/store/hooks";
+import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { changeName } from "src/store/todoSlice";
 import { Error } from "src/components/Error";
 import styles from './TodoName.module.css';
@@ -8,15 +8,15 @@ type TodoNameProps = {
   id: string
   name: string
   edit: boolean
-  editTitle: () => void
-  disabledInput: () => void
+  editTitle: (bool: boolean) => void
 }
 
-export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disabledInput }) => {
+export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle }) => {
+  const dispatch = useAppDispatch()
+  const { todos } = useAppSelector(state => state.todos)
   const [value, setValue] = useState<string>(name)
   const ref = useRef<HTMLInputElement>(null)
-  const dispatch = useAppDispatch()
-  const [errorValue, setErrorValue] = useState<boolean>()
+  const [error, setError] = useState<string>()
 
   useEffect(() => {
     if (edit) {
@@ -25,28 +25,33 @@ export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disable
   }, [edit])
 
   const onDblclick = () => {
-    editTitle()
+    editTitle(true)
   }
 
   const updateName = () => {
-    disabledInput()
-    dispatch(changeName({ id, value }))
-    setErrorValue(false)
+    editTitle(false)
+    setError('')
+    if (value !== name) {
+      dispatch(changeName({ id, value }))
+    }
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (value.length < 3) {
-      setErrorValue(true)
-      return
-    }
-
     if (e.key === 'Enter') {
-      ref.current?.blur()
+      if (value.length < 3) {
+        setError('Введите больше 3-х символов')
+        return
+      }
+      if (todos.find(todo => todo.name === value && todo.id !== id)) {
+        setError('Такая задача уже существует')
+        return
+      }
       updateName()
     }
   }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError('')
     setValue(e.target.value)
   }
 
@@ -55,8 +60,14 @@ export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disable
   }
 
   const handleBlur = () => {
-    if (value.length < 4) {
-      setErrorValue(true)
+    if (value.length < 3) {
+      setError('Введите больше 3-х символов')
+      ref.current?.focus()
+      ref.current?.setSelectionRange(ref.current?.value.length, ref.current?.value.length)
+      return
+    }
+    if (todos.find(todo => todo.name === value && todo.id !== id)) {
+      setError('Такая задача уже существует')
       ref.current?.focus()
       ref.current?.setSelectionRange(ref.current?.value.length, ref.current?.value.length)
       return
@@ -67,20 +78,22 @@ export const TodoName: FC<TodoNameProps> = ({ id, name, edit, editTitle, disable
 
   return (
     <>
-      {!edit ? (
-        <label onDoubleClick={onDblclick} className={styles.label}>
-          {value}
-          {errorValue && <Error>Введите более 3-х символов</Error>}
-        </label>) : (
-        <input
-          className={styles.input}
-          value={value}
-          onChange={handleChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          ref={ref}
-        />)}
+      <label onDoubleClick={onDblclick} className={styles.label}>
+        {edit ?
+          <input
+            className={styles.input}
+            value={value}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyDown}
+            ref={ref}
+            aria-invalid={!!error}
+          /> :
+          <span className={styles.name}>{name}</span>
+        }
+        {!!error && <Error>{error}</Error>}
+      </label>
     </>
   )
 }

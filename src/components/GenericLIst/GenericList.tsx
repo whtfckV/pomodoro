@@ -21,7 +21,7 @@ export const GenericList: FC<GenericListProps> = ({ list }) => {
   return (
     <>
       {list.map(({ id, As = 'li', onClick = NOOP, className, href, element }) => (
-        <As className={className} onClick={() => onClick(id)} href={href} key={id}> {/* вызажение не является вызываемым ts(2349) */}
+        <As className={className} onClick={() => onClick(id)} href={href} key={id}>
           {element}
         </As>
       ))}

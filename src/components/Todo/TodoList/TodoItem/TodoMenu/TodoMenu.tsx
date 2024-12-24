@@ -13,7 +13,7 @@ import Delete from 'src/assets/icons/delete.svg?react'
 type TodoMenuProps = {
   id: string
   tomatoes: number
-  editTitle: () => void
+  editTitle: (bool: boolean) => void
   deleteTodo: () => void
 }
 
@@ -44,7 +44,7 @@ export const TodoMenu: FC<TodoMenuProps> = memo(({ id, tomatoes, editTitle, dele
 
   const handleEdit = useCallback((e: MouseEvent) => {
     e.stopPropagation()
-    editTitle()
+    editTitle(true)
   }, [editTitle])
 
   const handleDelete = useCallback((e: MouseEvent) => {

@@ -6,7 +6,7 @@ import styles from './Dropdown.module.css'
 export type DropdownProps = {
   children: ReactNode;
   className?: string;
-  onClose?: () => void;
+  onClose?: (btn: Node | null) => void;
   button: HTMLButtonElement | null;
 }
 
@@ -16,7 +16,7 @@ export const Dropdown: FC<DropdownProps> = ({ children, className, onClose, butt
   useEffect(() => {
     const handleClickDoc = (event: MouseEvent) => {
       if (event.target instanceof Node && !ref.current?.contains(event.target) && !button?.contains(event.target)) {
-        onClose?.()
+        onClose?.(event.target)
       }
     }
 

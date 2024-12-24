@@ -1,41 +1,41 @@
 import { ChangeEvent, FC, SyntheticEvent, useState } from 'react';
 import { Btn } from 'src/components/Btn';
-import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 import { Error } from 'src/components/Error';
 import styles from './TodoForm.module.css';
-import { useAppDispatch } from 'src/store/hooks';
+import { useAppDispatch, useAppSelector } from 'src/store/hooks';
 import { addTodo } from 'src/store/todoSlice';
 
-const createTodo = (name: string) => ({
-  name: name,
-  tomatoes: 1
-})
-
 export const TodoForm: FC = () => {
+  const dispatch = useAppDispatch()
+  const { todos } = useAppSelector(state => state.todos)
   const [value, setValue] = useState<string>('')
   const [touched, setTouched] = useState<boolean>(false)
   const [valueError, setValueError] = useState<string>('')
-  const dispatch = useAppDispatch()
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (valueError) setValueError('')
     setValue(e.target.value)
   }
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     setTouched(true)
-    setValueError(validate())
 
     if (validate()) return
 
-    dispatch(addTodo(generateId(createTodo(value))))
+    dispatch(addTodo(value))
     setValue('')
     setTouched(false)
   }
 
   const validate = () => {
-    if (value.length <= 3) return 'Введите больше 3-х символов'
-    return ''
+    let error = '';
+    if (value.length <= 3) error = 'Введите больше 3-х символов'
+    if (value.length > 15) error = 'Введите меньше 15-ти символов'
+    if (!value) error = 'Введите название задачи'
+    if (todos.find(todo => todo.name === value)) error = 'Такая задача уже существует'
+    setValueError(error)
+    return error
   }
 
   return (

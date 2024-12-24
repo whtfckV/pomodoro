@@ -6,9 +6,7 @@ import StopsIcon from '../../assets/icons/stops_icon.svg?react';
 import styles from './Stops.module.css'
 import classNames from 'classnames';
 
-interface IStops { }
-
-export const Stops: FC<IStops> = () => {
+export const Stops: FC = () => {
   const { stops } = useAppSelector(state => state.statistics)
 
   return (

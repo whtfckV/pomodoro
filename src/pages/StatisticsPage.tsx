@@ -1,5 +1,4 @@
 import { FC, useEffect } from "react"
-import { Header } from "src/components/Header"
 import { MainTitle } from "src/components/MainTitle"
 import { Statistics } from "src/components/Statistics"
 
@@ -13,7 +12,6 @@ export const StatisticsPage: FC = () => {
 
   return (
     <>
-      <Header />
       <MainTitle />
       <Statistics />
     </>

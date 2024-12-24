@@ -23,7 +23,7 @@ export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
     } else {
       setStyleType(EType.grey)
     }
-    isStarted ? EType.red : EType.grey
+    // isStarted ? EType.red : EType.grey
 
   }, [currentTomato, isStarted, isBreak])
 

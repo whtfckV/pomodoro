@@ -6,9 +6,7 @@ import { useAppSelector } from "src/store/hooks"
 import styles from "./Focus.module.css";
 import classNames from "classnames";
 
-interface IFocus { }
-
-export const Focus: FC<IFocus> = () => {
+export const Focus: FC = () => {
   const { focus } = useAppSelector(state => state.statistics)
 
   return (

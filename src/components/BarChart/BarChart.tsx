@@ -3,9 +3,7 @@ import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './BarChart.module.css'
 import classNames from "classnames"
 
-interface IBarChart { }
-
-export const BarChart: FC<IBarChart> = () => {
+export const BarChart: FC = () => {
   return (
     <GridComponent gridClass={classNames('widget', styles.bar)}>
       BAAR

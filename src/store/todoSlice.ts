@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MINUTES_PER_TOMATO, ONE_MINUTE } from './constants';
+import { generateId } from 'src/utils/ts/GenerateRandomIndex';
 
 
 export type Todo = {
@@ -29,9 +30,13 @@ const todoSlice = createSlice({
   name: 'todos',
   initialState,
   reducers: {
-    addTodo(state, action: PayloadAction<Todo>) {
-      state.todos.push(action.payload)
-      state.fullTime += action.payload.tomatoes * MINUTES_PER_TOMATO * ONE_MINUTE
+    addTodo(state, action: PayloadAction<string>) {
+      const newTodo: Todo = generateId({
+        name: action.payload,
+        tomatoes: 1,
+      })
+      state.todos.push(newTodo)
+      state.fullTime += newTodo.tomatoes * MINUTES_PER_TOMATO * ONE_MINUTE
     },
     removeTodo(state, action: PayloadAction<string>) {
       state.todos = state.todos.filter(todo => {

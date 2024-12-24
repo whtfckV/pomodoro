@@ -20,13 +20,20 @@ export const DotsBtn: FC<DotsBtnProps> = ({ children, dropDownClass, isOpened, h
     setDropdownOpen(!!isOpened)
   }, [isOpened])
 
-  const handleClick = () => {
-    handler(isOpened ? null : id);
+  const handleClick = (target: Node | null) => {
+    if (target === ref.current || !target?.contains(ref.current)) {
+      return
+    }
+    handler(null);
+  }
+
+  const handleMenuOpen = () => {
+    handler(id)
   }
 
   return (
     <>
-      <Btn styleType={EType.iconOnly} className={styles.btn} onClick={handleClick} ref={ref}>
+      <Btn styleType={EType.iconOnly} className={styles.btn} onClick={handleMenuOpen} ref={ref}>
         <Dots />
       </Btn>
       {isDropdownOpen && (

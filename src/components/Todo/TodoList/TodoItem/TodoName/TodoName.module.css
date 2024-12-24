@@ -1,6 +1,10 @@
 .label {
   position: relative;
+  display: flex;
   flex-grow: 1;
+}
+
+.name {
   padding: 4px 5px;
 }
 
@@ -11,8 +15,13 @@
   background-color: var(--greyF4);
   color: var(--black);
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 17px;
+  transition: background-color .3s ease;
+}
+
+.input[aria-invalid=true] {
+  background-color: #ff6969a0;
 }
 
 .input:focus {
