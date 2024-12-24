@@ -31,6 +31,7 @@ const timerSlice = createSlice({
     },
     setIsStarted: (state, action: PayloadAction<boolean>) => {
       state.isStarted = action.payload
+      state.isWorking = action.payload
     },
     setIsBreak: (state, action: PayloadAction<boolean>) => {
       state.isBreak = action.payload
@@ -44,7 +45,10 @@ const timerSlice = createSlice({
       state.isBreak = false
       state.currentTomato = 1
     }
-  }
+  },
+  // extraReducers: builder => {
+  //   builder.addCase(stat)
+  // }
 })
 
 export const {

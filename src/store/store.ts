@@ -2,7 +2,7 @@ import { configureStore, Middleware } from "@reduxjs/toolkit";
 import {createLogger} from "redux-logger";
 import todoReducer from "./todoSlice";
 import timerReducer from "./timerSlice";
-import statisticsSlice from "./statisticsSlice";
+import statisticReduser from "./statisticsSlice";
 
 const logger = createLogger()
 
@@ -10,7 +10,7 @@ export const store = configureStore({
   reducer: {
     todos: todoReducer,
     timer: timerReducer,
-    statistics: statisticsSlice,
+    statistics: statisticReduser,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger as Middleware),
 });

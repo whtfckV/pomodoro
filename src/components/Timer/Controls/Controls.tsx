@@ -32,14 +32,14 @@ export const Controls: FC<Props> = ({ stop, skip, done }) => {
   const handleClick = () => {
     if (!isStarted) {
       dispatch(setIsStarted(true))
+    } else {
+      dispatch(setIsWorking(!isWorking));
     }
-
-    dispatch(setIsWorking(!isWorking));
   }
 
   return (
     <div className={styles.controls}>
-      <Btn onClick={() => handleClick()}>{btnDescr}</Btn>
+      <Btn onClick={handleClick}>{btnDescr}</Btn>
       <StopBtn stop={stop} skip={skip} done={done} />
     </div>
   );

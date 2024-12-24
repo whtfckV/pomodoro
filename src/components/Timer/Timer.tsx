@@ -9,13 +9,16 @@ import { increaseCurrentTomato, resetTimer, setIsBreak, setIsStarted, setIsWorki
 import { removeTodo } from "src/store/todoSlice";
 import { addBreakTime, addOneStop, addPauseBreakTime, addPauseWorkTime, addTomatoes, addWorkingTime } from "src/store/statisticsSlice";
 
+// ЗАПИСЫВАТЬ ОТРАБОТАННОЕ ВРЕМЯ В ОТДЕЛЬНЫЙ СТЕЙТ
+// ДЕРЖАТЬ ВРЕМЯ КОТОРОЕ ТИКАЕТ С ПЛЮСОМ В time
+// ТОГДА ВСЕ БУДЕТ РАБОТАТЬ НОМРАЛЬНО И СОБИРАТЬСЯ КОРРЕКТНАЯ СТАТИСТИКА
 export const Timer: FC = () => {
+  const dispatch = useAppDispatch()
   const [time, setTime] = useState(WORK_TIME)
-  const [pauseTime, setPauseTime] = useState(0);
-  const [timeWithPlus, setTimeWithPlus] = useState(WORK_TIME);
+  const [pauseTime, setPauseTime] = useState(0)
+  const [timeWithPlus, setTimeWithPlus] = useState(WORK_TIME)
   const { isWorking, isBreak, currentTomato, isStarted } = useAppSelector(state => state.timer)
   const currentTask = useAppSelector(state => state.todos.todos[0])
-  const dispatch = useAppDispatch()
 
   const tick = () => {
     setTime(oldTime => oldTime - ONE_SECOND)
@@ -58,6 +61,7 @@ export const Timer: FC = () => {
 
   useEffect(() => {
     if (time === 0) {
+      dispatch(setIsWorking(false))
       if (isBreak) {
         dispatch(increaseCurrentTomato())
         dispatch(addBreakTime(timeWithPlus))
@@ -70,7 +74,6 @@ export const Timer: FC = () => {
         setTimeWithPlus(BREAK_TIME)
         setTime(BREAK_TIME)
       }
-      dispatch(setIsWorking(false))
     }
   }, [time, dispatch, isBreak, timeWithPlus])
 
