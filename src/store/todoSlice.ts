@@ -33,7 +33,7 @@ const todoSlice = createSlice({
     addTodo(state, action: PayloadAction<string>) {
       const newTodo: Todo = generateId({
         name: action.payload,
-        tomatoes: 1,
+        tomatoes: 10,
       })
       state.todos.push(newTodo)
       state.fullTime += newTodo.tomatoes * MINUTES_PER_TOMATO * ONE_MINUTE

@@ -32,13 +32,10 @@ export const Controls: FC<Props> = ({ stop, skip, done }) => {
   const handleClick = () => {
     if (!isStarted) {
       dispatch(start())
-      // setBtnDescr('Пауза')
     } else if (!isPause) {
       dispatch(pause())
-      // setBtnDescr('Продолжить')
     } else {
       dispatch(contin())
-      // setBtnDescr('Пауза')
     }
   }
 

@@ -33,12 +33,20 @@ const timerSlice = createSlice({
     pause: (state) => {
       state.isPause = true
     },
+    stopTimer: (state) => {
+      state.isStarted = false
+    },
     contin: (state) => {
       state.isPause = false
     },
     startBreak: (state) => {
-      state.isPause = true
       state.isBreak = true
+      state.isStarted = false
+    },
+    nextTomato: (state) => {
+      state.currentTomato++
+      state.isBreak = false
+      state.isStarted = false
     },
     // setIsWorking: (state, action: PayloadAction<boolean>) => {
     //   state.isWorking = action.payload
@@ -68,8 +76,10 @@ const timerSlice = createSlice({
 export const {
   start,
   pause,
+  stopTimer,
   contin,
   startBreak,
+  nextTomato,
   // setIsWorking,
   // setIsStarted,
   setIsBreak,

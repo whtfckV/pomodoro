@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
-  const { currentTomato, isBreak, isWorking, isStarted } = useAppSelector(state => state.timer)
+  const { currentTomato, isBreak, isPause, isStarted } = useAppSelector(state => state.timer)
   const [styleType, setStyleType] = useState<EType>(EType.grey)
   const [descr, setDescr] = useState('Стоп')
   const [handleName, setHandleName] = useState<tHandlers>('stop')
@@ -23,7 +23,6 @@ export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
     } else {
       setStyleType(EType.grey)
     }
-    // isStarted ? EType.red : EType.grey
 
   }, [currentTomato, isStarted, isBreak])
 
@@ -31,20 +30,19 @@ export const StopBtn: FC<Props> = ({ stop, skip, done }) => {
     if (isBreak) {
       setDescr('Пропустить')
       setHandleName('skip')
-      return
-    }
-    if (!isWorking && !isBreak && isStarted) {
-      setDescr('Сделано')
-      setHandleName('done')
-      return
-    }
-    if (!isStarted) {
-      setHandleName('nothing')
     } else {
-      setHandleName('stop')
+      if (isPause) {
+        setDescr('Сделано')
+        setHandleName('done')
+      } else if (isStarted) {
+        setDescr('Стоп')
+        setHandleName('stop')
+      } else {
+        setDescr('Стоп')
+        setHandleName('nothing')
+      }
     }
-    setDescr('Стоп')
-  }, [isBreak, isWorking, isStarted])
+  }, [isBreak, isPause, isStarted])
 
   const handleClick: Record<tHandlers, MouseEventHandler<HTMLButtonElement>> = {
     stop,
