@@ -3,7 +3,7 @@ import { Btn } from "src/components/Btn";
 import { StopBtn } from "./StopBtn";
 import styles from './Controls.module.css'
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import { setIsStarted, setIsWorking } from "src/store/timerSlice";
+import { contin, pause, start } from "src/store/timerSlice";
 
 type Props = {
   stop: () => void;
@@ -12,28 +12,33 @@ type Props = {
 }
 
 export const Controls: FC<Props> = ({ stop, skip, done }) => {
-  const [btnDescr, setBtnDescr] = useState('Старт');
-  const { isWorking, isStarted } = useAppSelector(state => state.timer)
   const dispatch = useAppDispatch()
+  const [btnDescr, setBtnDescr] = useState('Старт');
+  const { isPause, isStarted, isBreak } = useAppSelector(state => state.timer)
 
   useEffect(() => {
-    if (!isStarted) {
+    if (!isStarted || (isBreak && isPause)) {
       setBtnDescr('Старт')
       return
     }
-    if (isWorking) {
+    if (!isPause) {
       setBtnDescr('Пауза')
     } else {
       setBtnDescr('Продолжить')
     }
 
-  }, [isStarted, isWorking])
+  }, [isStarted, isPause])
 
   const handleClick = () => {
     if (!isStarted) {
-      dispatch(setIsStarted(true))
+      dispatch(start())
+      // setBtnDescr('Пауза')
+    } else if (!isPause) {
+      dispatch(pause())
+      // setBtnDescr('Продолжить')
     } else {
-      dispatch(setIsWorking(!isWorking));
+      dispatch(contin())
+      // setBtnDescr('Пауза')
     }
   }
 

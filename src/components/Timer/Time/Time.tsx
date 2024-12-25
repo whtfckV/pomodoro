@@ -8,25 +8,27 @@ import styles from "./Time.module.css";
 type tPropsTime = {
   time: number;
   addTime: () => void;
-  isWorking: boolean;
+  isPause: boolean;
   isBreak: boolean;
+  isStarted: boolean;
 }
 
-export const Time: FC<tPropsTime> = ({ time, addTime, isBreak, isWorking }) => {
+export const Time: FC<tPropsTime> = ({ time, addTime, isBreak, isPause, isStarted }) => {
   const [color, setColor] = useState<EColor>(EColor.black)
 
-
   useEffect(() => {
-    if (isWorking) {
+    if (!isStarted || isPause) {
+      setColor(EColor.black)
+      return
+    }
+    if (!isPause) {
       if (isBreak) {
         setColor(EColor.green)
       } else {
         setColor(EColor.red)
       }
-    } else {
-      setColor(EColor.black)
     }
-  }, [isWorking, isBreak])
+  }, [isPause, isBreak, isStarted])
 
   return (
     <div>

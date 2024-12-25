@@ -9,14 +9,14 @@ export enum EStatus {
 }
 
 type InitialTimerState = {
-  isWorking: boolean
+  isPause: boolean
   isStarted: boolean
   isBreak: boolean
   currentTomato: number
 }
 
 const initialState: InitialTimerState = {
-  isWorking: false,
+  isPause: false,
   isStarted: false,
   isBreak: false,
   currentTomato: 1,
@@ -26,13 +26,27 @@ const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
-    setIsWorking: (state, action: PayloadAction<boolean>) => {
-      state.isWorking = action.payload
+    start: (state) => {
+      state.isStarted = true;
+      // state.isPause = false
     },
-    setIsStarted: (state, action: PayloadAction<boolean>) => {
-      state.isStarted = action.payload
-      state.isWorking = action.payload
+    pause: (state) => {
+      state.isPause = true
     },
+    contin: (state) => {
+      state.isPause = false
+    },
+    startBreak: (state) => {
+      state.isPause = true
+      state.isBreak = true
+    },
+    // setIsWorking: (state, action: PayloadAction<boolean>) => {
+    //   state.isWorking = action.payload
+    // },
+    // setIsStarted: (state, action: PayloadAction<boolean>) => {
+    //   state.isStarted = action.payload
+    //   state.isWorking = action.payload
+    // },
     setIsBreak: (state, action: PayloadAction<boolean>) => {
       state.isBreak = action.payload
     },
@@ -41,7 +55,7 @@ const timerSlice = createSlice({
     },
     resetTimer: (state) => {
       state.isStarted = false
-      state.isWorking = false
+      state.isPause = false
       state.isBreak = false
       state.currentTomato = 1
     }
@@ -52,8 +66,12 @@ const timerSlice = createSlice({
 })
 
 export const {
-  setIsWorking,
-  setIsStarted,
+  start,
+  pause,
+  contin,
+  startBreak,
+  // setIsWorking,
+  // setIsStarted,
   setIsBreak,
   increaseCurrentTomato,
   resetTimer
