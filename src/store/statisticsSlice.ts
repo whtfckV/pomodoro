@@ -48,8 +48,10 @@ const statisticsSlice = createSlice({
     builder
       .addCase(nextTomato, (state) => {
         state.totalTomatoes++;
+        console.log('+ tomat')
       })
       .addCase(stopTimer, (state) => {
+        console.log('+ stop')
         state.stops++;
       });
   },

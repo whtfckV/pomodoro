@@ -5,7 +5,7 @@ import { Controls } from "./Controls";
 import { BREAK_TIME, ONE_MINUTE, ONE_SECOND, WORK_TIME } from "src/store/constants";
 import styles from './Timer.module.css'
 import { useAppDispatch, useAppSelector } from "src/store/hooks";
-import {  nextTomato, resetTimer, startBreak, stopTimer } from "src/store/timerSlice";
+import { nextTomato, resetTimer, startBreak, stopTimer } from "src/store/timerSlice";
 import { removeTodo } from "src/store/todoSlice";
 // import { addPauseBreakTime, addTomatoes } from "src/store/statisticsSlice";
 
@@ -94,7 +94,7 @@ export const Timer: FC = () => {
     //   return () => clearInterval(timerId)
     // }
     if (!isPause) {
-      const timerId = setInterval(tick, ONE_SECOND / 300)
+      const timerId = setInterval(tick, ONE_SECOND / 500)
       return () => clearInterval(timerId)
     }
   }, [isStarted, isPause])
@@ -121,9 +121,10 @@ export const Timer: FC = () => {
   }
 
   const handleDone = () => {
+    // dispatch(done(currentTask.id))
     dispatch(removeTodo(currentTask.id))
-    dispatch(resetTimer())
-    resetTimerState()
+    // dispatch(resetTimer())
+    // resetTimerState()
   }
 
   const handlePlus = () => {
