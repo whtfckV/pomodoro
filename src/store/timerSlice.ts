@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { removeTodo } from "./todoSlice";
 
 export enum EStatus {
@@ -49,25 +49,6 @@ const timerSlice = createSlice({
       state.isBreak = false;
       state.isStarted = false;
     },
-    // setIsWorking: (state, action: PayloadAction<boolean>) => {
-    //   state.isWorking = action.payload
-    // },
-    // setIsStarted: (state, action: PayloadAction<boolean>) => {
-    //   state.isStarted = action.payload
-    //   state.isWorking = action.payload
-    // },
-    setIsBreak: (state, action: PayloadAction<boolean>) => {
-      state.isBreak = action.payload;
-    },
-    increaseCurrentTomato: (state) => {
-      state.currentTomato++;
-    },
-    resetTimer: (state) => {
-      state.isStarted = false;
-      state.isPause = false;
-      state.isBreak = false;
-      state.currentTomato = 1;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(removeTodo, (state) => {
@@ -86,10 +67,5 @@ export const {
   contin,
   startBreak,
   nextTomato,
-  // setIsWorking,
-  // setIsStarted,
-  // setIsBreak,
-  // increaseCurrentTomato,
-  resetTimer,
 } = timerSlice.actions;
 export default timerSlice.reducer;

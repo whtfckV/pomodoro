@@ -1,21 +1,27 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { nextTomato, stopTimer } from "./timerSlice";
+import { WORK_TIME } from "./constants";
+
+// TODO
+// СДЕЛАТЬ СБОР СТАТИСТИКИ ПО ПОМИДОРУ С ДАТОЙ
+// ВРЕМЕНИ РАБОТЫ И ПАУЗ АНАЛОГИЧКО
 
 interface IInitialStatisticsState {
-  workingTime: number;
-  breakTime: number;
-  pauseWorkTime: number;
-  pauseBreakTime: number;
+  allTime: number;
+  pauseTime: number;
   totalTomatoes: number;
   focus: number;
   stops: number;
 }
 
+type Time = {
+  total: number;
+  pause: number;
+}
+
 const initialState: IInitialStatisticsState = {
-  workingTime: 0,
-  breakTime: 0,
-  pauseWorkTime: 0,
-  pauseBreakTime: 0,
+  allTime: 0,
+  pauseTime: 0,
   totalTomatoes: 0,
   focus: 0,
   stops: 0,
@@ -25,44 +31,25 @@ const statisticsSlice = createSlice({
   name: "statistics",
   initialState: initialState,
   reducers: {
-    addWorkingTime: (state, action: PayloadAction<number>) => {
-      state.workingTime += action.payload;
-    },
-    addTomatoes: (state, action: PayloadAction<number>) => {
-      state.totalTomatoes += action.payload;
-    },
-    addOneStop: (state) => {
-      state.stops += 1;
-    },
-    addPauseWorkTime: (state, action: PayloadAction<number>) => {
-      state.pauseWorkTime += action.payload;
-    },
-    addPauseBreakTime: (state, action: PayloadAction<number>) => {
-      state.pauseBreakTime += action.payload;
-    },
-    addBreakTime: (state, action: PayloadAction<number>) => {
-      state.breakTime += action.payload;
+    addTime: (state, action: PayloadAction<Time>) => {
+      state.allTime += action.payload.total;
+      state.pauseTime += action.payload.pause;
+      state.focus = Math.round((state.totalTomatoes * WORK_TIME) / state.allTime * 100)
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(nextTomato, (state) => {
         state.totalTomatoes++;
-        console.log('+ tomat')
       })
       .addCase(stopTimer, (state) => {
-        console.log('+ stop')
         state.stops++;
       });
   },
 });
 
 export const {
-  addWorkingTime,
-  addTomatoes,
-  addOneStop,
-  addPauseWorkTime,
-  addPauseBreakTime,
-  addBreakTime,
+  addTime,
+  // addTomatoes,
 } = statisticsSlice.actions;
 export default statisticsSlice.reducer;
