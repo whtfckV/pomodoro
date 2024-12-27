@@ -11,10 +11,10 @@ import { addTime } from "src/store/statisticsSlice";
 
 export const Timer: FC = () => {
   const dispatch = useAppDispatch()
+  const { isPause, isBreak, currentTomato, isStarted } = useAppSelector(state => state.timer)
   const [time, setTime] = useState(WORK_TIME)
   const [pauseTime, setPauseTime] = useState(0)
   const [pastTime, setPastTime] = useState(0)
-  const { isPause, isBreak, currentTomato, isStarted } = useAppSelector(state => state.timer)
   const currentTask = useAppSelector(state => state.todos.todos[0])
 
   const tick = useCallback(() => {
@@ -38,7 +38,6 @@ export const Timer: FC = () => {
   useEffect(() => {
     if (currentTomato > currentTask.tomatoes) {
       dispatch(removeTodo(currentTask.id))
-      addTimeToStatistics()
     }
   }, [currentTomato, currentTask, addTimeToStatistics])
 

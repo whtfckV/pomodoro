@@ -1,9 +1,15 @@
 import { FC, useState } from "react"
-import Select from 'react-select'
+import Select, { SingleValue } from 'react-select'
 import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './PickWeek.module.css'
 
-const options = [
+type TWeek = 'thisWeek' |  'lastWeek' |  'twoWeeksAgo'
+type WeekOption = {
+  value: TWeek
+  label: string
+}
+
+const options: WeekOption[] = [
   { value: 'thisWeek', label: 'Эта неделя' },
   { value: 'lastWeek', label: 'Прошедшая неделя' },
   { value: 'twoWeeksAgo', label: '2 недели назад' }
@@ -11,6 +17,11 @@ const options = [
 
 export const PickWeek: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<WeekOption | null>(options[0]);
+
+  const handleChange = (option: SingleValue<WeekOption>) => {
+    setSelectedOption(option);
+  }
 
   const handleOpen = () => setOpen(true)
 
@@ -65,7 +76,9 @@ export const PickWeek: FC = () => {
         }}
         options={options}
         hideSelectedOptions={true}
-        defaultValue={options[0]}
+        // defaultValue={options[0]}
+        onChange={handleChange}
+        value={selectedOption}
         onMenuClose={handleClose}
         onMenuOpen={handleOpen}
         components={{ IndicatorSeparator: null }}
