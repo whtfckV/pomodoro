@@ -27,7 +27,7 @@ export const Controls: FC<Props> = ({ stop, skip, done }) => {
       setBtnDescr('Продолжить')
     }
 
-  }, [isStarted, isPause])
+  }, [isStarted, isPause, isBreak])
 
   const handleClick = () => {
     if (!isStarted) {

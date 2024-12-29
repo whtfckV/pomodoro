@@ -14,26 +14,32 @@ export const Timer: FC = () => {
   const { isPause, isBreak, currentTomato, isStarted } = useAppSelector(state => state.timer)
   const [time, setTime] = useState(WORK_TIME)
   const [pauseTime, setPauseTime] = useState(0)
+  const [workTime, setWorkTime] = useState(0)
   const [pastTime, setPastTime] = useState(0)
   const currentTask = useAppSelector(state => state.todos.todos[0])
 
   const tick = useCallback(() => {
+    if (!isBreak && !isPause) {
+      setWorkTime(oldTime => oldTime + ONE_SECOND)
+    }
     if (isPause) {
       setPauseTime(oldTime => oldTime + ONE_SECOND)
     } else {
       setTime(oldTime => oldTime - ONE_SECOND)
     }
     setPastTime(oldTime => oldTime + ONE_SECOND)
-  }, [isPause])
+  }, [isPause, isBreak])
 
   const addTimeToStatistics = useCallback(() => {
     dispatch(addTime({
       total: pastTime,
-      pause: pauseTime
+      pause: pauseTime,
+      work: workTime
     }))
     setPauseTime(0)
     setPastTime(0)
-  }, [pastTime, pauseTime])
+    setWorkTime(0)
+  }, [pastTime, pauseTime, workTime])
 
   useEffect(() => {
     if (currentTomato > currentTask.tomatoes) {

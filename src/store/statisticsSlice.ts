@@ -1,24 +1,32 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { nextTomato, stopTimer } from "./timerSlice";
-// import { WORK_TIME } from "./constants";
+import moment from "moment";
+import { filterDates } from "src/utils/ts/filterDateWeeks";
 
-// TODO
-// СДЕЛАТЬ СБОР СТАТИСТИКИ ПО ПОМИДОРУ С ДАТОЙ
-// ВРЕМЕНИ РАБОТЫ И ПАУЗ АНАЛОГИЧКО
-
-type fields = "allTime" | "pauseTime" | "totalTomatoes" | "focus" | "stops";
-type statisticData = Record<fields, number> & { date: string };
+type Fields = "allTime" | "pauseTime" | "workTime" | "totalTomatoes" | "stops";
+type StatisticData = Record<Fields, number> & { date: string };
 interface IInitialStatisticsState {
-  dates: statisticData[];
+  dates: StatisticData[];
 }
+const MOCK: StatisticData[] = [
+  {
+    date: "01.01.2023",
+    allTime: 0,
+    pauseTime: 0,
+    workTime: 0,
+    totalTomatoes: 0,
+    stops: 0,
+  },
+];
 
 type Time = {
   total: number;
   pause: number;
+  work: number;
 };
 
 const initialState: IInitialStatisticsState = {
-  dates: [],
+  dates: MOCK,
 };
 
 const statisticsSlice = createSlice({
@@ -26,29 +34,35 @@ const statisticsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addTime: (state, action: PayloadAction<Time>) => {
-      const date = new Date().toLocaleDateString();
-      const existingDate = state.dates.find((item) => item.date === date);
+      const date = moment().format();
+      const existingDate = state.dates.find(
+        (item) => moment(item.date).format("L") === moment(date).format("L")
+      );
 
       if (existingDate) {
         existingDate.allTime += action.payload.total;
         existingDate.pauseTime += action.payload.pause;
+        existingDate.workTime += action.payload.work;
       } else {
         state.dates.push({
           date,
           allTime: action.payload.total,
           pauseTime: action.payload.pause,
+          workTime: action.payload.work,
           totalTomatoes: 0,
-          focus: 0,
           stops: 0,
         });
       }
+      state.dates = filterDates<StatisticData>(state.dates);
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(nextTomato, (state) => {
-        const date = new Date().toLocaleDateString();
-        const existingDate = state.dates.find((time) => time.date === date);
+        const date = moment().format();
+        const existingDate = state.dates.find(
+          (item) => moment(item.date).format("L") === moment(date).format("L")
+        );
 
         if (existingDate) {
           existingDate.totalTomatoes++;
@@ -57,15 +71,18 @@ const statisticsSlice = createSlice({
             date,
             allTime: 0,
             pauseTime: 0,
+            workTime: 0,
             totalTomatoes: 1,
-            focus: 0,
             stops: 0,
           });
         }
+        state.dates = filterDates<StatisticData>(state.dates);
       })
       .addCase(stopTimer, (state) => {
-        const date = new Date().toLocaleDateString();
-        const existingDate = state.dates.find((time) => time.date === date);
+        const date = moment().format();
+        const existingDate = state.dates.find(
+          (item) => moment(item.date).format("L") === moment(date).format("L")
+        );
 
         if (existingDate) {
           existingDate.stops++;
@@ -74,11 +91,12 @@ const statisticsSlice = createSlice({
             date,
             allTime: 0,
             pauseTime: 0,
+            workTime: 0,
             totalTomatoes: 0,
-            focus: 0,
             stops: 1,
           });
         }
+        state.dates = filterDates<StatisticData>(state.dates);
       });
   },
 });

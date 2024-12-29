@@ -24,6 +24,10 @@ const router = createBrowserRouter([
 ])
 
 const App: FC = () => {
+  // useEffect(() => {
+  //   const openRequest = indexedDB.open('test', 1)
+  //   console.log(openRequest)
+  // }, [])
   return (
     <RouterProvider router={router} />
   );

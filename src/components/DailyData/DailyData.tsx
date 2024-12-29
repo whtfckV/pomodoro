@@ -17,7 +17,7 @@ const week = [
 ]
 
 export const DailyData: FC = () => {
-  const workingTime = useAppSelector(state => state.statistics.workingTime)
+  const workingTime = useAppSelector(state => state.statistics.workTime)
 
   return (
     <GridComponent

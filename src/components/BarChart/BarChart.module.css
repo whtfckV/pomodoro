@@ -1,3 +1,4 @@
 .bar {
   grid-area: b;
+  padding: 0 !important;
 }
