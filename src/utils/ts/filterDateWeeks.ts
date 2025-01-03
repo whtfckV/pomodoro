@@ -1,9 +1,9 @@
 import moment from "moment";
 
-export const filterDates = <T extends { date: string }>(dates: T[]): T[] => {
+export const filterDates = <T extends { date: string }>(dates: T[], weeksAgo: number): T[] => {
   // Оставляем только последние три недели
-  const threeWeeksAgo = moment().subtract(3, "weeks");
+  const WeeksAgo = moment().subtract(weeksAgo, "weeks");
   return dates.filter((item) =>
-    moment(item.date).isSameOrAfter(threeWeeksAgo, "day")
+    moment(item.date).isSameOrAfter(WeeksAgo, "day")
   );
 };

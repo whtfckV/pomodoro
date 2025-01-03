@@ -4,16 +4,42 @@ import moment from "moment";
 import { filterDates } from "src/utils/ts/filterDateWeeks";
 
 type Fields = "allTime" | "pauseTime" | "workTime" | "totalTomatoes" | "stops";
-type StatisticData = Record<Fields, number> & { date: string };
+export type StatisticData = Record<Fields, number> & { date: string };
 interface IInitialStatisticsState {
   dates: StatisticData[];
+  status: 'idle' | 'loading' | 'failed' | 'succeeded';
+  error: string | null;
 }
 const MOCK: StatisticData[] = [
   {
-    date: "01.01.2023",
+    date: "12.28.2024",
+    allTime: 0,
+    pauseTime: 0,
+    workTime: 1000000,
+    totalTomatoes: 0,
+    stops: 0,
+  },
+  {
+    date: "12.30.2024",
+    allTime: 2500000,
+    pauseTime: 4000000,
+    workTime: 500000,
+    totalTomatoes: 5,
+    stops: 1,
+  },
+  {
+    date: "12.31.2024",
     allTime: 0,
     pauseTime: 0,
     workTime: 0,
+    totalTomatoes: 0,
+    stops: 0,
+  },
+  {
+    date: "01.01.2025",
+    allTime: 2000000,
+    pauseTime: 0,
+    workTime: 1500000,
     totalTomatoes: 0,
     stops: 0,
   },
@@ -27,6 +53,8 @@ type Time = {
 
 const initialState: IInitialStatisticsState = {
   dates: MOCK,
+  status: "idle",
+  error: null,
 };
 
 const statisticsSlice = createSlice({
@@ -53,7 +81,7 @@ const statisticsSlice = createSlice({
           stops: 0,
         });
       }
-      state.dates = filterDates<StatisticData>(state.dates);
+      state.dates = filterDates<StatisticData>(state.dates, 3);
     },
   },
   extraReducers: (builder) => {
@@ -76,7 +104,7 @@ const statisticsSlice = createSlice({
             stops: 0,
           });
         }
-        state.dates = filterDates<StatisticData>(state.dates);
+        state.dates = filterDates<StatisticData>(state.dates, 3);
       })
       .addCase(stopTimer, (state) => {
         const date = moment().format();
@@ -96,7 +124,7 @@ const statisticsSlice = createSlice({
             stops: 1,
           });
         }
-        state.dates = filterDates<StatisticData>(state.dates);
+        state.dates = filterDates<StatisticData>(state.dates, 3);
       });
   },
 });

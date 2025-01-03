@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "src/store/hooks";
 import { nextTomato, startBreak, stopTimer } from "src/store/timerSlice";
 import { removeTodo } from "src/store/todoSlice";
 import { addTime } from "src/store/statisticsSlice";
+import { useNotifications } from "src/hooks/useNotifications";
 
 export const Timer: FC = () => {
   const dispatch = useAppDispatch()
@@ -17,6 +18,9 @@ export const Timer: FC = () => {
   const [workTime, setWorkTime] = useState(0)
   const [pastTime, setPastTime] = useState(0)
   const currentTask = useAppSelector(state => state.todos.todos[0])
+  const { isPermissionGranted, requestPermission, showNotification } = useNotifications()
+
+  const sound = new Audio('src/assets/timer.mp3')
 
   const tick = useCallback(() => {
     if (!isBreak && !isPause) {
@@ -39,16 +43,17 @@ export const Timer: FC = () => {
     setPauseTime(0)
     setPastTime(0)
     setWorkTime(0)
-  }, [pastTime, pauseTime, workTime])
+  }, [pastTime, pauseTime, workTime, dispatch])
 
   useEffect(() => {
     if (currentTomato > currentTask.tomatoes) {
       dispatch(removeTodo(currentTask.id))
     }
-  }, [currentTomato, currentTask, addTimeToStatistics])
+  }, [currentTomato, currentTask, addTimeToStatistics, dispatch])
 
   useEffect(() => {
     if (time === 0) {
+      sound.play()
       if (isBreak) {
         setTime(WORK_TIME)
         addTimeToStatistics()
@@ -59,6 +64,20 @@ export const Timer: FC = () => {
       } else {
         setTime(currentTomato % 4 === 0 ? LONG_BREAK_TIME : BREAK_TIME)
         addTimeToStatistics()
+
+        if (isPermissionGranted) {
+          showNotification({
+            title: 'Время закончилось',
+            body: 'Пора на паузу'
+          })
+        } else {
+          requestPermission()
+          showNotification({
+            title: 'Время закончилось',
+            body: 'Пора на паузу',
+            requireInteraction: true
+          })
+        }
         // React обновляет время после смены состояния, если есть решение надо переделать
         // setTimeout(() => {
         //   dispatch(startBreak())
@@ -69,7 +88,7 @@ export const Timer: FC = () => {
         }
       }
     }
-  }, [time, isBreak, currentTomato, addTimeToStatistics])
+  }, [time, isBreak, currentTomato, addTimeToStatistics, dispatch])
 
   useEffect(() => {
     if (!isStarted) return

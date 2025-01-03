@@ -1,22 +1,22 @@
-import { FC, useState } from "react"
+import { FC } from "react"
 import { GridComponent } from "../GridComponent/GridComponent"
 import styles from './BarChart.module.css'
 import classNames from "classnames"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell } from "recharts";
 import { ESize, timeConvert } from "src/utils/ts/timeConvert";
 
-type Days = 'Пн' | 'Вт' | 'Ср' | 'Чт' | 'Пт' | 'Сб' | 'Вс'
-type Data = { day: Days, time: number }
+export type Days = 'Пн' | 'Вт' | 'Ср' | 'Чт' | 'Пт' | 'Сб' | 'Вс'
+export type Data = { day: Days, time: number }
 
-const data: Data[] = [
-  { day: "Пн", time: 800000 },
-  { day: "Вт", time: 3800000 },
-  { day: "Ср", time: 6000000 },
-  { day: "Чт", time: 3000000 },
-  { day: "Пт", time: 1500000 },
-  { day: "Сб", time: 1000000 },
-  { day: "Вс", time: 0 },
-];
+// const data: Data[] = [
+//   { day: "Пн", time: 800000 },
+//   { day: "Вт", time: 3800000 },
+//   { day: "Ср", time: 6000000 },
+//   { day: "Чт", time: 3000000 },
+//   { day: "Пт", time: 1500000 },
+//   { day: "Сб", time: 1000000 },
+//   { day: "Вс", time: 0 },
+// ];
 
 const margin: object = {
   top: 45,
@@ -49,18 +49,19 @@ const YTick: boolean | React.SVGProps<SVGTextElement> | React.ReactElement<SVGEl
 }
 
 type Props = {
-  // НИХУЯ НЕ ТАКОЙ ТИП БУДЕТ
-  data?: Data[]
+  data: Data[]
+  activeDay: Days | null
+  handleChangeDay: (day: Days) => void
 }
 
-export const Graph: FC<Props> = () => {
-  const [activeDay, setActiveDay] = useState<Days | null>('Пн');
+export const Graph: FC<Props> = ({ data, activeDay, handleChangeDay }) => {
+  // const [activeDay, setActiveDay] = useState<Days | null>('Пн');
   const handleClickAxis = (data: { value: Days }) => {
-    setActiveDay(data.value)
+    handleChangeDay(data.value)
   };
 
   const handleClickBar = (data: { payload: Data }) => {
-    setActiveDay(data.payload.day)
+    handleChangeDay(data.payload.day)
   };
   return (
     <GridComponent gridClass={classNames('widget', styles.bar)}>

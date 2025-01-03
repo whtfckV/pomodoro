@@ -1,44 +1,57 @@
 export enum ESize {
-  short = 'short',
-  middle = 'middle',
-  long = 'long'
+  short = "short",
+  middle = "middle",
+  long = "long",
 }
-export function timeConvert(milliseconds: number, size: ESize = ESize.middle): string {
+export function timeConvert(
+  milliseconds: number | undefined,
+  size: ESize = ESize.middle
+): string | undefined {
+  if (milliseconds === undefined) return milliseconds;
+
   const hours = milliseconds / 1000 / 60 / 60;
   const rhours = Math.floor(hours);
 
   const minutes = (hours - rhours) * 60;
   const rminutes = Math.round(minutes);
 
-  let hoursString = 'час';
-  let minutesString = 'мин';
+  let hoursString = "час";
+  let minutesString = "мин";
 
   switch (size) {
     case ESize.short:
-      hoursString = 'ч';
-      minutesString = 'м';
+      hoursString = "ч";
+      minutesString = "м";
       break;
     case ESize.middle:
       if (rhours > 1) {
-        hoursString = 'часа';
+        hoursString = "часа";
       }
       if (rhours > 4) {
-        hoursString = 'часов';
+        hoursString = "часов";
       }
       break;
     case ESize.long:
-      hoursString = 'часа';
+      hoursString = "часа";
       if ((rminutes - 1) % 10 === 0 && rminutes !== 11) {
-        minutesString = 'минуты';
+        minutesString = "минуты";
       } else {
-        minutesString = 'минут';
+        minutesString = "минут";
       }
       if (rhours > 1) {
-        hoursString = 'часов';
+        hoursString = "часов";
       }
       break;
   }
 
-
-  return ` ${rhours ? `${rhours} ${hoursString}` : ''}` + ` ${rminutes ? `${rminutes} ${minutesString}` : ''}`;
+  return (
+    ` ${
+      rhours ? `${rhours}${size === ESize.short ? "" : ""}${hoursString}` : ""
+    }` +
+    ` ${
+      rminutes
+        ? `${rminutes}${size === ESize.short ? "" : ""}${minutesString}`
+        : ""
+    }`
+  );
 }
